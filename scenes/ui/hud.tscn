@@ -1,0 +1,50 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hqnrr"]
+[ext_resource type="Texture2D" path="res://assets/ui/offering_tube.png" id="2_bo48s"]
+
+[node name="HUD" type="CanvasLayer" unique_id=2143429044]
+layer = 50
+script = ExtResource("1_hqnrr")
+
+[node name="AreaLabel" type="Label" parent="." unique_id=783830199]
+offset_left = 300.0
+offset_top = 34.0
+offset_right = 980.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.92, 0.8, 0.56, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OfferingTube" type="Control" parent="." unique_id=1370143011]
+offset_left = 980.0
+offset_top = 78.0
+offset_right = 1236.0
+offset_bottom = 462.0
+mouse_filter = 2
+
+[node name="OfferingTubeTexture" type="TextureRect" parent="OfferingTube" unique_id=2143901558]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_bo48s")
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="OfferingTube" unique_id=173440214]
+offset_left = 34.0
+offset_top = 28.0
+offset_right = 222.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.95, 0.8, 0.46, 1)
+text = "御供筒"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OfferingVBox" type="VBoxContainer" parent="OfferingTube" unique_id=1145672410]
+offset_left = 32.0
+offset_top = 92.0
+offset_right = 224.0
+offset_bottom = 332.0
+theme_override_constants/separation = 8

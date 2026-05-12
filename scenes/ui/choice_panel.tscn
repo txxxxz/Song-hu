@@ -1,0 +1,110 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/choice_panel.gd" id="1_jhxba"]
+[ext_resource type="Texture2D" path="res://assets/ui/choice_button.png" id="2_sngc5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8oes"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.035, 0.024, 0.04, 0.97)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.72, 0.52, 0.28, 0.95)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1xc"]
+texture = ExtResource("2_sngc5")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uti2q"]
+texture = ExtResource("2_sngc5")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ufyaa"]
+texture = ExtResource("2_sngc5")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0b3dl"]
+texture = ExtResource("2_sngc5")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i6awa"]
+texture = ExtResource("2_sngc5")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r8b78"]
+texture = ExtResource("2_sngc5")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[node name="ChoicePanel" type="CanvasLayer" unique_id=1346402823]
+layer = 80
+script = ExtResource("1_jhxba")
+
+[node name="BgDim" type="ColorRect" parent="." unique_id=1188797726]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.58)
+
+[node name="Center" type="CenterContainer" parent="BgDim" unique_id=1683205434]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="BgDim/Center" unique_id=1880770873]
+custom_minimum_size = Vector2(900, 310)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c8oes")
+
+[node name="VBox" type="VBoxContainer" parent="BgDim/Center/Panel" unique_id=1643775722]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="BgDim/Center/Panel/VBox" unique_id=53607540]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.95, 0.82, 0.52, 1)
+text = "选择"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="BgDim/Center/Panel/VBox" unique_id=1367407770]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="ChoiceA" type="Button" parent="BgDim/Center/Panel/VBox/HBox" unique_id=1050039409]
+custom_minimum_size = Vector2(386, 128)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_oa1xc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_uti2q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ufyaa")
+theme_override_font_sizes/font_size = 24
+
+[node name="ChoiceB" type="Button" parent="BgDim/Center/Panel/VBox/HBox" unique_id=858407842]
+custom_minimum_size = Vector2(386, 128)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_0b3dl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_i6awa")
+theme_override_styles/hover = SubResource("StyleBoxTexture_r8b78")
+theme_override_font_sizes/font_size = 24

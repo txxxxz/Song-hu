@@ -1,0 +1,61 @@
+extends Area2D
+
+@export var item_id: String = ""
+@export var item_texture: Texture2D
+
+@onready var _visual: Node2D = $Visual
+
+var _collected: bool = false
+var _bob_time: float = 0.0
+var _original_y: float = 0.0
+
+func _ready() -> void:
+	collision_layer = 2
+	collision_mask = 0
+	add_to_group("interactable")
+	_apply_texture()
+	_original_y = position.y
+
+func _apply_texture() -> void:
+	if not item_texture or not _visual:
+		return
+	var sprite := _visual.get_node_or_null("Sprite") as Sprite2D
+	if sprite:
+		sprite.texture = item_texture
+
+func _process(delta: float) -> void:
+	if _collected:
+		return
+	_bob_time += delta * 2.3
+	position.y = _original_y + sin(_bob_time) * 12.0
+	if _visual:
+		_visual.rotation = sin(_bob_time * 0.8) * 0.045
+
+func interact() -> void:
+	if _collected:
+		return
+	_collected = true
+	if GameManager.push_offering(item_id):
+		_play_collect_effect()
+	else:
+		_collected = false
+
+func get_interact_name() -> String:
+	if GameManager.ITEMS.has(item_id):
+		return str(GameManager.ITEMS[item_id].get("name", "供物"))
+	return "供物"
+
+func _play_collect_effect() -> void:
+	var sfx := AudioStreamPlayer.new()
+	sfx.stream = preload("res://assets/audio/sfx/collect.wav")
+	sfx.volume_db = -3.0
+	get_tree().root.add_child(sfx)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)
+
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(self, "scale", Vector2(0.35, 0.35), 0.18)
+	tween.tween_property(self, "modulate:a", 0.0, 0.28)
+	tween.set_parallel(false)
+	tween.tween_callback(queue_free)

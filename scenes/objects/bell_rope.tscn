@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/objects/bell_rope.gd" id="1_i4jjt"]
+[ext_resource type="Texture2D" path="res://assets/sprites/objects/bell_rope.png" id="2_6kf27"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvgp5"]
+size = Vector2(150, 360)
+
+[node name="BellRope" type="Area2D" unique_id=410152564]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_i4jjt")
+
+[node name="Visual" type="Node2D" parent="." unique_id=117677490]
+
+[node name="BellSprite" type="Sprite2D" parent="Visual" unique_id=287786537]
+texture = ExtResource("2_6kf27")
+centered = false
+offset = Vector2(-64, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=142554791]
+position = Vector2(0, 226)
+shape = SubResource("RectangleShape2D_nvgp5")

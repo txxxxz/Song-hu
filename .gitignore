@@ -1,0 +1,18 @@
+# Godot 4+ specific ignores
+.godot/
+.godot_sandbox/
+/android/
+/engine/
+
+# macOS/local editor noise
+.DS_Store
+**/.DS_Store
+
+# Local build/export outputs
+/build/
+/dist/
+/exports/
+*.pck
+*.exe
+*.dmg
+*.app

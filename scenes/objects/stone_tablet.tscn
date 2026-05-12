@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/objects/stone_tablet.gd" id="1_xjgth"]
+[ext_resource type="Texture2D" path="res://assets/sprites/objects/stone_tablet.png" id="2_sp4w5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6eiey"]
+size = Vector2(176, 220)
+
+[node name="StoneTablet" type="Area2D" unique_id=1659304292]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_xjgth")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1838551174]
+texture = ExtResource("2_sp4w5")
+centered = false
+offset = Vector2(-96, -256)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=788004183]
+position = Vector2(0, -116)
+shape = SubResource("RectangleShape2D_6eiey")

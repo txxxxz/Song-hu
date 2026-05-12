@@ -1,0 +1,143 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_fe2o3"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/sky.png" id="2_1g8jr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1kxf"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.08, 0.055, 0.06, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.64, 0.45, 0.24, 0.86)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2yvf"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.06, 0.04, 0.04, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.95, 0.76, 0.46, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhagc"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.15, 0.085, 0.065, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.9, 0.65, 0.35, 0.96)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btxxm"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.08, 0.055, 0.06, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.64, 0.45, 0.24, 0.86)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wb0q5"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.06, 0.04, 0.04, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.95, 0.76, 0.46, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q85j6"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.15, 0.085, 0.065, 0.98)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.9, 0.65, 0.35, 0.96)
+
+[node name="MainMenu" type="Control" unique_id=889595864]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_fe2o3")
+
+[node name="Background" type="TextureRect" parent="." unique_id=976447812]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_1g8jr")
+
+[node name="Wash" type="ColorRect" parent="." unique_id=221448953]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.01, 0.03, 0.62)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1629570448]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 132.0
+offset_right = 656.0
+offset_bottom = 226.0
+theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(1, 0.83, 0.48, 1)
+text = "送狐"
+vertical_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="." unique_id=61446937]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 222.0
+offset_right = 660.0
+offset_bottom = 266.0
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(0.78, 0.64, 0.42, 1)
+text = "OKURI KITSUNE"
+vertical_alignment = 1
+
+[node name="ButtonVBox" type="VBoxContainer" parent="." unique_id=586456293]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 360.0
+offset_right = 440.0
+offset_bottom = 550.0
+theme_override_constants/separation = 18
+
+[node name="StartBtn" type="Button" parent="ButtonVBox" unique_id=629705934]
+custom_minimum_size = Vector2(300, 72)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_m1kxf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_x2yvf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uhagc")
+theme_override_font_sizes/font_size = 28
+text = "开始"
+
+[node name="QuitBtn" type="Button" parent="ButtonVBox" unique_id=2094337296]
+custom_minimum_size = Vector2(300, 72)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btxxm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wb0q5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q85j6")
+theme_override_font_sizes/font_size = 28
+text = "退出"

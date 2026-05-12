@@ -1,0 +1,60 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/objects/npc_elder.gd" id="1_bn8hq"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/elder_idle.png" id="2_fdrfg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v47sq"]
+atlas = ExtResource("2_fdrfg")
+region = Rect2(0, 0, 256, 352)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s5g8"]
+atlas = ExtResource("2_fdrfg")
+region = Rect2(256, 0, 256, 352)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rhy5"]
+atlas = ExtResource("2_fdrfg")
+region = Rect2(512, 0, 256, 352)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar0l5"]
+atlas = ExtResource("2_fdrfg")
+region = Rect2(768, 0, 256, 352)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tlbss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v47sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s5g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rhy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ar0l5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fqpk6"]
+size = Vector2(110, 220)
+
+[node name="Elder" type="Area2D" unique_id=1954153798]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_bn8hq")
+
+[node name="Visual" type="Node2D" parent="." unique_id=587275894]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visual" unique_id=1672860142]
+sprite_frames = SubResource("SpriteFrames_tlbss")
+animation = &"idle"
+centered = false
+offset = Vector2(-128, -352)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1759370664]
+position = Vector2(0, -112)
+shape = SubResource("RectangleShape2D_fqpk6")

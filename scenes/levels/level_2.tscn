@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://df4aextjt1c5b" path="res://assets/sprites/objects/item_white_fur.png" id="21_kt0v5"]
 [ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_laosj"]
 [ext_resource type="Texture2D" uid="uid://bir76inbdlgmu" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_nsjcl"]
+[ext_resource type="Texture2D" uid="uid://cygy1djm8dwte" path="res://assets/sprites/objects/shrine_gate/shrine_gate.png" id="24_wwjag"]
 [ext_resource type="Texture2D" uid="uid://de15crklj3nq" path="res://assets/sprites/objects/item_mugwort.png" id="24_xjpyo"]
 [ext_resource type="Texture2D" uid="uid://b73vjyqywys7g" path="res://assets/tilesets/approach_tileset.png" id="25_lhwnp"]
 [ext_resource type="Texture2D" uid="uid://car3q801r8afd" path="res://assets/sprites/objects/bridge_plank.png" id="26_852cy"]
@@ -65,7 +66,7 @@ size = Vector2(640, 64)
 size = Vector2(1152, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8iv1u"]
-size = Vector2(1024, 64)
+size = Vector2(544, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6st4x"]
 atlas = ExtResource("31_ywi5j")
@@ -437,7 +438,7 @@ tile_set = ExtResource("5_s7kn7")
 [node name="OneWayPlatforms" type="Node2D" parent="." unique_id=4669344]
 
 [node name="ApproachOneWay" type="TileMapLayer" parent="OneWayPlatforms" unique_id=841777625]
-tile_map_data = PackedByteArray("AAAgAAMAAAAAAAIAAAAhAAMAAAAAAAIAAAAiAAMAAAAAAAIAAAAjAAMAAAAAAAIAAAAkAAMAAAAAAAIAAAAlAAMAAAAAAAIAAAAmAAMAAAAAAAIAAAAlAAIAAAAAAAIAAAAmAAIAAAAAAAIAAAAnAAIAAAAAAAIAAAAoAAIAAAAAAAIAAAApAAIAAAAAAAIAAAAqAAIAAAAAAAIAAAArAAIAAAAAAAIAAAAsAAIAAAAAAAIAAAA6AAMAAAAAAAIAAAA7AAMAAAAAAAIAAAA8AAMAAAAAAAIAAAA9AAMAAAAAAAIAAAA+AAMAAAAAAAIAAAA/AAMAAAAAAAIAAABMAAMAAAAAAAIAAABNAAMAAAAAAAIAAABOAAMAAAAAAAIAAABPAAMAAAAAAAIAAABQAAMAAAAAAAIAAABRAAMAAAAAAAIAAABSAAMAAAAAAAIAAABYAAMAAAAAAAIAAABZAAMAAAAAAAIAAABaAAMAAAAAAAIAAABbAAMAAAAAAAIAAABcAAMAAAAAAAIAAABdAAMAAAAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAAlAAIAAAAAAAIAAAAmAAIAAAAAAAIAAABMAAMAAAAAAAIAAABNAAMAAAAAAAIAAABOAAMAAAAAAAIAAABPAAMAAAAAAAIAAABQAAMAAAAAAAIAAABRAAMAAAAAAAIAAABSAAMAAAAAAAIAAABYAAMAAAAAAAIAAABZAAMAAAAAAAIAAABaAAMAAAAAAAIAAABbAAMAAAAAAAIAAABcAAMAAAAAAAIAAABdAAMAAAAAAAIAAAA=")
 tile_set = ExtResource("5_s7kn7")
 
 [node name="PropsBack" type="Node2D" parent="." unique_id=251099968]
@@ -449,13 +450,13 @@ centered = false
 offset = Vector2(-64, -256)
 
 [node name="StoneLantern_BridgeAfter" type="Sprite2D" parent="PropsBack" unique_id=938040158]
-position = Vector2(3000, 512)
+position = Vector2(2917, 549)
 texture = ExtResource("6_wk7pi")
 centered = false
 offset = Vector2(-64, -256)
 
 [node name="StoneLantern_TreeShadow" type="Sprite2D" parent="PropsBack" unique_id=1089022339]
-position = Vector2(4300, 512)
+position = Vector2(5761, 543)
 texture = ExtResource("6_wk7pi")
 centered = false
 offset = Vector2(-64, -256)
@@ -478,6 +479,11 @@ texture = ExtResource("7_yqg3d")
 centered = false
 offset = Vector2(-320, -576)
 
+[node name="ShrineGate" type="Sprite2D" parent="PropsBack" unique_id=1012537362]
+position = Vector2(6884, 288)
+scale = Vector2(0.9096386, 0.87573963)
+texture = ExtResource("24_wwjag")
+
 [node name="Items" type="Node2D" parent="." unique_id=1302870633]
 
 [node name="Narrative" type="Node2D" parent="." unique_id=1127350189]
@@ -490,12 +496,13 @@ tablet_text = "残损告示：□□ / 白毛 / □□
 speaker_name = "残损木牌"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_RitualClue" unique_id=1117667981]
+position = Vector2(86, 40)
 texture = ExtResource("9_keip3")
 centered = false
 offset = Vector2(-96, -192)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_RitualClue" unique_id=93429407]
-position = Vector2(0, -116)
+position = Vector2(102, -71)
 shape = SubResource("RectangleShape2D_8gy8s")
 
 [node name="Tablet_Cliff" type="Area2D" parent="Narrative" unique_id=1199605971]
@@ -521,12 +528,13 @@ tablet_text = "铃声落下时，石狐会转向。路只在回声还在时显�
 speaker_name = "旧铃札"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Bell" unique_id=2074578646]
+position = Vector2(-514, 40)
 texture = ExtResource("10_exwx8")
 centered = false
 offset = Vector2(-96, -256)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_Bell" unique_id=1353872432]
-position = Vector2(0, -116)
+position = Vector2(-507, -86)
 shape = SubResource("RectangleShape2D_mghg3")
 
 [node name="Altar" parent="Narrative" unique_id=2078431511 instance=ExtResource("11_17aof")]
@@ -534,7 +542,8 @@ position = Vector2(11840, 512)
 level = 2
 
 [node name="BellRope" parent="Narrative" unique_id=986222758 instance=ExtResource("13_0y23r")]
-position = Vector2(6400, 128)
+position = Vector2(6727, 183)
+scale = Vector2(0.8, 0.8)
 
 [node name="Actors" type="Node2D" parent="." unique_id=1695093810]
 
@@ -578,12 +587,13 @@ open_texture = ExtResource("23_nsjcl")
 scale = Vector2(0.58, 0.58)
 
 [node name="ChestSprite" type="Sprite2D" parent="Mechanisms/WhiteFurChest/Visual" unique_id=689768416]
+position = Vector2(465.5173, 53.448284)
 texture = ExtResource("22_laosj")
 centered = false
 offset = Vector2(-192, -358)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/WhiteFurChest" unique_id=107340777]
-position = Vector2(0, -78)
+position = Vector2(267, -44)
 shape = SubResource("RectangleShape2D_lq6o5")
 
 [node name="SugiTreeSource_altar" type="Area2D" parent="Mechanisms" unique_id=379328985]
@@ -621,7 +631,7 @@ harvest_dialog = "你绕到杉木后方的高处，采下一束被雾打湿的�
 [node name="Visual" type="Node2D" parent="Mechanisms/MugwortGrassSource" unique_id=575718195]
 
 [node name="GrassPile" type="Sprite2D" parent="Mechanisms/MugwortGrassSource/Visual" unique_id=2012555729]
-position = Vector2(2, -37)
+position = Vector2(35.999996, 96.999985)
 scale = Vector2(1.6, 1.6)
 texture = ExtResource("25_lhwnp")
 centered = false
@@ -630,7 +640,7 @@ region_enabled = true
 region_rect = Rect2(0, 512, 128, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/MugwortGrassSource" unique_id=700697870]
-position = Vector2(-6, -136)
+position = Vector2(35, 0)
 shape = SubResource("RectangleShape2D_1gyxc")
 
 [node name="BridgeMarker" type="Marker2D" parent="Mechanisms" unique_id=1476837848]
@@ -682,6 +692,8 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="BridgeSecondSprite" type="Sprite2D" parent="Mechanisms/BridgeSecond" unique_id=1010385164]
+position = Vector2(-7.5000334, -15)
+scale = Vector2(0.54079854, 1)
 texture = ExtResource("26_852cy")
 centered = false
 offset = Vector2(-576, 0)
@@ -710,12 +722,14 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="HiddenPlatformSprite" type="Sprite2D" parent="Mechanisms/HiddenPlatform" unique_id=563170676]
+position = Vector2(740.5001, 1)
+scale = Vector2(0.49902365, 1)
 texture = ExtResource("27_x63fv")
 centered = false
 offset = Vector2(-512, 0)
 
 [node name="HiddenPlatformCollision" type="CollisionShape2D" parent="Mechanisms/HiddenPlatform" unique_id=1312965408]
-position = Vector2(0, 32)
+position = Vector2(723, 42)
 shape = SubResource("RectangleShape2D_8iv1u")
 
 [node name="OilMarker_HiddenRoute" type="Marker2D" parent="Mechanisms" unique_id=1541384421]
@@ -738,13 +752,13 @@ texture = ExtResource("29_em1wd")
 texture_scale = 1.1
 
 [node name="LanternLight_BridgeAfter" type="PointLight2D" parent="Lighting" unique_id=1761527628]
-position = Vector2(3000, 362)
+position = Vector2(2899, 394)
 energy = 0.26
 texture = ExtResource("29_em1wd")
 texture_scale = 1.1
 
 [node name="LanternLight_TreeShadow" type="PointLight2D" parent="Lighting" unique_id=601066873]
-position = Vector2(4300, 362)
+position = Vector2(5769, 375)
 energy = 0.26
 texture = ExtResource("29_em1wd")
 texture_scale = 1.1
@@ -775,14 +789,14 @@ centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_BridgeAfter" type="AnimatedSprite2D" parent="FX" unique_id=2054674640]
-position = Vector2(3000, 362)
+position = Vector2(2915, 432)
 sprite_frames = SubResource("SpriteFrames_683i3")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_TreeShadow" type="AnimatedSprite2D" parent="FX" unique_id=560568580]
-position = Vector2(4300, 362)
+position = Vector2(5758, 424)
 sprite_frames = SubResource("SpriteFrames_yw0fd")
 animation = &"loop"
 centered = false

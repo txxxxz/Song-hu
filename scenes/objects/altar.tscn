@@ -7,27 +7,27 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83s58"]
 size = Vector2(330, 210)
 
-[node name="Altar" type="Area2D" unique_id=295477708]
+[node name="Altar" type="Area2D" unique_id=2078431511]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_wajga")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=303265581]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2023729977]
 texture = ExtResource("2_s1do2")
 centered = false
 offset = Vector2(-192, -288)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1913686802]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=633012509]
 position = Vector2(0, -116)
 shape = SubResource("RectangleShape2D_83s58")
 
-[node name="Glow" type="PointLight2D" parent="." unique_id=1458638761]
+[node name="Glow" type="PointLight2D" parent="." unique_id=834652158]
 position = Vector2(0, -150)
 energy = 0.22
 texture = ExtResource("3_s6xrg")
 texture_scale = 1.9
 
-[node name="Label" type="Label" parent="." unique_id=1891643408]
+[node name="Label" type="Label" parent="." unique_id=1869908588]
 offset_left = -140.0
 offset_top = -335.0
 offset_right = 140.0

@@ -75,26 +75,26 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.9, 0.65, 0.35, 0.96)
 
-[node name="MainMenu" type="Control" unique_id=889595864]
+[node name="MainMenu" type="Control" unique_id=630488113]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_fe2o3")
 
-[node name="Background" type="TextureRect" parent="." unique_id=976447812]
+[node name="Background" type="TextureRect" parent="." unique_id=872438599]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource("2_1g8jr")
 
-[node name="Wash" type="ColorRect" parent="." unique_id=221448953]
+[node name="Wash" type="ColorRect" parent="." unique_id=1176506283]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.02, 0.01, 0.03, 0.62)
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1629570448]
+[node name="TitleLabel" type="Label" parent="." unique_id=144518974]
 layout_mode = 0
 offset_left = 96.0
 offset_top = 132.0
@@ -105,7 +105,7 @@ theme_override_colors/font_color = Color(1, 0.83, 0.48, 1)
 text = "送狐"
 vertical_alignment = 1
 
-[node name="SubtitleLabel" type="Label" parent="." unique_id=61446937]
+[node name="SubtitleLabel" type="Label" parent="." unique_id=1542115628]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 222.0
@@ -116,7 +116,7 @@ theme_override_colors/font_color = Color(0.78, 0.64, 0.42, 1)
 text = "OKURI KITSUNE"
 vertical_alignment = 1
 
-[node name="ButtonVBox" type="VBoxContainer" parent="." unique_id=586456293]
+[node name="ButtonVBox" type="VBoxContainer" parent="." unique_id=552412805]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 360.0
@@ -124,7 +124,7 @@ offset_right = 440.0
 offset_bottom = 550.0
 theme_override_constants/separation = 18
 
-[node name="StartBtn" type="Button" parent="ButtonVBox" unique_id=629705934]
+[node name="StartBtn" type="Button" parent="ButtonVBox" unique_id=1706364317]
 custom_minimum_size = Vector2(300, 72)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_m1kxf")
@@ -133,7 +133,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_uhagc")
 theme_override_font_sizes/font_size = 28
 text = "开始"
 
-[node name="QuitBtn" type="Button" parent="ButtonVBox" unique_id=2094337296]
+[node name="QuitBtn" type="Button" parent="ButtonVBox" unique_id=2111842149]
 custom_minimum_size = Vector2(300, 72)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btxxm")

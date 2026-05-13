@@ -2,6 +2,7 @@ extends Area2D
 
 @export var item_id: String = ""
 @export var item_texture: Texture2D
+@export var max_player_foot_y_distance: float = 72.0
 
 @onready var _visual: Node2D = $Visual
 
@@ -44,6 +45,12 @@ func get_interact_name() -> String:
 	if GameManager.ITEMS.has(item_id):
 		return str(GameManager.ITEMS[item_id].get("name", "供物"))
 	return "供物"
+
+func can_interact_from(player_position: Vector2) -> bool:
+	return absf(player_position.y - _stable_global_y()) <= max_player_foot_y_distance
+
+func _stable_global_y() -> float:
+	return global_position.y - (position.y - _original_y)
 
 func _play_collect_effect() -> void:
 	var sfx := AudioStreamPlayer.new()

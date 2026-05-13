@@ -7,23 +7,23 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1wql"]
 size = Vector2(116, 116)
 
-[node name="CollectibleItem" type="Area2D" unique_id=1658448024]
+[node name="CollectibleItem" type="Area2D" unique_id=295111207]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_1luk1")
 
-[node name="Visual" type="Node2D" parent="." unique_id=1006507309]
+[node name="Visual" type="Node2D" parent="." unique_id=1844801722]
 
-[node name="Sprite" type="Sprite2D" parent="Visual" unique_id=1288413838]
+[node name="Sprite" type="Sprite2D" parent="Visual" unique_id=511087885]
 texture = ExtResource("2_wgbvr")
 centered = false
 offset = Vector2(-64, -128)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=405674949]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2057165093]
 position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_y1wql")
 
-[node name="Glow" type="PointLight2D" parent="." unique_id=857233466]
+[node name="Glow" type="PointLight2D" parent="." unique_id=1787522410]
 position = Vector2(0, -62)
 energy = 0.1
 texture = ExtResource("3_q06ga")

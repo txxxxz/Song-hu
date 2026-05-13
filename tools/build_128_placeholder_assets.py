@@ -390,20 +390,23 @@ All coordinates are Godot pixels in a `1280x720` viewport. Floor baseline is usu
 
 ## Level 2: Broken Approach
 - Width: `12800px` (`100` tiles).
-- Flow: cliff -> bridge puzzle -> bell rope -> hidden offering path -> second altar.
-- Bridge and hidden platform are preplaced `StaticBody2D` nodes under `Mechanisms`.
+- Flow: cliff -> bridge puzzle -> corrupted post-bridge clue -> misordered offering yard -> ladder to high grass ledge -> bell rope -> blue-flame oil lantern -> second altar.
+- Design intent: L2 deliberately stops feeding offerings in altar order. After the first bridge, the white-fur chest is seen before the cedar source; the damaged sign only exposes the middle slot, so players must infer the bottom/top slots from Level 1 and spend extra cedar as tools for bridges and the grass ladder.
+- Bridge, ladder, oil, and hidden platform hooks are preplaced under `Mechanisms`.
 
 | Mechanism | Initial | Trigger | Result |
 |---|---|---|---|
-| `Bridge` | invisible, collision disabled | interact near `BridgeMarker 1660,512` while stack top is `sugi_wood` | visible and collision enabled |
+| `Bridge` / `BridgeSecond` / `BridgeThird` | invisible, collision disabled | interact near the matching bridge marker while stack top is `sugi_wood` | consumes one cedar and enables the bridge |
+| `LadderGrass` | hidden, collision disabled | interact near `LadderMarker 4240,512` while stack top is `sugi_wood` | consumes one cedar and enables a sloped cedar ladder the player can walk up |
+| `OilMarker_HiddenRoute` | available once | interact at the blue-flame lantern | adds `lamp_oil`; ordinary warm lanterns do not expose this interaction |
 | `HiddenPlatform` | invisible, collision disabled | pull `BellRope` | fades in and enables collision |
 
 | Beat | X Range | Key Nodes |
 |---|---:|---|
-| Broken cliff | `0-3200` | item `sugi_wood 900,448`, bridge marker `2300,512` |
-| Cedar bridge | `3200-5600` | item `sugi_wood 3420,448`, tablet |
-| Bell mechanism | `5600-7600` | bell rope `6400,128`, item `white_fur 5600,320` |
-| Hidden route | `7600-10000` | hidden platform, item `water_grass 7600,288` |
+| Broken cliff | `0-3200` | `SugiTreeSource_bridge` for repeat cedar, `BridgeMarker 1660,512`, `Bridge 2300,512` |
+| First far shore | `3200-5600` | `Tablet_RitualClue 3060,512`, `WhiteFurChest 3380,512`, `SugiTreeSource_altar 3920,512`, `LadderMarker 4240,512`, sloped `LadderGrass`, `MugwortGrassSource 4820,232` |
+| Bell mechanism | `5600-7600` | `BridgeMarkerSecond 5760,512`, `BridgeSecond 6144,512`, bell rope `6400,128` |
+| Hidden route | `7600-10000` | `BridgeMarkerThird 7280,512`, `BridgeThird 7936,512`, `HiddenPlatform 7240,352`, `OilMarker_HiddenRoute 9480,512` |
 | Second altar | `10000-12800` | altar `11840,512`, transition to Level 3 |
 
 ## Level 3: Main Shrine And Inner Hall

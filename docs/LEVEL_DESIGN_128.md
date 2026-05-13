@@ -32,48 +32,61 @@ The player stands on a baseline near `y=512`; the visible body usually occupies 
 
 ## Level 1: Village Gate To Dressing Shrine
 - Width: `9600px` (`75` tiles).
-- Flow: village gate shrine -> cedar teaching path -> old torii -> low platform pickup -> altar choice.
+- Flow: background cutscene -> elder handoff and HUD reveal -> wooden requirement plaque -> platform-supported offering route -> altar choice -> shrine gate portal.
+- Design intent: L1 should minimize explicit explanation. The cutscene carries village unease, the elder gives the duty and the offering tube, the plaque gives the ritual requirement, and the map itself teaches order through offering placement and route shape.
 - Main floor tile row: `4`; lower fill rows: `5-7`.
 
 | Beat | X Range | Key Nodes |
 |---|---:|---|
-| Village gate | `0-1600` | player `160,512`, elder `420,512`, tablet `760,512`, item `sugi_wood 1180,448`, `ToriiSmall_VillageGate` |
-| Cedar tutorial | `1600-3600` | one-way platforms, tablet `2480,384`, item `white_fur 3260,320` |
-| Old torii | `3600-5600` | `ToriiLarge_OldTorii`, `FoxfireHint_OldTorii`, lanterns, item `mugwort 5400,448` |
-| Low platform route | `5600-7600` | readable tablet, mild jump checks |
-| Altar choice | `7600-9600` | altar `8840,512`, top-offering previews, fox marker `8540,420`, transition to Level 2 |
+| Village gate | `0-1600` | player `160,512`, elder `470,512`, wooden plaque `760,512`, `SugiTreeSource` for chopping `sugi_wood`, `ToriiSmall_VillageGate`, HUD hidden until elder handoff |
+| Cedar platform | `1600-3600` | one-way platform route,童谣札记 `2480,384`, `WhiteFurChest` containing `white_fur`; platform is part of the offering route, not decoration |
+| Old torii rise | `3600-5600` | `ToriiLarge_OldTorii`, flickering foxfire guide, `MugwortGrassSource` for harvesting `mugwort` from a grass pile reached by the second raised route |
+| Quiet approach | `5600-7600` | rain-damaged note, sparse guide foxfire, return to floor-level travel before the altar |
+| Altar and portal | `7600-9600` | altar, interactable `bell_fiber` / `fox_stone` top offerings, fox marker, shrine portal marker; Level 2 transition requires entering the lit shrine gate |
 
 ## Level 2: Broken Approach
 - Width: `12800px` (`100` tiles).
-- Flow: cliff -> bridge puzzle -> bell rope -> hidden offering path -> second altar.
-- Bridge and hidden platform are preplaced `StaticBody2D` nodes under `Mechanisms`.
+- Flow: cliff -> bridge puzzle -> corrupted post-bridge clue -> misordered offering yard -> ladder to high grass ledge -> bell rope -> blue-flame oil lantern -> second altar.
+- Design intent: L2 deliberately stops feeding offerings in altar order. After the first bridge, the white-fur chest is seen before the cedar source; the damaged sign only exposes the middle slot, so players must infer the bottom/top slots from Level 1 and spend extra cedar as tools for bridges and the grass ladder.
+- Bridge, ladder, oil, and hidden platform hooks are preplaced under `Mechanisms`.
 
 | Mechanism | Initial | Trigger | Result |
 |---|---|---|---|
-| `Bridge` | invisible, collision disabled | interact near `BridgeMarker 1660,512` while stack top is `sugi_wood` | visible and collision enabled |
+| `Bridge` / `BridgeSecond` / `BridgeThird` | invisible, collision disabled | interact near the matching bridge marker while stack top is `sugi_wood` | consumes one cedar and enables the bridge |
+| `LadderGrass` | hidden, collision disabled | interact near `LadderMarker 4240,512` while stack top is `sugi_wood` | consumes one cedar and enables a sloped cedar ladder the player can walk up |
+| `OilMarker_HiddenRoute` | available once | interact at the blue-flame lantern | adds `lamp_oil`; ordinary warm lanterns do not expose this interaction |
 | `HiddenPlatform` | invisible, collision disabled | pull `BellRope` | fades in and enables collision |
 
 | Beat | X Range | Key Nodes |
 |---|---:|---|
-| Broken cliff | `0-3200` | item `sugi_wood 900,448`, bridge marker `2300,512` |
-| Cedar bridge | `3200-5600` | item `sugi_wood 3420,448`, tablet |
-| Bell mechanism | `5600-7600` | bell rope `6400,128`, item `white_fur 6200,448` |
-| Hidden route | `7600-10000` | hidden platform, item `water_grass 7600,288` |
+| Broken cliff | `0-3200` | `SugiTreeSource_bridge` for repeat cedar, `BridgeMarker 1660,512`, `Bridge 2300,512` |
+| First far shore | `3200-5600` | `Tablet_RitualClue 3060,512`, `WhiteFurChest 3380,512`, `SugiTreeSource_altar 3920,512`, `LadderMarker 4240,512`, sloped `LadderGrass`, `MugwortGrassSource 4820,232` |
+| Bell mechanism | `5600-7600` | `BridgeMarkerSecond 5760,512`, `BridgeSecond 6144,512`, bell rope `6400,128` |
+| Hidden route | `7600-10000` | `BridgeMarkerThird 7280,512`, `BridgeThird 7936,512`, `HiddenPlatform 7240,352`, `OilMarker_HiddenRoute 9480,512` |
 | Second altar | `10000-12800` | altar `11840,512`, transition to Level 3 |
 
-## Level 3: Main Shrine And Inner Hall
+## Level 3: Main Shrine Information Puzzle
 - Width: `11200px` (`88` tiles).
-- Flow: outer corridor -> archive points 1-3 -> raised platform -> archive points 4-5 -> plaque reveal -> final choice.
+- Flow: maintained community area -> ritual-name corridor -> dressing room -> raised archive loft -> inner archive -> stone steps and long-burning lamps.
+- Design intent: L3 is no longer a collection route. It is an information puzzle where the player interacts with short contradictory records, then watches the interface assemble three interpretation links: `迎狐/送狐`, `白毛/白衣`, and `白狐/纱夜`.
 
-| Archive | Position | Visual |
-|---:|---:|---|
-| 1 | `1200,512` | visible wooden note |
-| 2 | `2400,512` | visible plaque |
-| 3 | `3600,512` | torn paper |
-| 4 | `6200,384` | raised platform tablet |
-| 5 | `7600,512` | inner hall record |
+| Room | X Range | Purpose | Key Nodes |
+|---|---:|---|---|
+| Maintained community | `0-1960` | Opening unease: complete architecture with no lived-in traces | `ArchiveTrigger1 1320,512`, `Foxfire_OldWood` |
+| Name corridor | `1960-3520` | Establish that records say sending rather than receiving | `ArchiveTrigger2 2780,512` |
+| Dressing room | `3520-5200` | Reframe white fur as white clothing | `ArchiveTrigger3 4240,512`, `DressingRoomLongTable` |
+| Archive loft | `5200-7040` | Low-complexity raised reading platform for outfit order | `ArchiveTrigger4 5980,384`, `ShrineOneWay` |
+| Inner archive | `7040-8880` | Name Sayo and tie the rule to family memory | `ArchiveTrigger5 7820,512` |
+| Stone steps | `8880-11200` | Three-step reveal and final choice | `PlaqueMarker 9820,384`, `FoxSpawnMarker 10180,420` |
 
-Final plaque marker: `9800,320`; fox spawn marker: `10100,420`. The script checks marker distance and truth-revealed state; the plaque object remains editable in the scene.
+`ArchiveTrigger1-5` are interactable `info_clue.gd` nodes, not pickups. Reading them dims the physical record but keeps it in the room. The final plaque prompt is disabled until all five clues are understood.
+
+The final reveal must stay staged:
+1. Foxfire reveals `送狐` beneath `迎狐`.
+2. The archive meaning flips from ritual blessing to child send-off.
+3. The white fox shadow becomes a human shape, naming the sister as `纱夜`.
+
+Ending A completes the ritual and restores stability, but the back-wall cuts imply erasure continues. Ending B breaks the ritual shell and makes memory return, without presenting either choice as a clean moral answer.
 
 ## Playability Targets
 - Player speed `260px/s`; jump `-560px/s`; gravity `980px/s^2`; max fall `720px/s`.

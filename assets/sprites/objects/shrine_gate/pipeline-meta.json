@@ -1,0 +1,23 @@
+{
+  "target": "asset",
+  "mode": "single",
+  "prompt": "Use the existing torii asset as a visual style reference for a new 2D game shrine gate prop, not an exact copy. Create a single large Japanese shrine gate / torii gate for a dark forest shrine platformer. Preserve the same project-native hand-painted, pixel-inspired Godot 2D asset style: weathered red lacquered wood, dark aged roof cap, worn chipped paint, mossy stone bases, rope shimenawa with paper shide, muted highlights, crisp readable silhouette, low texture noise. Make this a new variant: slightly older and more abandoned, with subtle asymmetry, darker moss stains, and a wider walk-through opening. Front-facing 2D side/platformer prop view with a slight top-face hint, not isometric. Single asset only, no animation grid, no frame borders. Background must be 100% solid flat magenta #FF00FF, no gradients, no shadow under the prop, no text, no labels, no UI, no readable writing on plaques. The entire gate must fit fully inside the canvas with generous magenta margin on all sides; no roof edge, pillar, rope, paper streamer, or stone base may touch or cross the image edge. Keep the opening transparent-ready through magenta background. Do not make chunky retro pixel art; use clean hand-painted HD / pixel-inspired game asset style consistent with the shown shrine gate and dark forest tiles.",
+  "role": "",
+  "input": "assets/sprites/objects/shrine_gate/raw-shrine-gate.png",
+  "threshold": 220,
+  "edge_threshold": 240,
+  "duration": 200,
+  "single_size": 768,
+  "postprocess_cleanup": {
+    "magenta_residue_removed_pixels": 5128,
+    "magenta_edge_decontaminated_pixels": 2739,
+    "delivery_png": "shrine_gate.png",
+    "square_delivery_png": "shrine_gate_square.png",
+    "alpha_bbox_before_crop": [
+      38,
+      74,
+      729,
+      694
+    ]
+  }
+}

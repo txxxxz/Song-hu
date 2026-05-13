@@ -57,31 +57,31 @@ texture_margin_top = 20.0
 texture_margin_right = 20.0
 texture_margin_bottom = 20.0
 
-[node name="ChoicePanel" type="CanvasLayer" unique_id=1346402823]
+[node name="ChoicePanel" type="CanvasLayer" unique_id=1837869876]
 layer = 80
 script = ExtResource("1_jhxba")
 
-[node name="BgDim" type="ColorRect" parent="." unique_id=1188797726]
+[node name="BgDim" type="ColorRect" parent="." unique_id=491574988]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.58)
 
-[node name="Center" type="CenterContainer" parent="BgDim" unique_id=1683205434]
+[node name="Center" type="CenterContainer" parent="BgDim" unique_id=644897362]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Panel" type="PanelContainer" parent="BgDim/Center" unique_id=1880770873]
+[node name="Panel" type="PanelContainer" parent="BgDim/Center" unique_id=1748139454]
 custom_minimum_size = Vector2(900, 310)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c8oes")
 
-[node name="VBox" type="VBoxContainer" parent="BgDim/Center/Panel" unique_id=1643775722]
+[node name="VBox" type="VBoxContainer" parent="BgDim/Center/Panel" unique_id=1435441732]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="TitleLabel" type="Label" parent="BgDim/Center/Panel/VBox" unique_id=53607540]
+[node name="TitleLabel" type="Label" parent="BgDim/Center/Panel/VBox" unique_id=597551236]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 theme_override_colors/font_color = Color(0.95, 0.82, 0.52, 1)
@@ -89,11 +89,11 @@ text = "选择"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBox" type="HBoxContainer" parent="BgDim/Center/Panel/VBox" unique_id=1367407770]
+[node name="HBox" type="HBoxContainer" parent="BgDim/Center/Panel/VBox" unique_id=1552760901]
 layout_mode = 2
 theme_override_constants/separation = 28
 
-[node name="ChoiceA" type="Button" parent="BgDim/Center/Panel/VBox/HBox" unique_id=1050039409]
+[node name="ChoiceA" type="Button" parent="BgDim/Center/Panel/VBox/HBox" unique_id=90840469]
 custom_minimum_size = Vector2(386, 128)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_oa1xc")
@@ -101,7 +101,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_uti2q")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ufyaa")
 theme_override_font_sizes/font_size = 24
 
-[node name="ChoiceB" type="Button" parent="BgDim/Center/Panel/VBox/HBox" unique_id=858407842]
+[node name="ChoiceB" type="Button" parent="BgDim/Center/Panel/VBox/HBox" unique_id=609486036]
 custom_minimum_size = Vector2(386, 128)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_0b3dl")

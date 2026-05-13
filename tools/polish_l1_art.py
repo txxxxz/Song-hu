@@ -256,13 +256,183 @@ def polish_platform_art(path: Path, contrast: float = 0.95, saturation: float = 
     outline_img.putalpha(outline.point(lambda p: min(p, 120)))
     out = Image.alpha_composite(outline_img, polished)
 
-    draw = ImageDraw.Draw(out, "RGBA")
     if path.name.endswith("_tileset.png"):
-        for x in range(128, out.width, 128):
-            draw.rectangle((x - 1, 0, x + 1, out.height), fill=(0, 0, 0, 0))
-        for y in range(128, out.height, 128):
-            draw.rectangle((0, y - 1, out.width, y + 1), fill=(0, 0, 0, 0))
+        out = add_tileset_edge_bleed(out)
     save_png(out, path)
+
+
+def add_tileset_edge_bleed(img: Image.Image, tile_size: int = 128, bleed: int = 3) -> Image.Image:
+    out = img.copy()
+    cols = out.width // tile_size
+    rows = out.height // tile_size
+    solid_rows = {0, 1, 3}
+    platform_rows = {2}
+    for row in range(rows):
+        for col in range(cols):
+            box = (col * tile_size, row * tile_size, (col + 1) * tile_size, (row + 1) * tile_size)
+            tile = out.crop(box)
+            if row == 0:
+                tile = fill_border_transparency(tile, border=18, left=True, right=True, top=True, bottom=True)
+                tile = bleed_cell_edges(tile, bleed, left=True, right=True, top=True, bottom=True)
+            elif row in {1, 3}:
+                tile = fill_border_transparency(tile, border=18, left=True, right=True, top=True, bottom=True)
+                tile = bleed_cell_edges(tile, bleed, left=True, right=True, top=True, bottom=True)
+            elif row in platform_rows:
+                tile = fill_border_transparency(tile, border=18, left=True, right=True, top=True, bottom=False)
+                tile = bleed_cell_edges(tile, bleed, left=True, right=True, top=True, bottom=False)
+            out.paste(tile, box)
+    out = polish_repeatable_core_tiles(out, tile_size)
+    return out
+
+
+def fill_border_transparency(
+    tile: Image.Image,
+    border: int,
+    left: bool,
+    right: bool,
+    top: bool,
+    bottom: bool,
+    alpha_threshold: int = 12,
+) -> Image.Image:
+    tile = tile.copy()
+    px = tile.load()
+    width, height = tile.size
+
+    def in_border(x: int, y: int) -> bool:
+        return (
+            (left and x < border)
+            or (right and x >= width - border)
+            or (top and y < border)
+            or (bottom and y >= height - border)
+        )
+
+    for _ in range(border + 4):
+        updates: list[tuple[int, int, tuple[int, int, int, int]]] = []
+        for y in range(height):
+            for x in range(width):
+                if not in_border(x, y):
+                    continue
+                if px[x, y][3] >= alpha_threshold:
+                    continue
+                neighbors: list[tuple[int, int, int, int]] = []
+                for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+                    if 0 <= nx < width and 0 <= ny < height and px[nx, ny][3] >= alpha_threshold:
+                        neighbors.append(px[nx, ny])
+                if neighbors:
+                    count = len(neighbors)
+                    updates.append(
+                        (
+                            x,
+                            y,
+                            (
+                                sum(p[0] for p in neighbors) // count,
+                                sum(p[1] for p in neighbors) // count,
+                                sum(p[2] for p in neighbors) // count,
+                                max(180, sum(p[3] for p in neighbors) // count),
+                            ),
+                        )
+                    )
+        if not updates:
+            break
+        for x, y, color in updates:
+            px[x, y] = color
+    return tile
+
+
+def bleed_cell_edges(tile: Image.Image, bleed: int, left: bool, right: bool, top: bool, bottom: bool) -> Image.Image:
+    tile = tile.copy()
+    width, height = tile.size
+    if left:
+        src = tile.crop((bleed, 0, bleed + 1, height))
+        for x in range(bleed):
+            tile.paste(src, (x, 0))
+    if right:
+        src = tile.crop((width - bleed - 1, 0, width - bleed, height))
+        for x in range(width - bleed, width):
+            tile.paste(src, (x, 0))
+    if top:
+        src = tile.crop((0, bleed, width, bleed + 1))
+        for y in range(bleed):
+            tile.paste(src, (0, y))
+    if bottom:
+        src = tile.crop((0, height - bleed - 1, width, height - bleed))
+        for y in range(height - bleed, height):
+            tile.paste(src, (0, y))
+    return tile
+
+
+def polish_repeatable_core_tiles(atlas: Image.Image, tile_size: int) -> Image.Image:
+    out = atlas.copy()
+    replacements = {
+        (0, 0): ("horizontal", 20),
+        (1, 0): ("both", 22),
+        (2, 0): ("horizontal", 16),
+    }
+    for (row, col), (mode, blend) in replacements.items():
+        box = (col * tile_size, row * tile_size, (col + 1) * tile_size, (row + 1) * tile_size)
+        tile = out.crop(box)
+        if row == 0:
+            tile = crop_repeated_outline(tile, crop_x=14, crop_y=0)
+        elif row == 1:
+            tile = crop_repeated_outline(tile, crop_x=14, crop_y=12)
+        elif row == 2:
+            tile = crop_repeated_outline(tile, crop_x=14, crop_y=0)
+        if mode == "horizontal":
+            tile = make_horizontal_tileable(tile, blend)
+        else:
+            tile = make_horizontal_tileable(tile, blend)
+            tile = make_vertical_tileable(tile, blend)
+        out.paste(tile, box)
+    return out
+
+
+def crop_repeated_outline(tile: Image.Image, crop_x: int, crop_y: int) -> Image.Image:
+    width, height = tile.size
+    cropped = tile.crop((crop_x, crop_y, width - crop_x, height - crop_y))
+    return cropped.resize((width, height), Image.Resampling.LANCZOS)
+
+
+def make_horizontal_tileable(tile: Image.Image, blend: int) -> Image.Image:
+    tile = tile.copy()
+    px = tile.load()
+    width, height = tile.size
+    for i in range(blend):
+        t = (i + 1) / (blend + 1)
+        left_x = i
+        right_x = width - blend + i
+        for y in range(height):
+            left = px[left_x, y]
+            right = px[right_x, y]
+            mixed = mix_rgba(left, right, 0.5)
+            px[left_x, y] = mix_rgba(left, mixed, 1.0 - t)
+            px[right_x, y] = mix_rgba(right, mixed, t)
+    return tile
+
+
+def make_vertical_tileable(tile: Image.Image, blend: int) -> Image.Image:
+    tile = tile.copy()
+    px = tile.load()
+    width, height = tile.size
+    for i in range(blend):
+        t = (i + 1) / (blend + 1)
+        top_y = i
+        bottom_y = height - blend + i
+        for x in range(width):
+            top = px[x, top_y]
+            bottom = px[x, bottom_y]
+            mixed = mix_rgba(top, bottom, 0.5)
+            px[x, top_y] = mix_rgba(top, mixed, 1.0 - t)
+            px[x, bottom_y] = mix_rgba(bottom, mixed, t)
+    return tile
+
+
+def mix_rgba(a: tuple[int, int, int, int], b: tuple[int, int, int, int], t: float) -> tuple[int, int, int, int]:
+    return (
+        lerp(a[0], b[0], t),
+        lerp(a[1], b[1], t),
+        lerp(a[2], b[2], t),
+        lerp(a[3], b[3], t),
+    )
 
 
 def polish_platforms() -> None:

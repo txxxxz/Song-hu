@@ -38,7 +38,28 @@ func _process(_delta: float) -> void:
 		return
 	if player and player.global_position.y > FALL_RESTART_Y:
 		_restart_requested = true
+		_trigger_fall_game_over()
+
+func _trigger_fall_game_over() -> void:
+	DialogManager.show_dialog([
+		{"speaker": "Game Over", "text": "你坠入黑暗，仪式从这一章重新开始。"},
+	] as Array[Dictionary])
+	await DialogManager.dialog_finished
+	await get_tree().create_timer(0.12).timeout
+	_restart_level_after_game_over()
+
+func _restart_level_after_game_over() -> void:
+	if GameManager.current_level > 0:
 		GameManager.restart_current_level()
+		return
+	var fallback_scene := scene_file_path
+	if fallback_scene == "" and get_tree().current_scene:
+		fallback_scene = get_tree().current_scene.scene_file_path
+	if fallback_scene == "":
+		return
+	GameManager.clear_offerings()
+	GameManager.set_state(GameManager.State.PLAYING)
+	GameManager.change_scene(fallback_scene)
 
 func _node(paths: Array[String]) -> Node:
 	for path in paths:

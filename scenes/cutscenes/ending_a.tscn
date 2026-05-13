@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://scenes/cutscenes/ending_a.gd" id="1_vkdb6"]
 
-[node name="Ending A" type="Control" unique_id=507038954]
+[node name="Ending A" type="Control" unique_id=696586673]
 layout_mode = 3
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_vkdb6")
 
-[node name="Background" type="ColorRect" parent="." unique_id=373315454]
+[node name="Background" type="ColorRect" parent="." unique_id=1622413032]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0

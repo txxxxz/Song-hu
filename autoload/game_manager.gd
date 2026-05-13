@@ -15,6 +15,8 @@ var branch_choices: Dictionary = {}
 var player_ref: CharacterBody2D = null
 var offering_stack: Array[Dictionary] = []
 
+const MAX_OFFERINGS := 4
+
 var ITEMS: Dictionary = {
 	"sugi_wood": {
 		"id": "sugi_wood",
@@ -69,7 +71,11 @@ var ITEMS: Dictionary = {
 
 var ALTAR_ORDERS: Dictionary = {
 	1: ["sugi_wood", "white_fur", "mugwort"],
-	2: ["sugi_wood", "white_fur", "water_grass"],
+	2: ["sugi_wood", "white_fur", "mugwort"],
+}
+
+var ALTAR_TOP_OFFERINGS: Dictionary = {
+	1: ["bell_fiber", "fox_stone"],
 }
 
 func _ready() -> void:
@@ -118,6 +124,9 @@ func is_playing() -> bool:
 func push_offering(item_id: String) -> bool:
 	if not ITEMS.has(item_id):
 		return false
+	if offering_stack.size() >= MAX_OFFERINGS:
+		DialogManager.show_single("我", "桶已经塞不下东西了。")
+		return false
 	offering_stack.push_back(ITEMS[item_id].duplicate())
 	offering_changed.emit()
 	return true
@@ -144,14 +153,24 @@ func clear_offerings() -> void:
 func get_offering_count() -> int:
 	return offering_stack.size()
 
+func get_required_offering_count(level: int) -> int:
+	var expected_count: int = ALTAR_ORDERS.get(level, []).size()
+	if ALTAR_TOP_OFFERINGS.has(level):
+		expected_count += 1
+	return expected_count
+
 func validate_altar_order(level: int) -> bool:
 	if not ALTAR_ORDERS.has(level):
 		return true
 	var expected: Array = ALTAR_ORDERS[level]
-	if offering_stack.size() != expected.size():
+	if offering_stack.size() < get_required_offering_count(level):
 		return false
 	for i in range(expected.size()):
 		if offering_stack[i].get("id", "") != expected[i]:
+			return false
+	if ALTAR_TOP_OFFERINGS.has(level):
+		var top_id := str(offering_stack[get_required_offering_count(level) - 1].get("id", ""))
+		if not ALTAR_TOP_OFFERINGS[level].has(top_id):
 			return false
 	return true
 

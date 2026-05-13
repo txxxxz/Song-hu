@@ -22,7 +22,7 @@ func interact() -> void:
 		DialogManager.show_single("", "御供筒中还没有供物。")
 		return
 
-	var expected_count: int = GameManager.ALTAR_ORDERS.get(level, []).size()
+	var expected_count: int = GameManager.get_required_offering_count(level)
 	if GameManager.get_offering_count() < expected_count:
 		DialogManager.show_single("", "供物似乎还不够。")
 		return

@@ -3,11 +3,23 @@
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_hqnrr"]
 [ext_resource type="Texture2D" path="res://assets/ui/offering_tube.png" id="2_bo48s"]
 
-[node name="HUD" type="CanvasLayer" unique_id=2143429044]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qguk"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.035, 0.028, 0.04, 0.82)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.62, 0.48, 0.28, 0.78)
+
+[node name="HUD" type="CanvasLayer" unique_id=214312477]
 layer = 50
 script = ExtResource("1_hqnrr")
 
-[node name="AreaLabel" type="Label" parent="." unique_id=783830199]
+[node name="AreaLabel" type="Label" parent="." unique_id=1234288831]
 offset_left = 300.0
 offset_top = 34.0
 offset_right = 980.0
@@ -17,34 +29,42 @@ theme_override_colors/font_color = Color(0.92, 0.8, 0.56, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OfferingTube" type="Control" parent="." unique_id=1370143011]
+[node name="OfferingTube" type="Control" parent="." unique_id=211266620]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 980.0
 offset_top = 78.0
 offset_right = 1236.0
 offset_bottom = 462.0
-mouse_filter = 2
 
-[node name="OfferingTubeTexture" type="TextureRect" parent="OfferingTube" unique_id=2143901558]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Texture" type="TextureRect" parent="OfferingTube" unique_id=1444877027]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 384.0
 texture = ExtResource("2_bo48s")
-mouse_filter = 2
 
-[node name="Title" type="Label" parent="OfferingTube" unique_id=173440214]
-offset_left = 34.0
-offset_top = 28.0
-offset_right = 222.0
-offset_bottom = 62.0
+[node name="Panel" type="PanelContainer" parent="OfferingTube" unique_id=2015452751]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 384.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8qguk")
+
+[node name="Title" type="Label" parent="OfferingTube" unique_id=406237984]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 18.0
+offset_right = 234.0
+offset_bottom = 52.0
 theme_override_font_sizes/font_size = 22
 theme_override_colors/font_color = Color(0.95, 0.8, 0.46, 1)
 text = "御供筒"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OfferingVBox" type="VBoxContainer" parent="OfferingTube" unique_id=1145672410]
-offset_left = 32.0
-offset_top = 92.0
-offset_right = 224.0
-offset_bottom = 332.0
-theme_override_constants/separation = 8
+[node name="OfferingVBox" type="VBoxContainer" parent="OfferingTube" unique_id=1591861198]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 66.0
+offset_right = 230.0
+offset_bottom = 344.0
+theme_override_constants/separation = 10

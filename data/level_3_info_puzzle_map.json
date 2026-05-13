@@ -1,0 +1,130 @@
+{
+  "level": "Level3",
+  "map_mode": "side_scroll_mode",
+  "visual_model": "layered_tilemap",
+  "runtime_object_model": [
+    "interactive_scene_objects",
+    "scene_hooks",
+    "y_sorted_props"
+  ],
+  "collision_model": [
+    "tile_collision",
+    "trigger_zones"
+  ],
+  "engine_target": "Godot_TileMap",
+  "visual_asset_source": "existing_assets",
+  "world_size": {
+    "width": 11200,
+    "height": 720,
+    "viewport": [1280, 720],
+    "tile_size": 128
+  },
+  "design_intent": "Information-first shrine exploration. The player does not collect objects; they collect short contradictory records and the interface builds interpretation links.",
+  "rooms": [
+    {
+      "id": "main_community",
+      "x_range": [0, 1960],
+      "purpose": "Opening unease: an intact community shrine area with no lived-in traces.",
+      "key_objects": ["ArchiveTrigger1", "Foxfire_OldWood", "StoneLantern_UnusedCommunity"]
+    },
+    {
+      "id": "name_corridor",
+      "x_range": [1960, 3520],
+      "purpose": "Contradict the visible ritual name with records about sending rather than receiving.",
+      "key_objects": ["ArchiveTrigger2", "StoneLantern_NameCorridor"]
+    },
+    {
+      "id": "dressing_room",
+      "x_range": [3520, 5200],
+      "purpose": "Shift the white-fur assumption toward white clothing.",
+      "key_objects": ["ArchiveTrigger3", "DressingRoomLongTable"]
+    },
+    {
+      "id": "archive_loft",
+      "x_range": [5200, 7040],
+      "purpose": "A low-complexity raised reading platform for the outfit-order record.",
+      "key_objects": ["ArchiveTrigger4", "ShrineOneWay"]
+    },
+    {
+      "id": "inner_archive",
+      "x_range": [7040, 8880],
+      "purpose": "Name Sayo and connect the ritual rules to family memory.",
+      "key_objects": ["ArchiveTrigger5", "InnerArchiveTable"]
+    },
+    {
+      "id": "stone_steps",
+      "x_range": [8880, 11200],
+      "purpose": "Final staged reveal at the plaque, stone steps, and long-burning lamps.",
+      "key_objects": ["Plaque", "PlaqueMarker", "FoxSpawnMarker", "Foxfire_PlaqueReveal"]
+    }
+  ],
+  "clues": [
+    {
+      "node": "ArchiveTrigger1",
+      "position": [1320, 512],
+      "interaction": "照看旧木额",
+      "information_role": "visible name conflict",
+      "short_record": "迎狐 surface text, old trace like 送"
+    },
+    {
+      "node": "ArchiveTrigger2",
+      "position": [2780, 512],
+      "interaction": "查看回廊牌",
+      "information_role": "ritual purpose conflict",
+      "short_record": "records say sending, not receiving"
+    },
+    {
+      "node": "ArchiveTrigger3",
+      "position": [4240, 512],
+      "interaction": "查看衣箱残签",
+      "information_role": "white fur / white clothing misread",
+      "short_record": "white clothing for a child body"
+    },
+    {
+      "node": "ArchiveTrigger4",
+      "position": [5980, 384],
+      "interaction": "查看装束札",
+      "information_role": "offering sequence as outfit structure",
+      "short_record": "cedar base, white clothing, mugwort cover"
+    },
+    {
+      "node": "ArchiveTrigger5",
+      "position": [7820, 512],
+      "interaction": "查看内殿档案",
+      "information_role": "personal identity",
+      "short_record": "Sayo, age nine; do not call her name; do not look back"
+    }
+  ],
+  "interpretation_links": [
+    {
+      "id": "ritual_name",
+      "requires": ["ArchiveTrigger1", "ArchiveTrigger2"],
+      "ui_result": "仪式名：迎狐 与 送狐 冲突"
+    },
+    {
+      "id": "white_misread",
+      "requires": ["ArchiveTrigger3", "ArchiveTrigger4"],
+      "ui_result": "装束：白毛 可能是 白衣 的误读"
+    },
+    {
+      "id": "sayo",
+      "requires": ["ArchiveTrigger5", "ArchiveTrigger3 or ArchiveTrigger4"],
+      "ui_result": "身份：送行者 纱夜，仍记得家人"
+    }
+  ],
+  "reveal_sequence": [
+    "Plaque foxfire reveal: 迎狐 peels into 送狐.",
+    "Archive interpretation reveal: the records describe sending a child away.",
+    "Identity reveal: the white fox's shadow reads as Sayo, the protagonist's sister."
+  ],
+  "endings": {
+    "A": "Do not call her name; the ritual completes, stability returns, and back-wall cuts imply erasure continues.",
+    "B": "Call Sayo by name; the ritual collapses, the environment breaks, and memory begins to return."
+  },
+  "validation_targets": [
+    "All five ArchiveTrigger nodes are interactables, not pickup items.",
+    "The final plaque is gated until all clue links are available.",
+    "The stone-step platform and raised archive platform use TileMap collision, while room frames are visual props only.",
+    "Runtime backgrounds remain the existing level3 far/mid/near parallax layers."
+  ]
+}

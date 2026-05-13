@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets/sprites/objects/archive_note.png" id="9_keip3"]
 [ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets/sprites/objects/stone_tablet.png" id="10_exwx8"]
 [ext_resource type="PackedScene" path="res://scenes/objects/altar.tscn" id="11_17aof"]
+[ext_resource type="Texture2D" uid="uid://duuahoyb22ntd" path="res://assets/sprites/objects/item_water_grass.png" id="12_wk7pi"]
 [ext_resource type="PackedScene" path="res://scenes/objects/bell_rope.tscn" id="13_0y23r"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="15_8ghkn"]
 [ext_resource type="Script" uid="uid://wa1yi7wglmv" path="res://scenes/objects/harvest_source.gd" id="17_b1k63"]
@@ -438,7 +439,7 @@ tile_set = ExtResource("5_s7kn7")
 [node name="OneWayPlatforms" type="Node2D" parent="." unique_id=4669344]
 
 [node name="ApproachOneWay" type="TileMapLayer" parent="OneWayPlatforms" unique_id=841777625]
-tile_map_data = PackedByteArray("AAAlAAIAAAAAAAIAAAAmAAIAAAAAAAIAAABMAAMAAAAAAAIAAABNAAMAAAAAAAIAAABOAAMAAAAAAAIAAABPAAMAAAAAAAIAAABQAAMAAAAAAAIAAABRAAMAAAAAAAIAAABSAAMAAAAAAAIAAABYAAMAAAAAAAIAAABZAAMAAAAAAAIAAABaAAMAAAAAAAIAAABbAAMAAAAAAAIAAABcAAMAAAAAAAIAAABdAAMAAAAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAAlAAIAAAAAAAIAAAAmAAIAAAAAAAIAAAA=")
 tile_set = ExtResource("5_s7kn7")
 
 [node name="PropsBack" type="Node2D" parent="." unique_id=251099968]
@@ -462,25 +463,25 @@ centered = false
 offset = Vector2(-64, -256)
 
 [node name="StoneLantern_SecondAltar" type="Sprite2D" parent="PropsBack" unique_id=342027758]
-position = Vector2(11280, 512)
+position = Vector2(9406, 543)
 texture = ExtResource("6_wk7pi")
 centered = false
 offset = Vector2(-64, -256)
 
 [node name="StoneLantern_HiddenRoute" type="Sprite2D" parent="PropsBack" unique_id=324800910]
-position = Vector2(9480, 512)
+position = Vector2(6584, 560)
 texture = ExtResource("6_wk7pi")
 centered = false
 offset = Vector2(-64, -256)
 
 [node name="ToriiLarge_SecondAltarGate" type="Sprite2D" parent="PropsBack" unique_id=567218126]
-position = Vector2(11100, 512)
+position = Vector2(9734, 565)
 texture = ExtResource("7_yqg3d")
 centered = false
 offset = Vector2(-320, -576)
 
 [node name="ShrineGate" type="Sprite2D" parent="PropsBack" unique_id=1012537362]
-position = Vector2(6884, 288)
+position = Vector2(6880, 278)
 scale = Vector2(0.9096386, 0.87573963)
 texture = ExtResource("24_wwjag")
 
@@ -538,17 +539,17 @@ position = Vector2(-507, -86)
 shape = SubResource("RectangleShape2D_mghg3")
 
 [node name="Altar" parent="Narrative" unique_id=2078431511 instance=ExtResource("11_17aof")]
-position = Vector2(11840, 512)
+position = Vector2(9158, 554)
 level = 2
 
 [node name="BellRope" parent="Narrative" unique_id=986222758 instance=ExtResource("13_0y23r")]
-position = Vector2(6727, 183)
+position = Vector2(7045, 189)
 scale = Vector2(0.8, 0.8)
 
 [node name="Actors" type="Node2D" parent="." unique_id=1695093810]
 
 [node name="Player" parent="Actors" unique_id=1788707675 instance=ExtResource("15_8ghkn")]
-position = Vector2(174, 529)
+position = Vector2(176, 567)
 
 [node name="Mechanisms" type="Node2D" parent="." unique_id=80257625]
 
@@ -608,7 +609,7 @@ max_harvest_count = 5
 [node name="Visual" type="Node2D" parent="Mechanisms/SugiTreeSource_altar" unique_id=690055967]
 
 [node name="TreeBase" type="Sprite2D" parent="Mechanisms/SugiTreeSource_altar/Visual" unique_id=1580868304]
-position = Vector2(-190.97414, -434.66663)
+position = Vector2(-181.00002, -439)
 scale = Vector2(0.6164405, 0.8697918)
 texture = ExtResource("19_px4x2")
 centered = false
@@ -722,14 +723,14 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="HiddenPlatformSprite" type="Sprite2D" parent="Mechanisms/HiddenPlatform" unique_id=563170676]
-position = Vector2(740.5001, 1)
+position = Vector2(605.0001, 9)
 scale = Vector2(0.49902365, 1)
 texture = ExtResource("27_x63fv")
 centered = false
 offset = Vector2(-512, 0)
 
 [node name="HiddenPlatformCollision" type="CollisionShape2D" parent="Mechanisms/HiddenPlatform" unique_id=1312965408]
-position = Vector2(723, 42)
+position = Vector2(606, 44)
 shape = SubResource("RectangleShape2D_8iv1u")
 
 [node name="OilMarker_HiddenRoute" type="Marker2D" parent="Mechanisms" unique_id=1541384421]
@@ -738,7 +739,8 @@ position = Vector2(9480, 512)
 [node name="PropsFront" type="Node2D" parent="." unique_id=308370026]
 
 [node name="TopOfferingLampOilPreview" type="Sprite2D" parent="PropsFront" unique_id=372358731]
-position = Vector2(11600, 512)
+visible = false
+position = Vector2(8857, 527)
 texture = ExtResource("28_bnt33")
 centered = false
 offset = Vector2(-64, -128)
@@ -764,13 +766,13 @@ texture = ExtResource("29_em1wd")
 texture_scale = 1.1
 
 [node name="LanternLight_SecondAltar" type="PointLight2D" parent="Lighting" unique_id=501361270]
-position = Vector2(11280, 362)
+position = Vector2(9374, 338)
 energy = 0.26
 texture = ExtResource("29_em1wd")
 texture_scale = 1.1
 
 [node name="BlueLanternLight_HiddenRoute" type="PointLight2D" parent="Lighting" unique_id=142849606]
-position = Vector2(9480, 362)
+position = Vector2(6589, 361)
 color = Color(0.42, 0.72, 1, 0.92)
 energy = 0.34
 texture = ExtResource("30_7to3y")
@@ -803,14 +805,14 @@ centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_SecondAltar" type="AnimatedSprite2D" parent="FX" unique_id=534537065]
-position = Vector2(11280, 362)
+position = Vector2(9406, 429)
 sprite_frames = SubResource("SpriteFrames_gvrkc")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="BlueFlame_HiddenRoute" type="AnimatedSprite2D" parent="FX" unique_id=707106446]
-position = Vector2(9480, 362)
+position = Vector2(6581, 455)
 sprite_frames = SubResource("SpriteFrames_vfcg7")
 animation = &"loop"
 centered = false
@@ -828,3 +830,7 @@ volume_db = -6.0
 
 [node name="SFX" type="AudioStreamPlayer" parent="Audio" unique_id=573007874]
 volume_db = -3.0
+
+[node name="ItemWaterGrass" type="Sprite2D" parent="." unique_id=571618305]
+position = Vector2(7661, 341)
+texture = ExtResource("12_wk7pi")

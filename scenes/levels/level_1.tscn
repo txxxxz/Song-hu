@@ -1,40 +1,35 @@
-[gd_scene format=4]
+[gd_scene format=4 uid="uid://vuhqa47i67ny"]
 
-[ext_resource type="Script" path="res://scenes/levels/level_1.gd" id="1_o8s4s"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_far.png" id="2_ebb2h"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
-[ext_resource type="TileSet" path="res://assets/tilesets/forest_tileset.tres" id="5_hvllt"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/torii_small.png" id="7_svqqs"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/torii.png" id="8_2to4m"]
+[ext_resource type="Script" uid="uid://drrf0e0r586vc" path="res://scenes/levels/level_1.gd" id="1_o8s4s"]
+[ext_resource type="Texture2D" uid="uid://cpgllt00tj3lr" path="res://assets/backgrounds/level1_far.png" id="2_ebb2h"]
+[ext_resource type="Texture2D" uid="uid://ctwmvbt5hvvey" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
+[ext_resource type="Texture2D" uid="uid://cc54n33cb6hgb" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
+[ext_resource type="TileSet" uid="uid://c6xn35cb3v1jm" path="res://assets/tilesets/forest_tileset.tres" id="5_hvllt"]
+[ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
+[ext_resource type="Texture2D" uid="uid://b5c2eghweqwl4" path="res://assets/sprites/objects/torii_small.png" id="7_svqqs"]
+[ext_resource type="Texture2D" uid="uid://bkichr3en42ju" path="res://assets/sprites/objects/torii.png" id="8_2to4m"]
 [ext_resource type="PackedScene" path="res://scenes/objects/npc_elder.tscn" id="9_kc3v0"]
-[ext_resource type="Script" path="res://scenes/objects/npc_elder.gd" id="10_prmli"]
-[ext_resource type="Script" path="res://scenes/objects/stone_tablet.gd" id="11_dwx2n"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
+[ext_resource type="Script" uid="uid://b7gs2plge8ef0" path="res://scenes/objects/stone_tablet.gd" id="11_dwx2n"]
+[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
 [ext_resource type="PackedScene" path="res://scenes/objects/altar.tscn" id="13_ovy75"]
-[ext_resource type="Script" path="res://scenes/objects/altar.gd" id="14_wk6bc"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="15_ugk5q"]
-[ext_resource type="Script" path="res://scenes/player/player.gd" id="16_4u6u3"]
-[ext_resource type="Script" path="res://scenes/objects/harvest_source.gd" id="17_i3rdk"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/large_tree/large_tree.png" id="19_bccrp"]
-[ext_resource type="Script" path="res://scenes/objects/white_fur_chest.gd" id="20_20f45"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/item_white_fur.png" id="21_6bay7"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_to6s4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_7tcdn"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/item_mugwort.png" id="24_4gp5p"]
-[ext_resource type="Texture2D" path="res://assets/tilesets/forest_tileset.png" id="25_y73h4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/long_table/long_table.png" id="26_yhfkw"]
+[ext_resource type="Script" uid="uid://wa1yi7wglmv" path="res://scenes/objects/harvest_source.gd" id="17_i3rdk"]
+[ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
+[ext_resource type="Texture2D" uid="uid://ca4qsdnbh77r4" path="res://assets/sprites/objects/large_tree/large_tree.png" id="19_bccrp"]
+[ext_resource type="Script" uid="uid://cwcytox18c0js" path="res://scenes/objects/white_fur_chest.gd" id="20_20f45"]
+[ext_resource type="Texture2D" uid="uid://df4aextjt1c5b" path="res://assets/sprites/objects/item_white_fur.png" id="21_6bay7"]
+[ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_to6s4"]
+[ext_resource type="Texture2D" uid="uid://bir76inbdlgmu" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_7tcdn"]
+[ext_resource type="Texture2D" uid="uid://de15crklj3nq" path="res://assets/sprites/objects/item_mugwort.png" id="24_4gp5p"]
+[ext_resource type="Texture2D" uid="uid://b06v0r8pdweko" path="res://assets/tilesets/forest_tileset.png" id="25_y73h4"]
+[ext_resource type="Texture2D" uid="uid://du0mr8yumk12t" path="res://assets/sprites/objects/long_table/long_table.png" id="26_yhfkw"]
 [ext_resource type="PackedScene" path="res://scenes/objects/collectible_item.tscn" id="27_klc0n"]
-[ext_resource type="Script" path="res://scenes/objects/collectible_item.gd" id="28_vjklx"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/item_bell_fiber.png" id="29_kr1sg"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
-[ext_resource type="Texture2D" path="res://assets/sprites/effects/warm_light.png" id="31_4x4ny"]
-[ext_resource type="Texture2D" path="res://assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
-[ext_resource type="Texture2D" path="res://assets/sprites/effects/fox_fire.png" id="33_a1ics"]
+[ext_resource type="Texture2D" uid="uid://ltqovbi577vw" path="res://assets/sprites/objects/item_bell_fiber.png" id="29_kr1sg"]
+[ext_resource type="Texture2D" uid="uid://dyj08qiudqmbr" path="res://assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
+[ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets/sprites/effects/warm_light.png" id="31_4x4ny"]
+[ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
+[ext_resource type="Texture2D" uid="uid://b6e0gb3654xf" path="res://assets/sprites/effects/fox_fire.png" id="33_a1ics"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="34_noyxt"]
-[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="35_si6rx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2msp3"]
 size = Vector2(176, 220)
@@ -366,7 +361,7 @@ tile_set = ExtResource("5_hvllt")
 [node name="PropsBack" type="Node2D" parent="." unique_id=1367802425]
 
 [node name="StoneLantern_VillageShrine" type="Sprite2D" parent="PropsBack" unique_id=530369338]
-position = Vector2(650, 512)
+position = Vector2(668, 537)
 texture = ExtResource("6_dp4fg")
 centered = false
 offset = Vector2(-64, -256)
@@ -405,11 +400,8 @@ offset = Vector2(-320, -576)
 
 [node name="Narrative" type="Node2D" parent="." unique_id=2118793600]
 
-[node name="Elder" type="Area2D" parent="Narrative" unique_id=371294100 instance=ExtResource("9_kc3v0")]
-position = Vector2(420, 512)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("10_prmli")
+[node name="Elder" parent="Narrative" unique_id=371294100 instance=ExtResource("9_kc3v0")]
+position = Vector2(536, 563)
 
 [node name="Tablet_Village" type="Area2D" parent="Narrative" unique_id=1075826498]
 position = Vector2(760, 512)
@@ -418,12 +410,13 @@ tablet_text = "参道旧训：先学会拾起供物，再学会把它们按次�
 speaker_name = "札记"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Village" unique_id=507591571]
+position = Vector2(122, 46)
 texture = ExtResource("12_wtkl1")
 centered = false
 offset = Vector2(-96, -256)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_Village" unique_id=1199117217]
-position = Vector2(0, -116)
+position = Vector2(122, -68)
 shape = SubResource("RectangleShape2D_2msp3")
 
 [node name="Tablet_Torii" type="Area2D" parent="Narrative" unique_id=1473937162]
@@ -456,22 +449,16 @@ offset = Vector2(-96, -256)
 position = Vector2(0, -116)
 shape = SubResource("RectangleShape2D_oubbf")
 
-[node name="Altar" type="Area2D" parent="Narrative" unique_id=2078431511 instance=ExtResource("13_ovy75")]
+[node name="Altar" parent="Narrative" unique_id=2078431511 instance=ExtResource("13_ovy75")]
 position = Vector2(8840, 512)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("14_wk6bc")
 
 [node name="FoxSpawnMarker" type="Marker2D" parent="Narrative" unique_id=922235557]
 position = Vector2(8540, 420)
 
 [node name="Actors" type="Node2D" parent="." unique_id=1466141016]
 
-[node name="Player" type="CharacterBody2D" parent="Actors" unique_id=1788707675 instance=ExtResource("15_ugk5q")]
-position = Vector2(160, 512)
-collision_mask = 4
-floor_snap_length = 18.0
-script = ExtResource("16_4u6u3")
+[node name="Player" parent="Actors" unique_id=1788707675 instance=ExtResource("15_ugk5q")]
+position = Vector2(-314, 523)
 
 [node name="Mechanisms" type="Node2D" parent="." unique_id=2065666536]
 
@@ -548,26 +535,20 @@ texture = ExtResource("26_yhfkw")
 centered = false
 offset = Vector2(-369.5, -229)
 
-[node name="TopOfferingBellFiberPreview" type="Area2D" parent="PropsFront" unique_id=295111207 instance=ExtResource("27_klc0n")]
+[node name="TopOfferingBellFiberPreview" parent="PropsFront" unique_id=295111207 instance=ExtResource("27_klc0n")]
 position = Vector2(5560, 455)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("28_vjklx")
 item_id = "bell_fiber"
 item_texture = ExtResource("29_kr1sg")
 
-[node name="TopOfferingFoxStonePreview" type="Area2D" parent="PropsFront" unique_id=1764014149 instance=ExtResource("27_klc0n")]
+[node name="TopOfferingFoxStonePreview" parent="PropsFront" unique_id=1764014149 instance=ExtResource("27_klc0n")]
 position = Vector2(5890, 455)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("28_vjklx")
 item_id = "fox_stone"
 item_texture = ExtResource("30_2viwe")
 
 [node name="Lighting" type="Node2D" parent="." unique_id=1856007008]
 
 [node name="LanternLight_VillageShrine" type="PointLight2D" parent="Lighting" unique_id=2089297950]
-position = Vector2(650, 362)
+position = Vector2(732, -149)
 energy = 0.26
 texture = ExtResource("31_4x4ny")
 texture_scale = 1.1
@@ -590,7 +571,7 @@ color = Color(0.78, 0.82, 0.95, 1)
 [node name="FX" type="Node2D" parent="." unique_id=590338733]
 
 [node name="LanternFlame_VillageShrine" type="AnimatedSprite2D" parent="FX" unique_id=1192659730]
-position = Vector2(650, 362)
+position = Vector2(671, 436)
 sprite_frames = SubResource("SpriteFrames_dy85j")
 animation = &"loop"
 centered = false
@@ -617,9 +598,7 @@ animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=214312477 instance=ExtResource("34_noyxt")]
-layer = 50
-script = ExtResource("35_si6rx")
+[node name="HUD" parent="." unique_id=214312477 instance=ExtResource("34_noyxt")]
 
 [node name="Audio" type="Node" parent="." unique_id=611180990]
 

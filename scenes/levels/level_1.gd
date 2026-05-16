@@ -19,10 +19,7 @@ var _top_offering_monologue_shown: bool = false
 
 func _on_level_ready() -> void:
 	_altar_ref.offering_completed.connect(_on_altar_completed)
-	_elder_ref.set_dialog([
-		{"speaker": "老人", "text": "山里不太平。若你忘了供物次第，就回来看木牌。"},
-		{"speaker": "老人", "text": "送狐途中，不要多说话。尤其不要在它回头时唤它的名。"},
-	] as Array[Dictionary])
+	_elder_ref.set_dialog([] as Array[Dictionary])
 	_set_offering_tube_visible(false)
 	show_area_name("第一章  装束之祠")
 	GameManager.set_state(GameManager.State.PLAYING)
@@ -51,7 +48,7 @@ func _try_show_top_offering_monologue() -> void:
 		return
 	_top_offering_monologue_shown = true
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "老人说：“这两样都能成礼，只是性子不同。绳子会把狐轻轻地请出来；火石会强行让狐现行。”"},
+		{"speaker": "", "text": "长桌上并排放着两件顶礼供物：绳子偏安抚，火石偏催逼。"},
 	] as Array[Dictionary])
 
 func _top_offering_trigger_x() -> float:
@@ -71,8 +68,18 @@ func _start_elder_handoff() -> void:
 		{"speaker": "老人", "text": "供物的要求写在前面的木牌上。读清楚，再动手。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
+	_retire_elder_after_handoff()
 	_set_offering_tube_visible(true)
 	_spawn_intro_flames()
+
+func _retire_elder_after_handoff() -> void:
+	if not _elder_ref:
+		return
+	_elder_ref.visible = false
+	_elder_ref.process_mode = Node.PROCESS_MODE_DISABLED
+	_elder_ref.remove_from_group("interactable")
+	_elder_ref.collision_layer = 0
+	_elder_ref.monitoring = false
 
 func _set_offering_tube_visible(active: bool) -> void:
 	if hud_layer and hud_layer.has_method("set_offering_tube_visible"):

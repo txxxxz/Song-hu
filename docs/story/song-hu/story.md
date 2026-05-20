@@ -55,6 +55,10 @@ tense: present
 - `/Users/zhouchendi/Desktop/StartOribit/Game Design/proposal/《送狐》逐关逐场景脚本（关卡版）.md`
 - `/Users/zhouchendi/Desktop/StartOribit/Game Design/proposal/整体流程图（Game Flow）.md`
 
+## Production Text
+
+- [dialogue-and-signage-script.md](dialogue-and-signage-script.md) - 角色台词、旁白、木牌、札记、档案、选择文案和结局文本源表。
+
 ## Notes
 
 后续新增角色、地点、系统、关卡文本时，应优先检查它们是否服务四个核心点：`迎狐 -> 送狐`、`白毛 -> 白衣`、`白狐 -> 纱夜`、`狐神归位 -> 活人重新被固定为狐神之位`。最终选择必须始终保持为电车难题，而不是单纯揭穿恶俗。

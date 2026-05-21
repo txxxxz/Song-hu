@@ -31,6 +31,88 @@ def cell_box(col: int, row: int) -> tuple[int, int, int, int]:
     return x, y, x + TILE_SIZE, y + TILE_SIZE
 
 
+def crop_resize(tile: Image.Image, crop_x: int, crop_top: int, crop_bottom: int) -> Image.Image:
+    return tile.crop(
+        (crop_x, crop_top, TILE_SIZE - crop_x, TILE_SIZE - crop_bottom)
+    ).resize((TILE_SIZE, TILE_SIZE), Image.Resampling.LANCZOS)
+
+
+def mix(a: tuple[int, int, int, int], b: tuple[int, int, int, int], t: float) -> tuple[int, int, int, int]:
+    return tuple(round(a[i] * (1.0 - t) + b[i] * t) for i in range(4))
+
+
+def make_horizontal_repeat(tile: Image.Image, blend: int = 24) -> Image.Image:
+    tile = tile.copy()
+    px = tile.load()
+    for i in range(blend):
+        t = (i + 1) / (blend + 1)
+        lx = i
+        rx = TILE_SIZE - blend + i
+        for y in range(TILE_SIZE):
+            left = px[lx, y]
+            right = px[rx, y]
+            target = mix(left, right, 0.5)
+            px[lx, y] = mix(left, target, t)
+            px[rx, y] = mix(right, target, 1.0 - t)
+    return tile
+
+
+def make_vertical_repeat(tile: Image.Image, blend: int = 24) -> Image.Image:
+    tile = tile.copy()
+    px = tile.load()
+    for i in range(blend):
+        t = (i + 1) / (blend + 1)
+        ty = i
+        by = TILE_SIZE - blend + i
+        for x in range(TILE_SIZE):
+            top = px[x, ty]
+            bottom = px[x, by]
+            target = mix(top, bottom, 0.5)
+            px[x, ty] = mix(top, target, t)
+            px[x, by] = mix(bottom, target, 1.0 - t)
+    return tile
+
+
+def force_solid(tile: Image.Image, keep_top_alpha: bool) -> Image.Image:
+    tile = tile.copy()
+    px = tile.load()
+    for y in range(TILE_SIZE):
+        for x in range(TILE_SIZE):
+            r, g, b, a = px[x, y]
+            if keep_top_alpha and y < 18 and a < 220:
+                continue
+            if a < 235:
+                px[x, y] = (r, g, b, 255)
+    return tile
+
+
+def prepare_runtime_tile(tile: Image.Image, row: int) -> Image.Image:
+    if row == 0:
+        # The playable ground uses atlas coord (0, 0) repeatedly. The source
+        # art has dark translucent side strokes, so crop those away for the
+        # runtime-only atlas while preserving the irregular walkable top edge.
+        tile = crop_resize(tile, crop_x=16, crop_top=0, crop_bottom=10)
+        tile = make_horizontal_repeat(tile, 28)
+        tile = force_solid(tile, keep_top_alpha=True)
+    elif row == 1:
+        # Fill blocks repeat horizontally and vertically below the ground top.
+        # Crop out all four painted borders so each repeated block becomes a
+        # continuous mass instead of a visible grid.
+        tile = crop_resize(tile, crop_x=14, crop_top=14, crop_bottom=14)
+        tile = make_horizontal_repeat(tile, 30)
+        tile = make_vertical_repeat(tile, 30)
+        tile = force_solid(tile, keep_top_alpha=False)
+    elif row == 2:
+        tile = crop_resize(tile, crop_x=14, crop_top=0, crop_bottom=0)
+        tile = make_horizontal_repeat(tile, 24)
+    elif row == 3:
+        tile = crop_resize(tile, crop_x=14, crop_top=14, crop_bottom=14)
+        tile = make_horizontal_repeat(tile, 24)
+        tile = make_vertical_repeat(tile, 24)
+        tile = force_solid(tile, keep_top_alpha=False)
+    return tile
+
+
 def paste_edge_bleed(
     atlas: Image.Image,
     tile: Image.Image,
@@ -75,7 +157,7 @@ def make_padded_atlas(src_path: Path, out_path: Path) -> None:
 
     for row in range(ROWS):
         for col in range(COLS):
-            tile = src.crop(cell_box(col, row))
+            tile = prepare_runtime_tile(src.crop(cell_box(col, row)), row)
             dest_x = MARGIN + col * (TILE_SIZE + SEPARATION)
             dest_y = MARGIN + row * (TILE_SIZE + SEPARATION)
             paste_edge_bleed(out, tile, dest_x, dest_y, MARGIN, SEPARATION)

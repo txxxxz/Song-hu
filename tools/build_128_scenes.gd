@@ -540,6 +540,11 @@ func _fill_ground(tm: TileMapLayer, start_tile: int, end_tile: int, top_row: int
 		for y in range(top_row + 1, 8):
 			tm.set_cell(Vector2i(x, y), 0, Vector2i(0, 1), 0)
 
+func _clear_ground(tm: TileMapLayer, start_tile: int, end_tile: int, top_row: int = 4) -> void:
+	for x in range(start_tile, end_tile):
+		for y in range(top_row, 8):
+			tm.erase_cell(Vector2i(x, y))
+
 func _fill_oneway(tm: TileMapLayer, start_tile: int, end_tile: int, row: int) -> void:
 	for x in range(start_tile, end_tile):
 		tm.set_cell(Vector2i(x, row), 0, Vector2i(0, 2), 0)
@@ -882,6 +887,9 @@ func _build_level_2() -> void:
 	var terrain := _terrain_layer("ApproachTerrain", "res://assets/tilesets/approach_tileset.tres")
 	root.get_node("Terrain").add_child(terrain)
 	_fill_ground(terrain, 0, 80)
+	_clear_ground(terrain, 14, 23)
+	_clear_ground(terrain, 46, 51)
+	_clear_ground(terrain, 58, 67)
 	var one := _terrain_layer("ApproachOneWay", "res://assets/tilesets/approach_tileset.tres")
 	root.get_node("OneWayPlatforms").add_child(one)
 	_fill_oneway(one, 32, 39, 3)

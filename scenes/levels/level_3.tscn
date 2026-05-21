@@ -10,21 +10,21 @@
 [ext_resource type="Texture2D" uid="uid://bkichr3en42ju" path="res://assets_1/assets/sprites/objects/torii.png" id="8_aey3y"]
 [ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets_1/assets/sprites/objects/stone_lantern.png" id="9_k0dme"]
 [ext_resource type="Script" uid="uid://cx5fjoa1km8dn" path="res://scenes/objects/info_clue.gd" id="10_o5em7"]
-[ext_resource type="Texture2D" uid="uid://yrftarl01j5n" path="res://assets/sprites/objects/plaque.png" id="11_22mqa"]
-[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets/sprites/objects/archive_note.png" id="12_6c6bd"]
-[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets/sprites/objects/stone_tablet.png" id="13_2qmps"]
+[ext_resource type="Texture2D" uid="uid://yrftarl01j5n" path="res://assets_1/assets/sprites/objects/plaque.png" id="11_22mqa"]
+[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets_1/assets/sprites/objects/archive_note.png" id="12_6c6bd"]
+[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets_1/assets/sprites/objects/stone_tablet.png" id="13_2qmps"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="14_gtyp3"]
 [ext_resource type="Texture2D" uid="uid://du0mr8yumk12t" path="res://assets/sprites/objects/long_table/long_table.png" id="16_ju8vr"]
 [ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="17_tio2m"]
 [ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="18_p0p7o"]
 [ext_resource type="Texture2D" uid="uid://b6e0gb3654xf" path="res://assets_1/assets/sprites/effects/fox_fire.png" id="19_jnyl3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="20_2gq65"]
-[ext_resource type="Script" path="res://scenes/objects/paper_chest_clue.gd" id="21_chestclue"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_chestclosed"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_chestopen"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/bamboo_scroll_closed.png" id="24_bamboo"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/paper_note_with_patch.png" id="25_paperpatch"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/paper_note_blank.png" id="26_paperblank"]
+[ext_resource type="Script" uid="uid://0703654a2hx7" path="res://scenes/objects/paper_chest_clue.gd" id="21_chestclue"]
+[ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_chestclosed"]
+[ext_resource type="Texture2D" uid="uid://bir76inbdlgmu" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_chestopen"]
+[ext_resource type="Texture2D" uid="uid://dg5dkohjxobyh" path="res://assets/sprites/objects/bamboo_scroll_closed.png" id="24_bamboo"]
+[ext_resource type="Texture2D" uid="uid://bj6cq3gyauufl" path="res://assets/sprites/objects/paper_note_with_patch.png" id="25_paperpatch"]
+[ext_resource type="Texture2D" uid="uid://ccc4uj8ge4dgk" path="res://assets/sprites/objects/paper_note_blank.png" id="26_paperblank"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1m6f"]
 size = Vector2(260, 250)
@@ -400,7 +400,7 @@ region_rect = Rect2(256, 384, 128, 128)
 
 [node name="RoomPillar_MainCommunity_2" type="Sprite2D" parent="PropsBack" unique_id=1223260945]
 modulate = Color(0.78, 0.72, 0.7, 0.74)
-position = Vector2(980, 640)
+position = Vector2(980, 712)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -530,7 +530,7 @@ region_rect = Rect2(128, 384, 128, 128)
 
 [node name="RoomPillar_NameCorridor" type="Sprite2D" parent="PropsBack" unique_id=425817053]
 modulate = Color(0.66, 0.68, 0.8, 0.7)
-position = Vector2(980, 640)
+position = Vector2(986, 504)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -540,7 +540,7 @@ region_rect = Rect2(256, 384, 128, 128)
 
 [node name="RoomPillar_NameCorridor_2" type="Sprite2D" parent="PropsBack" unique_id=2066104666]
 modulate = Color(0.66, 0.68, 0.8, 0.7)
-position = Vector2(1760, 640)
+position = Vector2(1759, 712)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -680,7 +680,7 @@ region_rect = Rect2(128, 384, 128, 128)
 
 [node name="RoomPillar_DressingRoom" type="Sprite2D" parent="PropsBack" unique_id=846008393]
 modulate = Color(0.72, 0.66, 0.74, 0.7)
-position = Vector2(1760, 640)
+position = Vector2(1760, 521)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -690,7 +690,7 @@ region_rect = Rect2(256, 384, 128, 128)
 
 [node name="RoomPillar_DressingRoom_2" type="Sprite2D" parent="PropsBack" unique_id=977548319]
 modulate = Color(0.72, 0.66, 0.74, 0.7)
-position = Vector2(2600, 640)
+position = Vector2(2777, 531)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -840,7 +840,7 @@ region_rect = Rect2(128, 384, 128, 128)
 
 [node name="RoomPillar_ArchiveLoft" type="Sprite2D" parent="PropsBack" unique_id=1039256594]
 modulate = Color(0.6, 0.7, 0.86, 0.68)
-position = Vector2(2600, 640)
+position = Vector2(2774, 729)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -1267,12 +1267,13 @@ interact_name = "查看回廊竹简"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger2" unique_id=647774155]
 z_index = 5
-position = Vector2(422, -122)
+position = Vector2(271, -108)
 shape = SubResource("RectangleShape2D_vn4iy")
 
 [node name="ArchiveSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger2" unique_id=1651974500]
 z_index = 5
-position = Vector2(403, 2)
+position = Vector2(274.00003, -27.000004)
+scale = Vector2(0.5598958, 0.65625)
 texture = ExtResource("24_bamboo")
 centered = false
 offset = Vector2(-192, -192)
@@ -1282,17 +1283,14 @@ position = Vector2(2590, 640)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("21_chestclue")
-clue_index = 2
 closed_texture = ExtResource("22_chestclosed")
 open_texture = ExtResource("23_chestopen")
 masked_paper_texture = ExtResource("25_paperpatch")
 revealed_paper_texture = ExtResource("26_paperblank")
-interact_name = "打开衣箱"
-final_interact_name = "再看纸条"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger3" unique_id=893659457]
 z_index = 5
-position = Vector2(94, -122)
+position = Vector2(-40, -99)
 shape = SubResource("RectangleShape2D_y7n6r")
 
 [node name="Visual" type="Node2D" parent="Narrative/ArchiveTrigger3" unique_id=1003404854]
@@ -1300,12 +1298,13 @@ z_index = 5
 position = Vector2(93, 0)
 scale = Vector2(0.58, 0.58)
 
-[node name="ChestSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger3/Visual"]
+[node name="ChestSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger3/Visual" unique_id=1449203558]
+position = Vector2(-222.41382, -75.86209)
 texture = ExtResource("22_chestclosed")
 centered = false
 offset = Vector2(-192, -358)
 
-[node name="PaperSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger3/Visual"]
+[node name="PaperSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger3/Visual" unique_id=1937431078]
 visible = false
 texture = ExtResource("25_paperpatch")
 centered = false
@@ -1595,7 +1594,7 @@ region_enabled = true
 region_rect = Rect2(0, 512, 128, 128)
 
 [node name="DressingRoomLongTable" type="Sprite2D" parent="PropsFront" unique_id=1287892621]
-position = Vector2(2548, 744)
+position = Vector2(2385, 744)
 texture = ExtResource("16_ju8vr")
 centered = false
 offset = Vector2(-369.5, -229)
@@ -1609,19 +1608,13 @@ offset = Vector2(-369.5, -229)
 [node name="Lighting" type="Node2D" parent="." unique_id=2015287716]
 
 [node name="LanternLight_ArchiveLoft" type="PointLight2D" parent="Lighting" unique_id=659365205]
-position = Vector2(3222, 196)
+position = Vector2(3229, 199)
 energy = 0.26
 texture = ExtResource("17_tio2m")
 texture_scale = 1.1
 
 [node name="LanternLight_InnerHall" type="PointLight2D" parent="Lighting" unique_id=927351806]
 position = Vector2(3647, 454)
-energy = 0.26
-texture = ExtResource("17_tio2m")
-texture_scale = 1.1
-
-[node name="LanternLight_LongLampCenter" type="PointLight2D" parent="Lighting" unique_id=603551748]
-position = Vector2(5140, 276)
 energy = 0.26
 texture = ExtResource("17_tio2m")
 texture_scale = 1.1

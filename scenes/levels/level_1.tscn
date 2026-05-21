@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://vuhqa47i67ny"]
 
 [ext_resource type="Script" uid="uid://drrf0e0r586vc" path="res://scenes/levels/level_1.gd" id="1_o8s4s"]
-[ext_resource type="Texture2D" uid="uid://cpgllt00tj3lr" path="res://assets/backgrounds/level1_far.png" id="2_ebb2h"]
-[ext_resource type="Texture2D" uid="uid://ctwmvbt5hvvey" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
-[ext_resource type="Texture2D" uid="uid://cc54n33cb6hgb" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_far.png" id="2_ebb2h"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
 [ext_resource type="TileSet" uid="uid://c6xn35cb3v1jm" path="res://assets/tilesets/forest_tileset.tres" id="5_hvllt"]
 [ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
 [ext_resource type="Texture2D" uid="uid://b5c2eghweqwl4" path="res://assets/sprites/objects/torii_small.png" id="7_svqqs"]

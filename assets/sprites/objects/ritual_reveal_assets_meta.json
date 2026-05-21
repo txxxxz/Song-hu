@@ -1,0 +1,9 @@
+{
+  "source_generated_image": "/Users/zhouchendi/.codex/generated_images/019e48a1-c084-7c93-8542-6b7c6997cfb2/ig_02e2e4e3312a1eaa016a0e7ffa707c8191a9903769a1061809.png",
+  "outputs": [
+    "bamboo_scroll_closed.png",
+    "paper_note_blank.png",
+    "paper_note_with_patch.png"
+  ],
+  "notes": "Generated raw prop pack was cropped and transparent-cleaned. Chinese text is not baked into these PNG assets; plaque and paper wording is rendered by Godot labels over blank sprites."
+}

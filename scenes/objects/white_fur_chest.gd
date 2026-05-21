@@ -5,7 +5,7 @@ extends Area2D
 @export var closed_texture: Texture2D
 @export var open_texture: Texture2D
 @export var interact_name: String = "打开箱子"
-@export var take_dialog: String = "你打开旧箱，白毛被干燥的纸包着，没有沾到泥。"
+@export var take_dialog: String = "箱里放着一束白色纤维，箱子上刻着「白毛」，边缘却压得很平，潮了也不会打卷。"
 @export var max_player_foot_y_distance: float = 128.0
 
 @onready var _visual: Node2D = $Visual

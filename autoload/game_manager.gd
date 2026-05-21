@@ -21,49 +21,49 @@ var ITEMS: Dictionary = {
 	"sugi_wood": {
 		"id": "sugi_wood",
 		"name": "杉木",
-		"desc": "山间古杉的木料，沉而稳，是承托之物。",
+		"desc": "沉水杉木。湿得发重，可以承住断路。",
 		"color": Color(0.56, 0.36, 0.22),
 		"glow": false,
 	},
 	"white_fur": {
 		"id": "white_fur",
 		"name": "白毛",
-		"desc": "洁白如雪的毛束。也许它本应被称作白衣。",
+		"desc": "旧箱里的白色纤维。边缘平整，有细小针孔。",
 		"color": Color(0.94, 0.93, 0.98),
 		"glow": false,
 	},
 	"mugwort": {
 		"id": "mugwort",
 		"name": "蓬草",
-		"desc": "气味清烈的野草。覆于顶端，遮味避秽。",
+		"desc": "味道很重的草。揉开后能遮住人的气味。",
 		"color": Color(0.30, 0.56, 0.26),
 		"glow": false,
 	},
 	"bell_fiber": {
 		"id": "bell_fiber",
-		"name": "铃绳纤维",
-		"desc": "取自神社铃绳的细纤维，能温和地呼唤。",
+		"name": "旧铃铛",
+		"desc": "铃声渐止，请慢些归去。",
 		"color": Color(0.86, 0.75, 0.54),
 		"glow": false,
 	},
 	"fox_stone": {
 		"id": "fox_stone",
 		"name": "狐火石",
-		"desc": "触之微温的奇石，内部有火色流光。",
+		"desc": "狐火将熄，速速归去。",
 		"color": Color(1.0, 0.58, 0.16),
 		"glow": true,
 	},
 	"water_grass": {
 		"id": "water_grass",
 		"name": "清水草",
-		"desc": "生于清泉边的苔草，可以镇静安抚。",
+		"desc": "水边草，触感发凉。可让狐火慢下来。",
 		"color": Color(0.38, 0.70, 0.75),
 		"glow": false,
 	},
 	"lamp_oil": {
 		"id": "lamp_oil",
 		"name": "灯芯油",
-		"desc": "可燃之油。能放大狐火，也会让火势难控。",
+		"desc": "从蓝火里取出的油。可让狐火烧得更亮。",
 		"color": Color(0.76, 0.46, 0.10),
 		"glow": true,
 	},
@@ -125,7 +125,7 @@ func push_offering(item_id: String) -> bool:
 	if not ITEMS.has(item_id):
 		return false
 	if offering_stack.size() >= MAX_OFFERINGS:
-		DialogManager.show_single("我", "桶已经塞不下东西了。")
+		DialogManager.show_single("我", "御供筒已经满了。要先确认顺序。")
 		return false
 	offering_stack.push_back(ITEMS[item_id].duplicate())
 	offering_changed.emit()

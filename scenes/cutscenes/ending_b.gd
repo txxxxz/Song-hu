@@ -11,17 +11,29 @@ func _start() -> void:
 	await get_tree().create_timer(0.6).timeout
 	await _show_lines([
 		"你叫出了她的名字。",
-		"纱夜。",
+		"……纱夜。",
 	])
 	await get_tree().create_timer(1.0).timeout
 	await _show_lines([
-		"狐火失控，旧纸门、旧木牌和被改写的记录开始燃烧。",
-		"「迎狐」剥落，露出底下的「送狐」。",
+		"白狐停下。狐火从她身上剥落，白衣从火里显出来。",
+		"她跪在长明灯前，抓住你的袖子。",
 	])
 	await get_tree().create_timer(1.2).timeout
 	await _show_lines([
-		"山路暂时变得更加危险。",
-		"但第二天，村里人开始陆续想起一些本不该忘记的事。",
+		"下一刻，本社的灯同时晃动。屋檐开始滴水。",
+		"山路错乱成怪圈，井水悄无声息的涌出井口，",
+		"村口的石灯一盏盏熄灭。",
+	])
+	await get_tree().create_timer(1.2).timeout
+	await _show_lines([
+		"天亮以后，村里陆续有人开始问：纱夜是谁",
+		"有人想起那是一个神社巫女",
+		"也有人想起，自己曾经答应过不要说。",
+	])
+	await get_tree().create_timer(1.2).timeout
+	await _show_lines([
+		"纱夜的手很冷。",
+		"但那是人的手。",
 	])
 	await get_tree().create_timer(1.2).timeout
 	_show_credits()
@@ -70,7 +82,7 @@ func _show_credits() -> void:
 	add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "结局 B：真相之灯\n按任意键返回主菜单"
+	subtitle.text = "结局 B：回名\n按任意键返回主菜单"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.set_anchors_preset(Control.PRESET_CENTER)
 	subtitle.position = Vector2(-300, 18)

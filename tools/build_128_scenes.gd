@@ -495,9 +495,9 @@ func _level_root(name_value: String, script_path: String, width: int, bg_paths: 
 	wash.z_index = -100
 	root.add_child(wash)
 
-	_add_background_layer(root, "Background_Far", bg_paths[0], -80, 0.78)
-	_add_background_layer(root, "Background_Mid", bg_paths[1], -70, 0.90)
-	_add_background_layer(root, "Background_Near", bg_paths[2], -60, 0.98)
+	_add_background_layer(root, "Background_Far", bg_paths[0], -80, 1.0)
+	_add_background_layer(root, "Background_Mid", bg_paths[1], -70, 1.0)
+	_add_background_layer(root, "Background_Near", bg_paths[2], -60, 1.0)
 
 	for layer_name in ["Terrain", "OneWayPlatforms", "PropsBack", "Items", "Narrative", "Actors", "Mechanisms", "PropsFront", "Lighting", "FX"]:
 		var n := Node2D.new()
@@ -571,7 +571,7 @@ func _add_named_item(root: Node2D, parent_path: String, name_value: String, item
 	parent.add_child(item)
 	return item
 
-func _add_white_fur_chest(root: Node2D, pos: Vector2) -> Node:
+func _add_white_fur_chest(root: Node2D, pos: Vector2, take_dialog := "箱里放着一束白色纤维，箱子上刻着「白毛」，边缘却压得很平，潮了也不会打卷。") -> Node:
 	var chest := Area2D.new()
 	chest.name = _unique_child_name(root.get_node("Mechanisms"), "WhiteFurChest")
 	chest.position = pos
@@ -581,7 +581,7 @@ func _add_white_fur_chest(root: Node2D, pos: Vector2) -> Node:
 	chest.set("closed_texture", _tex("res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png"))
 	chest.set("open_texture", _tex("res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png"))
 	chest.set("interact_name", "打开箱子")
-	chest.set("take_dialog", "你打开旧箱，白毛被干燥的纸包着，没有沾到泥。")
+	chest.set("take_dialog", take_dialog)
 
 	var visual := Node2D.new()
 	visual.name = "Visual"
@@ -599,7 +599,7 @@ func _add_white_fur_chest(root: Node2D, pos: Vector2) -> Node:
 	root.get_node("Mechanisms").add_child(chest)
 	return chest
 
-func _add_sugi_tree_source(root: Node2D, pos: Vector2, name_suffix := "", harvest_dialog := "你从杉木根旁砍下一段湿冷的枝木。", max_harvest_count := 1) -> Node:
+func _add_sugi_tree_source(root: Node2D, pos: Vector2, name_suffix := "", harvest_dialog := "杉木很沉，砍口渗着冷水。旧规说，它是祭坛的底。", max_harvest_count := 1) -> Node:
 	var source := Area2D.new()
 	source.name = _unique_child_name(root.get_node("Mechanisms"), "SugiTreeSource" + ("_" + name_suffix if name_suffix != "" else ""))
 	source.position = pos
@@ -817,7 +817,7 @@ func _add_canvas_modulate(root: Node2D, color: Color) -> void:
 	root.get_node("Lighting").add_child(modulate)
 
 func _build_level_1() -> void:
-	var width := 9600
+	var width := 8000
 	var root := _level_root(
 		"Level1",
 		"res://scenes/levels/level_1.gd",
@@ -827,7 +827,7 @@ func _build_level_1() -> void:
 	)
 	var terrain := _terrain_layer("ForestTerrain", "res://assets/tilesets/forest_tileset.tres")
 	root.get_node("Terrain").add_child(terrain)
-	_fill_ground(terrain, 0, 75)
+	_fill_ground(terrain, 0, 62)
 	var one := _terrain_layer("ForestOneWay", "res://assets/tilesets/forest_tileset.tres")
 	root.get_node("OneWayPlatforms").add_child(one)
 	_fill_oneway(one, 18, 25, 3)
@@ -838,26 +838,31 @@ func _build_level_1() -> void:
 	elder.name = "Elder"
 	elder.position = Vector2(420, 512)
 	root.get_node("Narrative").add_child(elder)
-	_add_tablet(root, "Tablet_Village", Vector2(760, 512), "参道旧训：先学会拾起供物，再学会把它们按次序放下。")
+	_add_tablet(root, "Tablet_Village", Vector2(760, 512), "迎狐之仪。\n供物入御供筒，不可手捧。\n祭坛从底向上读。后放入者，在上。", "res://assets/sprites/objects/stone_tablet.png", "木牌")
 	_add_sugi_tree_source(root, Vector2(1180, 512))
-	_add_tablet(root, "Tablet_Torii", Vector2(2480, 384), "山中有狐，不可直呼其名。若狐回首，莫再唤它。")
+	_add_tablet(root, "Tablet_Torii", Vector2(2480, 384), "狐上山，不回头。\n若回头，莫唤名。\n人名入狐耳，山灯不长明。", "res://assets/sprites/objects/stone_tablet.png", "旧纸条")
 	_add_white_fur_chest(root, Vector2(3260, 320))
-	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(5400, 512), "采蓬草", "你拨开湿草，从草堆里取出一束气味清烈的蓬草。")
-	_add_tablet(root, "Tablet_Order", Vector2(6100, 512), "祭坛从下至上读取供物。后取得的供物会压在更上层。")
-	_add_altar(root, Vector2(8840, 512), 1)
+	_add_tablet(root, "Tablet_RainNote", Vector2(4380, 512), "……送……本社……\n……白……覆身……\n……不得呼名……", "res://assets/sprites/objects/archive_note.png", "雨损纸条")
+	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(5400, 512), "采蓬草", "蓬草味很浓，碰过的指尖都是苦的，似乎能压抑活物气息。")
+	_add_tablet(root, "Tablet_Order", Vector2(6100, 512), "装束供物三件。\n杉木为底。\n白毛覆身。\n蓬草盖顶。", "res://assets/sprites/objects/stone_tablet.png", "木牌")
+	_add_altar(root, Vector2(6759, 560), 1)
 	var fox_marker := Marker2D.new()
 	fox_marker.name = "FoxSpawnMarker"
-	fox_marker.position = Vector2(8540, 420)
+	fox_marker.position = Vector2(7279, 418)
 	root.get_node("Narrative").add_child(fox_marker)
+	var shrine_portal_marker := Marker2D.new()
+	shrine_portal_marker.name = "ShrinePortalMarker"
+	shrine_portal_marker.position = Vector2(7470, 420)
+	root.get_node("Narrative").add_child(shrine_portal_marker)
 	for data in [
 		["VillageShrine", Vector2(650, 512)],
-		["ForestBend", Vector2(4200, 512)],
-		["AltarApproach", Vector2(7900, 512)],
+		["ForestBend", Vector2(3694, 512)],
+		["AltarApproach", Vector2(6407, 512)],
 	]:
 		_add_lantern(root, data[1], false, data[0])
 	_add_torii(root, Vector2(520, 512), false, "VillageGate")
 	_add_torii(root, Vector2(3920, 512), true, "OldTorii")
-	_add_torii(root, Vector2(9040, 512), true, "AltarGate")
+	_add_torii(root, Vector2(7346, 512), true, "AltarGate")
 	_add_prop_sprite(root, "TopOfferingLongTable", "res://assets/sprites/objects/long_table/long_table.png", Vector2(5730, 556), true)
 	_add_named_item(root, "PropsFront", "TopOfferingBellFiberPreview", "bell_fiber", "res://assets/sprites/objects/item_bell_fiber.png", Vector2(5560, 455))
 	_add_named_item(root, "PropsFront", "TopOfferingFoxStonePreview", "fox_stone", "res://assets/sprites/objects/item_fox_stone.png", Vector2(5890, 455))
@@ -866,7 +871,7 @@ func _build_level_1() -> void:
 	_save_scene(root, "res://scenes/levels/level_1.tscn")
 
 func _build_level_2() -> void:
-	var width := 12800
+	var width := 10240
 	var root := _level_root(
 		"Level2",
 		"res://scenes/levels/level_2.gd",
@@ -876,25 +881,24 @@ func _build_level_2() -> void:
 	)
 	var terrain := _terrain_layer("ApproachTerrain", "res://assets/tilesets/approach_tileset.tres")
 	root.get_node("Terrain").add_child(terrain)
-	for seg in [[0, 14], [22, 46], [50, 58], [66, 100]]:
-		_fill_ground(terrain, seg[0], seg[1])
+	_fill_ground(terrain, 0, 80)
 	var one := _terrain_layer("ApproachOneWay", "res://assets/tilesets/approach_tileset.tres")
 	root.get_node("OneWayPlatforms").add_child(one)
 	_fill_oneway(one, 32, 39, 3)
-	_fill_oneway(one, 37, 45, 2)
+	_fill_oneway(one, 37, 45, 3)
 	_fill_oneway(one, 58, 64, 3)
 	_fill_oneway(one, 76, 83, 3)
-	_fill_oneway(one, 88, 94, 3)
 
 	_add_player(root, Vector2(160, 512), width)
-	_add_sugi_tree_source(root, Vector2(900, 512), "bridge", "你从断崖前的杉木根旁砍下一段枝木。", 5)
-	_add_tablet(root, "Tablet_RitualClue", Vector2(3060, 512), "残损告示：□□ / 白毛 / □□\n上下两格被泥水糊住，只剩中段还白。", "res://assets/sprites/objects/archive_note.png", "残损木牌")
-	_add_white_fur_chest(root, Vector2(3380, 512))
-	_add_sugi_tree_source(root, Vector2(3920, 512), "altar", "你从箱旁的老杉上取下一段湿冷枝木。", 5)
-	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(4820, 232), "采蓬草", "你绕到杉木后方的高处，采下一束被雾打湿的蓬草。", "res://assets/tilesets/approach_tileset.png")
-	_add_tablet(root, "Tablet_Cliff", Vector2(1260, 512), "断处需要承托之物。供物也会成为道路的一部分。")
-	_add_tablet(root, "Tablet_Bell", Vector2(5940, 512), "铃声落下时，石狐会转向。路只在回声还在时显形。", "res://assets/sprites/objects/stone_tablet.png", "旧铃札")
-	_add_altar(root, Vector2(11840, 512), 2)
+	_add_sugi_tree_source(root, Vector2(900, 512), "bridge", "你又取下一段杉木。竹筒变轻，断路减少。", 5)
+	_add_tablet(root, "Tablet_RitualClue", Vector2(3060, 512), "装束顺序。\n杉木为台。\n白□覆身。\n蓬草盖顶。", "res://assets/sprites/objects/archive_note.png", "残损告示")
+	_add_white_fur_chest(root, Vector2(3380, 512), "箱里的白色纤维叠得很整齐。边缘有一排细小针孔，摸上去硬硬的。")
+	_add_sugi_tree_source(root, Vector2(3920, 512), "altar", "你又取下一段杉木。竹筒变轻，断路减少。", 5)
+	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(4820, 232), "采蓬草", "高处的蓬草湿得发冷。揉开以后，苦味盖过了一切气味。", "res://assets/tilesets/approach_tileset.png")
+	_add_grass_harvest_source(root, "WaterGrassSource", "water_grass", "res://assets/sprites/objects/item_water_grass.png", Vector2(7846, 231), "摘取清水草", "清水草贴着掌心，凉得像井底的水，似乎能熄灭一切烈焰。，莫名躁动的心一瞬间静下来，", "res://assets/tilesets/approach_tileset.png")
+	_add_tablet(root, "Tablet_Cliff", Vector2(1260, 512), "参道断时，以杉木承之。\n狐若不前，以铃安之。\n火若不旺，以油续之。")
+	_add_tablet(root, "Tablet_Bell", Vector2(5940, 512), "铃声安魂，狐火收敛。\n火石催行，狐火暴起。\n无论安抚或催促，狐都必须到本社。", "res://assets/sprites/objects/stone_tablet.png", "札记")
+	_add_altar(root, Vector2(9158, 554), 2)
 
 	var bell: Node = load("res://scenes/objects/bell_rope.tscn").instantiate()
 	bell.name = "BellRope"
@@ -920,19 +924,19 @@ func _build_level_2() -> void:
 	_add_bridge(root, "HiddenPlatform", "res://assets/sprites/objects/hidden_platform.png", Vector2(7240, 352), Vector2(1024, 64))
 	for data in [
 		["CliffStart", Vector2(430, 512)],
-		["BridgeAfter", Vector2(3000, 512)],
-		["TreeShadow", Vector2(4300, 512)],
-		["SecondAltar", Vector2(11280, 512)],
+		["BridgeAfter", Vector2(2917, 512)],
+		["TreeShadow", Vector2(5761, 512)],
+		["SecondAltar", Vector2(9406, 512)],
 	]:
 		_add_lantern(root, data[1], false, data[0])
 	_add_blue_oil_lantern(root, Vector2(9480, 512), "HiddenRoute")
-	_add_torii(root, Vector2(11100, 512), true, "SecondAltarGate")
-	_add_prop_sprite(root, "TopOfferingLampOilPreview", "res://assets/sprites/objects/item_lamp_oil.png", Vector2(11600, 512), true)
+	_add_torii(root, Vector2(9734, 512), true, "SecondAltarGate")
+	_add_prop_sprite(root, "TopOfferingLampOilPreview", "res://assets/sprites/objects/item_lamp_oil.png", Vector2(8857, 527), true)
 	_add_canvas_modulate(root, Color(0.74, 0.78, 0.90, 1.0))
 	_save_scene(root, "res://scenes/levels/level_2.tscn")
 
 func _build_level_3() -> void:
-	var width := 11200
+	var width := 5600
 	var root := _level_root(
 		"Level3",
 		"res://scenes/levels/level_3.gd",
@@ -942,58 +946,53 @@ func _build_level_3() -> void:
 	)
 	var terrain := _terrain_layer("ShrineTerrain", "res://assets/tilesets/shrine_tileset.tres")
 	root.get_node("Terrain").add_child(terrain)
-	_fill_ground(terrain, 0, 88)
+	_fill_ground(terrain, 0, 43, 5)
 	var one := _terrain_layer("ShrineOneWay", "res://assets/tilesets/shrine_tileset.tres")
 	root.get_node("OneWayPlatforms").add_child(one)
-	_fill_oneway(one, 28, 35, 3)
-	_fill_oneway(one, 43, 51, 3)
-	_fill_oneway(one, 71, 84, 3)
+	_fill_oneway(one, 14, 18, 4)
+	_fill_oneway(one, 22, 26, 4)
+	_fill_oneway(one, 36, 42, 4)
 
-	_add_player(root, Vector2(160, 512), width)
+	_add_player(root, Vector2(160, 640), width)
 	for room in [
-		["MainCommunity", 640, 1960, Color(0.78, 0.72, 0.70, 0.74)],
-		["NameCorridor", 1960, 3520, Color(0.66, 0.68, 0.80, 0.70)],
-		["DressingRoom", 3520, 5200, Color(0.72, 0.66, 0.74, 0.70)],
-		["ArchiveLoft", 5200, 7040, Color(0.60, 0.70, 0.86, 0.68)],
-		["InnerArchive", 7040, 8880, Color(0.70, 0.64, 0.76, 0.70)],
-		["StoneSteps", 8880, 10960, Color(0.84, 0.74, 0.60, 0.76)],
+		["OuterGreatHall", 0, 1700, Color(0.78, 0.72, 0.70, 0.74)],
+		["Corridor", 1700, 3600, Color(0.66, 0.68, 0.80, 0.70)],
+		["InnerHall", 3600, 5480, Color(0.70, 0.64, 0.76, 0.70)],
 	]:
 		_add_room_frame(root, room[0], room[1], room[2], room[3])
 
-	_add_torii(root, Vector2(700, 512), false, "OuterGate")
-	_add_torii(root, Vector2(1980, 512), false, "CommunityThreshold")
-	_add_torii(root, Vector2(8980, 512), true, "StoneStepsGate")
-	_add_prop_sprite(root, "DressingRoomLongTable", "res://assets/sprites/objects/long_table/long_table.png", Vector2(4290, 548), true)
-	_add_prop_sprite(root, "InnerArchiveTable", "res://assets/sprites/objects/long_table/long_table.png", Vector2(7640, 548), true)
-	_add_archive(root, 1, Vector2(1320, 512))
-	_add_archive(root, 2, Vector2(2780, 512))
-	_add_archive(root, 3, Vector2(4240, 512))
-	_add_archive(root, 4, Vector2(5980, 384))
-	_add_archive(root, 5, Vector2(7820, 512))
-	var plaque := _bottom_sprite("Plaque", "res://assets/sprites/objects/plaque.png")
-	plaque.position = Vector2(9820, 310)
-	root.get_node("Narrative").add_child(plaque)
+	_add_torii(root, Vector2(350, 640), false, "OuterGate")
+	_add_torii(root, Vector2(1700, 640), false, "CorridorThreshold")
+	_add_torii(root, Vector2(3600, 640), false, "InnerHallThreshold")
+	_add_torii(root, Vector2(4490, 640), true, "StoneStepsGate")
+	_add_prop_sprite(root, "DressingRoomLongTable", "res://assets/sprites/objects/long_table/long_table.png", Vector2(2610, 676), true)
+	_add_prop_sprite(root, "InnerArchiveTable", "res://assets/sprites/objects/long_table/long_table.png", Vector2(4060, 676), true)
+	_add_archive(root, 1, Vector2(740, 640))
+	_add_archive(root, 2, Vector2(1950, 640))
+	_add_archive(root, 3, Vector2(2590, 640))
+	_add_archive(root, 4, Vector2(3230, 512))
+	_add_archive(root, 5, Vector2(4060, 640))
 	var marker := Marker2D.new()
 	marker.name = "PlaqueMarker"
-	marker.position = Vector2(9820, 384)
+	marker.position = Vector2(740, 512)
 	root.get_node("Narrative").add_child(marker)
 	var fox_marker := Marker2D.new()
 	fox_marker.name = "FoxSpawnMarker"
-	fox_marker.position = Vector2(10180, 420)
+	fox_marker.position = Vector2(5090, 548)
 	root.get_node("Narrative").add_child(fox_marker)
 	for data in [
-		["UnusedCommunity", Vector2(960, 512)],
-		["NameCorridor", Vector2(2360, 512)],
-		["DressingRoom", Vector2(3820, 512)],
-		["ArchiveLoft", Vector2(5580, 384)],
-		["InnerHall", Vector2(8360, 512)],
-		["LongLampLeft", Vector2(9340, 512)],
-		["LongLampCenter", Vector2(9860, 512)],
-		["LongLampRight", Vector2(10420, 512)],
+		["UnusedCommunity", Vector2(480, 640)],
+		["NameCorridor", Vector2(1920, 640)],
+		["DressingRoom", Vector2(2630, 640)],
+		["ArchiveLoft", Vector2(3230, 512)],
+		["InnerHall", Vector2(4060, 640)],
+		["LongLampLeft", Vector2(4670, 640)],
+		["LongLampCenter", Vector2(4910, 640)],
+		["LongLampRight", Vector2(5210, 640)],
 	]:
 		_add_lantern(root, data[1], false, data[0])
-	_add_fx(root, "Foxfire_OldWood", "res://assets/sprites/effects/fox_fire.png", Vector2(1390, 322), 8, 7.0)
-	_add_fx(root, "Foxfire_PlaqueReveal", "res://assets/sprites/effects/fox_fire.png", Vector2(9910, 248), 8, 7.0)
+	_add_fx(root, "Foxfire_OldWood", "res://assets/sprites/effects/fox_fire.png", Vector2(775, 450), 8, 7.0)
+	_add_fx(root, "Foxfire_PlaqueReveal", "res://assets/sprites/effects/fox_fire.png", Vector2(775, 392), 8, 7.0)
 	_add_canvas_modulate(root, Color(0.70, 0.72, 0.86, 1.0))
 	_save_scene(root, "res://scenes/levels/level_3.tscn")
 
@@ -1004,20 +1003,49 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 	trigger.script = load("res://scenes/objects/info_clue.gd")
 	trigger.set("clue_index", index - 1)
 	var interact_names := {
-		1: "照看旧木额",
-		2: "查看回廊牌",
-		3: "查看衣箱残签",
+		1: "查看旧木额",
+		2: "查看回廊竹简",
+		3: "打开衣箱",
 		4: "查看装束札",
 		5: "查看内殿档案",
 	}
 	trigger.set("interact_name", interact_names.get(index, "查看线索"))
+	if index == 3:
+		trigger.script = load("res://scenes/objects/paper_chest_clue.gd")
+		trigger.set("final_interact_name", "再看纸条")
+		trigger.set("closed_texture", _tex("res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png"))
+		trigger.set("open_texture", _tex("res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png"))
+		trigger.set("masked_paper_texture", _tex("res://assets/sprites/objects/paper_note_with_patch.png"))
+		trigger.set("revealed_paper_texture", _tex("res://assets/sprites/objects/paper_note_blank.png"))
 	trigger.collision_layer = 2
 	trigger.collision_mask = 0
 	trigger.monitoring = true
 	trigger.add_child(_rect_shape(Vector2(260, 250), Vector2(0, -126), "ArchiveDetectShape"))
+	if index == 3:
+		var visual := Node2D.new()
+		visual.name = "Visual"
+		visual.scale = Vector2(0.58, 0.58)
+		trigger.add_child(visual)
+		var chest_sprite := Sprite2D.new()
+		chest_sprite.name = "ChestSprite"
+		chest_sprite.texture = _tex("res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png")
+		chest_sprite.centered = false
+		chest_sprite.offset = Vector2(-192, -358)
+		visual.add_child(chest_sprite)
+		var paper_sprite := Sprite2D.new()
+		paper_sprite.name = "PaperSprite"
+		paper_sprite.texture = _tex("res://assets/sprites/objects/paper_note_with_patch.png")
+		paper_sprite.centered = false
+		paper_sprite.offset = Vector2(-128, -256)
+		paper_sprite.visible = false
+		visual.add_child(paper_sprite)
+		root.get_node("Narrative").add_child(trigger)
+		return
 	var texture_path := "res://assets/sprites/objects/archive_note.png"
 	if index == 1:
 		texture_path = "res://assets/sprites/objects/plaque.png"
+	elif index == 2:
+		texture_path = "res://assets/sprites/objects/bamboo_scroll_closed.png"
 	elif index == 4:
 		texture_path = "res://assets/sprites/objects/stone_tablet.png"
 	var visual := _bottom_sprite("ArchiveSprite", texture_path)

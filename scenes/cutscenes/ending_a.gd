@@ -9,14 +9,25 @@ func _ready() -> void:
 func _start() -> void:
 	await get_tree().create_timer(0.6).timeout
 	await _show_lines([
-		"你没有出声。",
-		"白狐转回头，走进本社长明灯的光中。",
+		"你没有再出声。",
+		"白狐等了一会儿，转身走进长明灯后。灯油落下一滴。",
 	])
 	await get_tree().create_timer(1.0).timeout
 	await _show_lines([
-		"秩序被重新点燃。",
-		"村子得救了，山路也恢复安静。",
-		"只是有一个名字，再次被温柔地抹去。",
+		"本社的灯一盏接一盏亮起。雨声退到屋檐外。",
+		"山路复正，井水变清，村里的病人也在天亮前退了热。",
+	])
+	await get_tree().create_timer(1.0).timeout
+	await _show_lines([
+		"村里人说，迎狐之仪完成了。",
+		"没有人提起纱夜。",
+	])
+	await get_tree().create_timer(1.0).timeout
+	await _show_lines([
+		"你翻开内殿档案。写着那个名字的一行被水气洇开，",
+		"连带着你的记忆模糊不清，世间无人再记得那个名字。",
+		"你救了村子。",
+		"也把她永远一人留在了潮湿阴暗的神山上。",
 	])
 	await get_tree().create_timer(1.2).timeout
 	_show_credits()
@@ -58,7 +69,7 @@ func _show_credits() -> void:
 	add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "结局 A：秩序之灯\n按任意键返回主菜单"
+	subtitle.text = "结局 A：长明\n按任意键返回主菜单"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.set_anchors_preset(Control.PRESET_CENTER)
 	subtitle.position = Vector2(-300, 18)

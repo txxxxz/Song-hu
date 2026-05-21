@@ -6,8 +6,8 @@ Generate each background layer as three zone images, then stitch them into the f
 
 | Level | Layer Source Zones | Core Widths | Final Runtime File Size |
 |---|---|---:|---:|
-| Level 1 | `level1_*_z01.png`, `level1_*_z02.png`, `level1_*_z03.png` | `3200`, `3200`, `3200` | `9600x720` |
-| Level 2 | `level2_*_z01.png`, `level2_*_z02.png`, `level2_*_z03.png` | `4267`, `4266`, `4267` | `12800x720` |
+| Level 1 | `level1_*_z01.png`, `level1_*_z02.png`, `level1_*_z03.png` | `2667`, `2666`, `2667` | `8000x720` |
+| Level 2 | `level2_*_z01.png`, `level2_*_z02.png`, `level2_*_z03.png` | `3413`, `3414`, `3413` | `10240x720` |
 | Level 3 | `level3_*_z01.png`, `level3_*_z02.png`, `level3_*_z03.png` | `3733`, `3734`, `3733` | `11200x720` |
 
 Use `far`, `mid`, or `near` in place of `*`. For example, Level 2 mid-layer source files are:

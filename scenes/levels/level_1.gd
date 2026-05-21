@@ -48,7 +48,7 @@ func _try_show_top_offering_monologue() -> void:
 		return
 	_top_offering_monologue_shown = true
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "长桌上并排放着两件顶礼供物：绳子偏安抚，火石偏催逼。"},
+		{"speaker": "", "text": "两样顶礼供物：旧铃铛和狐火石。"},
 	] as Array[Dictionary])
 
 func _top_offering_trigger_x() -> float:
@@ -62,10 +62,15 @@ func _start_elder_handoff() -> void:
 	if _ending_triggered or DialogManager.is_active():
 		return
 	DialogManager.show_dialog([
-		{"speaker": "老人", "text": "今年山里的狐火没有回社，夜路也开始绕人。再拖下去，村里会更不安。"},
-		{"speaker": "老人", "text": "你是山社的见习巫女。今夜由你去装束之祠，替我们把狐送上山。"},
-		{"speaker": "", "text": "老人把一支黑漆御供筒交到你手里。筒身很冷，像在雨里放了许久。"},
-		{"speaker": "老人", "text": "供物的要求写在前面的木牌上。读清楚，再动手。"},
+		{"speaker": "老人", "text": "来了就好。昨晚山路又开始鬼打墙。"},
+		{"speaker": "老人", "text": "今晚上要照老规矩，把白狐迎回本社。这是御供筒"},
+		{"speaker": "", "text": "老人把黑漆御供筒递给你。筒身冰冷，漆面沾着水，边上刻着细小的狐纹。"},
+		{"speaker": "老人", "text": "供物按顺序入筒。杉木、白毛、蓬草。"},
+		{"speaker": "老人", "text": "若有什么不懂，按照山上的木牌做，千万别做错了。"},
+		{"speaker": "", "text": "老人转过身，又记起来什么的样子，沙哑的声音悠悠传来，在山谷中回响"},
+		{"speaker": "老人", "text": "狐上山，不回头。若回头，莫唤名。"},
+		{"speaker": "我", "text": "什么名字？"},
+		{"speaker": "老人", "text": "想不起来，就不要想。守规矩的人，活得久些。去吧。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	_retire_elder_after_handoff()
@@ -163,9 +168,9 @@ func _on_altar_completed(success: bool) -> void:
 	_fade_intro_flames()
 	await get_tree().create_timer(0.8).timeout
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "御供筒被放上祭坛，木、白、草在微光里一层层安静下来。"},
-		{"speaker": "", "text": "梁上的纸垂轻轻摆动，像有人从祠后经过。"},
-		{"speaker": "", "text": "白狐已经听见了。最后一道顶礼供物也被压在筒顶。"},
+		{"speaker": "", "text": "御供筒被放上祭坛。杉木、白色纤维和蓬草按顺序落定。"},
+		{"speaker": "", "text": "白色纤维摊开时，盖住了中间那层影子。"},
+		{"speaker": "", "text": "祠后的纸门轻响。门缝里没有风。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	var top_id := str(GameManager.peek_offering().get("id", ""))
@@ -186,15 +191,15 @@ func _on_final_choice(choice: String) -> void:
 
 func _play_ending_a() -> void:
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "你将铃绳纤维轻放在供物之上。"},
-		{"speaker": "", "text": "风从鸟居方向吹来，带着铃声的残响。"},
+		{"speaker": "", "text": "你把旧铃铛放在供物最上方。"},
+		{"speaker": "", "text": "铃声很远，从山上的雾里落下来。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	var fox := spawn_fox(_fox_pos(), 0)
 	await get_tree().create_timer(1.2).timeout
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "一只白狐从鸟居后走出，安静地看了你一眼。"},
-		{"speaker": "", "text": "它转过身，向山上跑去。尾端的狐火温和而平稳。"},
+		{"speaker": "", "text": "白狐从鸟居后走出。它没有靠近，只看了你一眼。眼睛湿得发亮。"},
+		{"speaker": "", "text": "它转身上山，尾端的狐火平稳地亮着。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	fox.depart(Vector2(1.0, -0.08))
@@ -203,15 +208,15 @@ func _play_ending_a() -> void:
 
 func _play_ending_b() -> void:
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "你将狐火石嵌入供物之间。"},
-		{"speaker": "", "text": "石头表面的火纹猛地亮起，祭坛上的供物开始震颤。"},
+		{"speaker": "", "text": "你把狐火石嵌进供物之间。"},
+		{"speaker": "", "text": "火纹猛地亮起，供桌边缘冒出焦味。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	var fox := spawn_fox(_fox_pos(), 1)
 	await get_tree().create_timer(1.2).timeout
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "白狐从火光中走出。它的狐火忽大忽小，像在喘息。"},
-		{"speaker": "", "text": "山路被照得忽明忽暗，前方的影子也变长了。"},
+		{"speaker": "", "text": "白狐从火光里走出。它跑得很急，像被什么东西催促前行。"},
+		{"speaker": "", "text": "它转身上山，影子被火拉得很长。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	fox.depart(Vector2(1.0, -0.08))
@@ -221,8 +226,8 @@ func _play_ending_b() -> void:
 func _unlock_shrine_portal() -> void:
 	_portal_unlocked = true
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "旧鸟居后的山路亮了一瞬，又暗下去。"},
-		{"speaker": "", "text": "狐火在门后若隐若现，像是在等你踏过去。"},
+		{"speaker": "", "text": "旧鸟居后的山路在浓雾中亮了一下。"},
+		{"speaker": "", "text": "白狐没有回头。狐火在门后等你。"},
 	] as Array[Dictionary])
 
 func _fox_pos() -> Vector2:

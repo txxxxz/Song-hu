@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://b7gs2plge8ef0" path="res://scenes/objects/stone_tablet.gd" id="11_dwx2n"]
 [ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets_1/assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
 [ext_resource type="PackedScene" path="res://scenes/objects/altar.tscn" id="13_ovy75"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="15_ugk5q"]
+[ext_resource type="PackedScene" uid="uid://c2wdt10ilafkp" path="res://scenes/player/player.tscn" id="15_ugk5q"]
 [ext_resource type="Script" uid="uid://wa1yi7wglmv" path="res://scenes/objects/harvest_source.gd" id="17_i3rdk"]
 [ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets_1/assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
 [ext_resource type="Texture2D" uid="uid://ca4qsdnbh77r4" path="res://assets/sprites/objects/large_tree/large_tree.png" id="19_bccrp"]
@@ -510,14 +510,14 @@ position = Vector2(5684, 499)
 item_id = "bell_fiber"
 item_texture = ExtResource("29_kr1sg")
 inspect_before_collect = true
-inspect_dialog = "铃声渐止，狐火慢些归位。"
+inspect_dialog = "ITEM_BELL_FIBER_DESC"
 
 [node name="TopOfferingFoxStonePreview" parent="PropsFront" unique_id=1764014149 instance=ExtResource("27_klc0n")]
 position = Vector2(5853, 495)
 item_id = "fox_stone"
 item_texture = ExtResource("30_2viwe")
 inspect_before_collect = true
-inspect_dialog = "火光渐熄，狐火速速归位。"
+inspect_dialog = "ITEM_FOX_STONE_DESC"
 
 [node name="Lighting" type="Node2D" parent="." unique_id=1856007008]
 

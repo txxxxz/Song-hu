@@ -8,8 +8,8 @@ const SFX_COLLECT := preload("res://assets/audio/sfx/collect.wav")
 @export var max_player_foot_y_distance: float = 72.0
 @export var inspect_before_collect: bool = false
 @export var inspect_dialog: String = ""
-@export var inspect_interact_name: String = "查看"
-@export var collect_interact_name: String = "拿走"
+@export var inspect_interact_name: String = "UI_INTERACT_INSPECT_ITEM"
+@export var collect_interact_name: String = "UI_INTERACT_COLLECT_ITEM"
 
 @onready var _visual: Node2D = $Visual
 
@@ -56,7 +56,7 @@ func interact() -> void:
 
 func get_interact_name() -> String:
 	if inspect_before_collect:
-		return collect_interact_name if _inspected else inspect_interact_name
+		return tr(collect_interact_name) if _inspected else tr(inspect_interact_name)
 	if GameManager.ITEMS.has(item_id):
 		return GameManager.get_item_name(item_id)
 	return tr("UI_OFFERING_DEFAULT")

@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objects/altar.tscn" id="11_17aof"]
 [ext_resource type="Texture2D" uid="uid://duuahoyb22ntd" path="res://assets_1/assets/sprites/objects/item_water_grass.png" id="12_wk7pi"]
 [ext_resource type="PackedScene" path="res://scenes/objects/bell_rope.tscn" id="13_0y23r"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="15_8ghkn"]
+[ext_resource type="PackedScene" uid="uid://c2wdt10ilafkp" path="res://scenes/player/player.tscn" id="15_8ghkn"]
 [ext_resource type="Script" uid="uid://wa1yi7wglmv" path="res://scenes/objects/harvest_source.gd" id="17_b1k63"]
 [ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets_1/assets/sprites/objects/item_sugi_wood.png" id="18_holbn"]
 [ext_resource type="Texture2D" uid="uid://ca4qsdnbh77r4" path="res://assets/sprites/objects/large_tree/large_tree.png" id="19_px4x2"]
@@ -52,7 +52,7 @@ size = Vector2(210, 150)
 size = Vector2(210, 280)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gyxc"]
-size = Vector2(160, 120)
+size = Vector2(166, 182)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uyeuo"]
 size = Vector2(633.98425, 42)
@@ -667,7 +667,7 @@ region_enabled = true
 region_rect = Rect2(0, 512, 128, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/MugwortGrassSource" unique_id=700697870]
-position = Vector2(173, 4)
+position = Vector2(176, -11)
 shape = SubResource("RectangleShape2D_1gyxc")
 
 [node name="WaterGrassSource" type="Area2D" parent="Mechanisms" unique_id=692098533]

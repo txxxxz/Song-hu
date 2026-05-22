@@ -66,7 +66,7 @@ func _play_fail_effect() -> void:
 
 func _show_fail_monologue_and_restart() -> void:
 	await get_tree().create_timer(0.35).timeout
-	DialogManager.show_single("我", "供物次第有误，祭祀失败了，再试一次吧")
+	DialogManager.show_single("CHAR_PLAYER", "UI_ALTAR_ORDER_ERROR")
 	await DialogManager.dialog_finished
 	var reset_tween := create_tween()
 	reset_tween.tween_interval(0.35)

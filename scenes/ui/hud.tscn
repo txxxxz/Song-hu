@@ -35,10 +35,10 @@ texture = SubResource("CompressedTexture2D_0mwgc")
 
 [node name="Title" type="Label" parent="OfferingTube" unique_id=406237984]
 layout_mode = 0
-offset_left = 22.0
-offset_top = 18.0
-offset_right = 234.0
-offset_bottom = 52.0
+offset_left = -6.0
+offset_top = 31.0
+offset_right = 263.0
+offset_bottom = 65.0
 theme_override_colors/font_color = Color(0.95, 0.8, 0.46, 1)
 theme_override_font_sizes/font_size = 22
 text = "UI_OFFERING_TUBE_TITLE"
@@ -50,5 +50,5 @@ layout_mode = 0
 offset_left = 61.0
 offset_top = 77.0
 offset_right = 198.0
-offset_bottom = 344.0
+offset_bottom = 354.0
 theme_override_constants/separation = 10

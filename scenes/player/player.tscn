@@ -1,15 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c2wdt10ilafkp"]
 
-[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_h17s1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_fall.png" id="2_je7p5"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_idle.png" id="3_fm80t"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_interact.png" id="4_gx1jg"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_jump.png" id="5_ugbui"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_pray.png" id="6_fcs02"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_run.png" id="7_myrg7"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/miko_turn.png" id="8_kvlxm"]
-[ext_resource type="Texture2D" path="res://assets/ui/interact_hint.png" id="9_uf5tr"]
-[ext_resource type="Texture2D" path="res://assets/sprites/effects/light_texture.png" id="10_lgqa7"]
+[ext_resource type="Script" uid="uid://bef6i6peil288" path="res://scenes/player/player.gd" id="1_h17s1"]
+[ext_resource type="Texture2D" uid="uid://drs50l6pe0kts" path="res://assets_1/assets/sprites/player/miko_fall.png" id="2_je7p5"]
+[ext_resource type="Texture2D" uid="uid://ctkdoaol6ntdy" path="res://assets_1/assets/sprites/player/miko_idle.png" id="3_fm80t"]
+[ext_resource type="Texture2D" uid="uid://b7dh13haxv7cw" path="res://assets_1/assets/sprites/player/miko_interact.png" id="4_gx1jg"]
+[ext_resource type="Texture2D" uid="uid://4w70csmxakfk" path="res://assets_1/assets/sprites/player/miko_jump.png" id="5_ugbui"]
+[ext_resource type="Texture2D" uid="uid://bu657hpwliaiv" path="res://assets_1/assets/sprites/player/miko_pray.png" id="6_fcs02"]
+[ext_resource type="Texture2D" uid="uid://nwb71tx65hmp" path="res://assets_1/assets/sprites/player/miko_run.png" id="7_myrg7"]
+[ext_resource type="Texture2D" uid="uid://c8qsqobvb3v83" path="res://assets_1/assets/sprites/player/miko_turn.png" id="8_kvlxm"]
+[ext_resource type="Texture2D" uid="uid://cp564dmfjx5pb" path="res://assets/ui/interact_hint.png" id="9_uf5tr"]
+[ext_resource type="Texture2D" uid="uid://cdwi023lnnupe" path="res://assets_1/assets/sprites/effects/light_texture.png" id="10_lgqa7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ydkj"]
 atlas = ExtResource("2_je7p5")
@@ -370,13 +370,12 @@ position = Vector2(0, -150)
 shape = SubResource("RectangleShape2D_7072n")
 
 [node name="InteractPrompt" type="Control" parent="." unique_id=303582272]
-visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 72.0
-offset_top = -360.0
-offset_right = 464.0
-offset_bottom = -232.0
+offset_left = -61.0
+offset_top = -451.0
+offset_right = 333.0
+offset_bottom = -324.0
 
 [node name="Frame" type="TextureRect" parent="InteractPrompt" unique_id=1172824475]
 layout_mode = 0
@@ -390,8 +389,8 @@ offset_left = 18.0
 offset_top = 32.0
 offset_right = 110.0
 offset_bottom = 80.0
-theme_override_font_sizes/font_size = 28
 theme_override_colors/font_color = Color(1, 0.86, 0.45, 1)
+theme_override_font_sizes/font_size = 28
 text = "E"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -402,8 +401,8 @@ offset_left = 136.0
 offset_top = 38.0
 offset_right = 392.0
 offset_bottom = 86.0
-theme_override_font_sizes/font_size = 22
 theme_override_colors/font_color = Color(0.95, 0.84, 0.58, 1)
+theme_override_font_sizes/font_size = 22
 vertical_alignment = 1
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1522636385]
@@ -416,6 +415,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 4.5
 
 [node name="PlayerLight" type="PointLight2D" parent="." unique_id=127508680]
+visible = false
 position = Vector2(0, -170)
 color = Color(1, 0.78, 0.48, 0.85)
 energy = 0.18

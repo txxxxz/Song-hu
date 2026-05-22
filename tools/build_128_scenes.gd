@@ -713,7 +713,7 @@ func _add_lantern(root: Node2D, pos: Vector2, front := false, id := "") -> void:
 	root.get_node("Lighting").add_child(light)
 	_add_fx(root, "LanternFlame_" + readable_id, "res://assets/sprites/effects/lantern_flame.png", pos + Vector2(0, -150), 8, 9.0)
 
-func _add_blue_oil_lantern(root: Node2D, pos: Vector2, id := "") -> void:
+func _add_blue_oil_lantern(root: Node2D, pos: Vector2, id := "", flame_visible := true) -> void:
 	var readable_id := id if id != "" else ("%d_%d" % [int(pos.x), int(pos.y)])
 	var sprite := _bottom_sprite("StoneLantern", "res://assets/sprites/objects/stone_lantern.png")
 	sprite.name = _unique_child_name(root.get_node("PropsBack"), "StoneLantern_" + readable_id)
@@ -722,6 +722,7 @@ func _add_blue_oil_lantern(root: Node2D, pos: Vector2, id := "") -> void:
 
 	var light := PointLight2D.new()
 	light.name = _unique_child_name(root.get_node("Lighting"), "BlueLanternLight_" + readable_id)
+	light.visible = flame_visible
 	light.texture = _tex("res://assets/sprites/effects/cold_light.png")
 	light.texture_scale = 1.18
 	light.energy = 0.34
@@ -729,7 +730,8 @@ func _add_blue_oil_lantern(root: Node2D, pos: Vector2, id := "") -> void:
 	light.position = pos + Vector2(0, -150)
 	root.get_node("Lighting").add_child(light)
 
-	_add_fx(root, "BlueFlame_" + readable_id, "res://assets/sprites/effects/blue_flame.png", pos + Vector2(0, -150), 8, 8.0)
+	var flame := _add_fx(root, "BlueFlame_" + readable_id, "res://assets/sprites/effects/blue_flame.png", pos + Vector2(0, -150), 8, 8.0)
+	flame.visible = flame_visible
 
 	var marker := Marker2D.new()
 	marker.name = "OilMarker_" + readable_id
@@ -912,6 +914,7 @@ func _build_level_2() -> void:
 	_add_grass_harvest_source(root, "WaterGrassSource", "water_grass", "res://assets/sprites/objects/item_water_grass.png", Vector2(7846, 231), "摘取清水草", "清水草贴着掌心，凉得像井底的水，似乎能熄灭一切烈焰。，莫名躁动的心一瞬间静下来，", "res://assets/tilesets/approach_tileset.png")
 	_add_tablet(root, "Tablet_Cliff", Vector2(1260, 512), "参道断时，以杉木承之。\n狐若不前，以铃安之。\n火若不旺，以油续之。")
 	_add_tablet(root, "Tablet_Bell", Vector2(5940, 512), "铃声安魂，狐火收敛。\n火石催行，狐火暴起。\n无论安抚或催促，狐都必须到本社。", "res://assets/sprites/objects/stone_tablet.png", "札记")
+	_add_tablet(root, "Tablet_FoxfireRitual", Vector2(7040, 512), "狐火正明，顶礼供物可选以清水草敛之，或以灯油炽之。\n无论旺盛或熄灭，狐火终须归社。", "res://assets/sprites/objects/stone_tablet.png", "札记")
 	_add_altar(root, Vector2(9158, 554), 2)
 
 	var bell: Node = load("res://scenes/objects/bell_rope.tscn").instantiate()
@@ -990,12 +993,17 @@ func _build_level_3() -> void:
 	marker.name = "PlaqueMarker"
 	marker.position = Vector2(740, 512)
 	root.get_node("Narrative").add_child(marker)
+	var foxfire_pickup_marker := Marker2D.new()
+	foxfire_pickup_marker.name = "FoxfirePickupMarker"
+	foxfire_pickup_marker.position = Vector2(4620, 640)
+	root.get_node("Narrative").add_child(foxfire_pickup_marker)
 	var fox_marker := Marker2D.new()
 	fox_marker.name = "FoxSpawnMarker"
 	fox_marker.position = Vector2(5090, 548)
 	root.get_node("Narrative").add_child(fox_marker)
 	for data in [
 		["UnusedCommunity", Vector2(480, 640)],
+		["FoxfirePickup", Vector2(4620, 640)],
 		["NameCorridor", Vector2(1920, 640)],
 		["DressingRoom", Vector2(2630, 640)],
 		["ArchiveLoft", Vector2(3230, 512)],
@@ -1004,9 +1012,9 @@ func _build_level_3() -> void:
 		["LongLampCenter", Vector2(4910, 640)],
 		["LongLampRight", Vector2(5210, 640)],
 	]:
-		_add_lantern(root, data[1], false, data[0])
-	_add_fx(root, "Foxfire_OldWood", "res://assets/sprites/effects/fox_fire.png", Vector2(775, 450), 8, 7.0)
-	_add_fx(root, "Foxfire_PlaqueReveal", "res://assets/sprites/effects/fox_fire.png", Vector2(775, 392), 8, 7.0)
+		_add_blue_oil_lantern(root, data[1], data[0], true)
+	var plaque_fire := _add_fx(root, "Foxfire_PlaqueReveal", "res://assets/sprites/effects/blue_flame.png", Vector2(775, 392), 8, 7.0)
+	plaque_fire.visible = false
 	_add_canvas_modulate(root, Color(0.70, 0.72, 0.86, 1.0))
 	_save_scene(root, "res://scenes/levels/level_3.tscn")
 
@@ -1020,10 +1028,12 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 		1: "查看旧木额",
 		2: "查看回廊竹简",
 		3: "查看木箱",
-		4: "查看木牌",
+		4: "查看石碑",
 		5: "查看桌上竹简",
 	}
 	trigger.set("interact_name", interact_names.get(index, "查看线索"))
+	if index == 1:
+		trigger.set("max_player_foot_y_distance", 999.0)
 	if index == 3:
 		trigger.script = load("res://scenes/objects/paper_chest_clue.gd")
 		trigger.set("final_interact_name", "再看纸条")
@@ -1038,8 +1048,8 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 	var detect_size := Vector2(260, 250)
 	var detect_position := Vector2(0, -126)
 	if index == 1:
-		detect_size = Vector2(560, 420)
-		detect_position = Vector2(0, -110)
+		detect_size = Vector2(560, 560)
+		detect_position = Vector2(0, -80)
 	trigger.add_child(_rect_shape(detect_size, detect_position, "ArchiveDetectShape"))
 	if index == 3:
 		var visual := Node2D.new()
@@ -1067,12 +1077,14 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 	elif index == 2:
 		texture_path = "res://assets/sprites/objects/bamboo_scroll_closed.png"
 	elif index == 4:
-		texture_path = "res://assets/sprites/objects/archive_note.png"
+		texture_path = "res://assets/sprites/objects/stone_tablet.png"
 	elif index == 5:
 		texture_path = "res://assets/sprites/objects/bamboo_scroll_closed.png"
 	var visual := _bottom_sprite("ArchiveSprite", texture_path)
 	if index == 1:
 		visual.scale = Vector2(0.72, 0.72)
+	elif index == 4:
+		visual.scale = Vector2(0.84, 0.84)
 	elif index == 2 or index == 5:
 		visual.scale = Vector2(0.56, 0.66)
 	trigger.add_child(visual)

@@ -365,7 +365,7 @@ script = ExtResource("11_dwx2n")
 tablet_text = "狐上山，不回头。
 若回头，莫唤名。
 人名入狐耳，山灯不长明。"
-speaker_name = "旧纸条"
+speaker_name = "石碑"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Torii" unique_id=747269606]
 position = Vector2(-528, 159)
@@ -380,10 +380,7 @@ shape = SubResource("RectangleShape2D_o06sk")
 [node name="Tablet_Order" type="Area2D" parent="Narrative" unique_id=894316302]
 position = Vector2(6100, 512)
 script = ExtResource("11_dwx2n")
-tablet_text = "装束供物三件。
-杉木为底。
-白毛覆身。
-蓬草盖顶。顶礼供物有两种选择：旧铃铛和狐火石。旧铃"
+tablet_text = "装束供物三件。杉木，白毛，蓬草。顶礼供物二种：旧铃铛，狐火石。"
 speaker_name = "石碑"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Order" unique_id=126426349]
@@ -408,13 +405,13 @@ tablet_text = "……送……本社……
 speaker_name = "雨损纸条"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_RainNote" unique_id=813059385]
-position = Vector2(-178, 40)
+position = Vector2(-289, -65)
 texture = ExtResource("33_rain")
 centered = false
 offset = Vector2(-96, -192)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_RainNote" unique_id=1196617788]
-position = Vector2(-173, -76)
+position = Vector2(-280, -191)
 shape = SubResource("RectangleShape2D_o06sk")
 
 [node name="FoxSpawnMarker" type="Marker2D" parent="Narrative" unique_id=922235557]

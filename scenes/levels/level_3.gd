@@ -4,7 +4,11 @@ const BGM_FINAL_CHOICE_VOID := preload("res://assets/audio/bgm/final_choice_void
 const SFX_PLAQUE_REVEAL := preload("res://assets/audio/sfx/plaque_reveal.wav")
 const SFX_SAYO_SHADOW_REVEAL := preload("res://assets/audio/sfx/sayo_shadow_reveal.wav")
 const PLAQUE_INTERACT_DISTANCE := 420.0
-const FINAL_REFLECTION_X := 4700.0
+const FOXFIRE_PICKUP_DISTANCE := 280.0
+const FINAL_REFLECTION_DISTANCE := 360.0
+const BLUE_FLAME_TEXTURE := preload("res://assets/sprites/effects/blue_flame.png")
+const COLD_LIGHT_TEXTURE := preload("res://assets/sprites/effects/cold_light.png")
+const FOXFIRE_FLAME_OFFSET := Vector2(0, -150)
 
 @onready var _archive_triggers: Array[Area2D] = [
 	$Narrative/ArchiveTrigger1,
@@ -17,6 +21,10 @@ const FINAL_REFLECTION_X := 4700.0
 @onready var _fox_spawn_marker: Marker2D = $Narrative/FoxSpawnMarker
 @onready var _plaque_sprite: Sprite2D = $Narrative/ArchiveTrigger1/ArchiveSprite
 @onready var _paper_chest: Node2D = $Narrative/ArchiveTrigger3
+@onready var _foxfire_pickup_marker: Marker2D = get_node_or_null("Narrative/FoxfirePickupMarker") as Marker2D
+@onready var _foxfire_pickup_flame: AnimatedSprite2D = get_node_or_null("FX/BlueFlame_FoxfirePickup") as AnimatedSprite2D
+@onready var _foxfire_pickup_light: PointLight2D = get_node_or_null("Lighting/BlueLanternLight_FoxfirePickup") as PointLight2D
+@onready var _plaque_foxfire: AnimatedSprite2D = get_node_or_null("FX/Foxfire_PlaqueReveal") as AnimatedSprite2D
 
 const PAPER_MASKED := preload("res://assets/sprites/objects/paper_note_with_patch.png")
 const PAPER_REVEALED := preload("res://assets/sprites/objects/paper_note_blank.png")
@@ -25,7 +33,7 @@ const ARCHIVE_DIALOGS := [
 	[
 		{"speaker": "旧木额", "text": "表面的金漆写着「迎狐之仪」。"},
 		{"speaker": "旧木额", "text": "陈旧的木匾被潮气浸润，侵蚀了金漆，用狐火靠近查看，泡软的金漆斑驳"},
-		{"speaker": "旧木额", "text": "下面一层的金漆更加陈旧，你使劲擦却只能擦出「送*之仪」的字样。"},
+		{"speaker": "旧木额", "text": "下面一层的金漆更加陈旧，你使劲擦却只能擦出「送□之仪」的字样。"},
 		{"speaker": "我", "text": "迎狐是后来印上去的字，原来这个仪式是送行，为什么是送，要送什么？"},
 	],
 	[
@@ -36,12 +44,12 @@ const ARCHIVE_DIALOGS := [
 		{"speaker": "我", "text": "送行者……送的是人？为什么要送人进神社？"},
 	],
 	[
-		{"speaker": "衣箱残签", "text": "白*一领。童身用。袖口束紧。"},
+		{"speaker": "衣箱残签", "text": "白□覆身。童身用。袖口束紧。"},
 		{"speaker": "", "text": "有人用纸遮住了这个字，粘得很死，无法强行撕开"},
 	],
 	[
-		{"speaker": "装束札", "text": "杉木为轿。白□覆身。蓬草盖顶，以遮人气。"},
-		{"speaker": "装束札", "text": "送行后，狐神归位，再不得呼其名。"},
+		{"speaker": "石碑", "text": "杉木为轿。白□覆身。蓬草盖顶，以遮人气。"},
+		{"speaker": "石碑", "text": "送行后，狐神归位，再不得呼其名。"},
 	],
 	[
 		{"speaker": "内殿档案", "text": "本次送行者：雨宫纱夜，九岁。山社巫女。签选。家不得辞。"},
@@ -61,6 +69,8 @@ var _final_choice_shown: bool = false
 var _plaque_transformed: bool = false
 var _all_archives_found: bool = false
 var _truth_reveal_in_progress: bool = false
+var _foxfire_pickup_unlocked: bool = false
+var _foxfire_collected: bool = false
 var _paper_recheck_unlocked: bool = false
 var _paper_rechecked: bool = false
 var _inner_reveal_started: bool = false
@@ -72,12 +82,16 @@ var _interpretation_rows: Dictionary = {}
 var _paper_layer: CanvasLayer = null
 var _plaque_label: Label = null
 var _plaque_font: Font = null
+var _paper_font: Font = null
+var _foxfire_sources: Array[Node2D] = []
+var _blue_flame_frames: SpriteFrames = null
 
 func _on_level_ready() -> void:
 	_clues_found.resize(_total_archives)
 	_clues_found.fill(false)
 	_set_offering_tube_visible(false)
 	_create_interpretation_board()
+	_configure_scene_foxfires()
 	for index in _archive_triggers.size():
 		var trigger := _archive_triggers[index]
 		if trigger:
@@ -89,6 +103,7 @@ func _on_level_ready() -> void:
 		_paper_chest.connect("chest_rechecked", Callable(self, "_on_chest_rechecked"))
 	_set_plaque_state("迎狐之仪")
 	_set_archive_sequence_step(0)
+	_set_plaque_foxfire_visible(false)
 	show_area_name("终章  本社・维持的空壳")
 	GameManager.set_state(GameManager.State.PLAYING)
 	play_bgm(preload("res://assets/audio/bgm/shrine_theme.wav"))
@@ -106,20 +121,26 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if _final_choice_shown or not player:
 		return
-	if _all_archives_found and not _truth_revealed and not _truth_reveal_in_progress and player.global_position.x >= FINAL_REFLECTION_X and not DialogManager.is_active():
+	if _all_archives_found and not _truth_revealed and not _truth_reveal_in_progress and _is_near_final_reflection_spot() and not DialogManager.is_active():
 		_show_final_reflection()
 	var near_plaque := _plaque_marker and player.global_position.distance_to(_plaque_marker.global_position) < PLAQUE_INTERACT_DISTANCE
+	var near_foxfire := _is_near_foxfire_source()
 	var near_inner := _fox_spawn_marker and player.global_position.distance_to(_fox_spawn_marker.global_position) < 360.0
-	var should_show_plaque_prompt := near_plaque and _truth_revealed and not _plaque_transformed
+	var should_show_foxfire_prompt := near_foxfire and _foxfire_pickup_unlocked and not _foxfire_collected
+	var should_show_plaque_prompt := near_plaque and _truth_revealed and _foxfire_collected and not _plaque_transformed
 	var should_show_inner_prompt := near_inner and _paper_rechecked and not _inner_reveal_started
 	if player.has_method("set_external_interact_prompt"):
-		if should_show_plaque_prompt:
+		if should_show_foxfire_prompt:
+			player.set_external_interact_prompt("E  拾取狐火", true)
+		elif should_show_plaque_prompt:
 			player.set_external_interact_prompt("E  用狐火照匾额", true)
 		elif should_show_inner_prompt:
 			player.set_external_interact_prompt("E  查看内室", true)
 		else:
 			player.set_external_interact_prompt("", false)
-	if should_show_plaque_prompt and Input.is_action_just_pressed("interact") and not DialogManager.is_active():
+	if should_show_foxfire_prompt and Input.is_action_just_pressed("interact") and not DialogManager.is_active():
+		_on_foxfire_pickup()
+	elif should_show_plaque_prompt and Input.is_action_just_pressed("interact") and not DialogManager.is_active():
 		_on_plaque_interact()
 	elif should_show_inner_prompt and Input.is_action_just_pressed("interact") and not DialogManager.is_active():
 		_on_inner_reveal_interact()
@@ -211,7 +232,7 @@ func _create_interpretation_board() -> void:
 	title.add_theme_color_override("font_color", Color(0.92, 0.74, 0.42))
 	vbox.add_child(title)
 	_add_board_row(vbox, "ritual", "仪式名：村里称作迎狐，为的是迎接狐火归位")
-	_add_board_row(vbox, "garment", "白色供物：木牌称作白狐毛")
+	_add_board_row(vbox, "garment", "白色供物：石碑称作白狐毛")
 	_add_board_row(vbox, "person", "白狐身份：？")
 	_interpretation_layer.visible = true
 
@@ -234,27 +255,137 @@ func _set_board_row(row_id: String, text_value: String, color := Color(0.95, 0.8
 	label.text = text_value
 	label.add_theme_color_override("font_color", color)
 
+func _configure_scene_foxfires() -> void:
+	_foxfire_sources.clear()
+	_hide_warm_lantern_fire()
+	for root_path in ["PropsBack", "PropsFront"]:
+		var root := get_node_or_null(root_path)
+		if not root:
+			continue
+		for child in root.get_children():
+			var lantern := child as Node2D
+			if lantern and str(lantern.name).begins_with("StoneLantern_"):
+				_register_foxfire_source(lantern)
+	_reposition_legacy_foxfire_marker()
+
+func _hide_warm_lantern_fire() -> void:
+	var fx := get_node_or_null("FX")
+	if fx:
+		for child in fx.get_children():
+			if str(child.name).begins_with("LanternFlame_") and child is CanvasItem:
+				(child as CanvasItem).visible = false
+	var lighting := get_node_or_null("Lighting")
+	if lighting:
+		for child in lighting.get_children():
+			if str(child.name).begins_with("LanternLight_") and child is CanvasItem:
+				(child as CanvasItem).visible = false
+
+func _register_foxfire_source(lantern: Node2D) -> void:
+	_foxfire_sources.append(lantern)
+	var source_id := str(lantern.name).trim_prefix("StoneLantern_")
+	var flame_position := lantern.global_position + FOXFIRE_FLAME_OFFSET
+	_ensure_blue_lantern_light(source_id, flame_position)
+	_ensure_blue_lantern_flame(source_id, flame_position)
+
+func _ensure_blue_lantern_light(source_id: String, global_pos: Vector2) -> void:
+	var lighting := get_node_or_null("Lighting")
+	if not lighting:
+		return
+	var light := lighting.get_node_or_null("BlueLanternLight_" + source_id) as PointLight2D
+	if not light:
+		light = PointLight2D.new()
+		light.name = "BlueLanternLight_" + source_id
+		lighting.add_child(light)
+	light.texture = COLD_LIGHT_TEXTURE
+	light.texture_scale = 1.18
+	light.energy = 0.34
+	light.color = Color(0.42, 0.72, 1.0, 0.92)
+	light.global_position = global_pos
+	light.visible = true
+
+func _ensure_blue_lantern_flame(source_id: String, global_pos: Vector2) -> void:
+	var fx := get_node_or_null("FX")
+	if not fx:
+		return
+	var flame := fx.get_node_or_null("BlueFlame_" + source_id) as AnimatedSprite2D
+	if not flame:
+		flame = AnimatedSprite2D.new()
+		flame.name = "BlueFlame_" + source_id
+		fx.add_child(flame)
+	flame.sprite_frames = _get_blue_flame_frames()
+	flame.animation = &"loop"
+	flame.centered = false
+	flame.offset = Vector2(-64, -128)
+	flame.scale = Vector2(0.72, 0.72)
+	flame.global_position = global_pos
+	flame.visible = true
+	flame.play("loop")
+
+func _get_blue_flame_frames() -> SpriteFrames:
+	if _blue_flame_frames:
+		return _blue_flame_frames
+	var frames := SpriteFrames.new()
+	frames.add_animation(&"loop")
+	frames.set_animation_loop(&"loop", true)
+	frames.set_animation_speed(&"loop", 8.0)
+	for i in range(8):
+		var atlas := AtlasTexture.new()
+		atlas.atlas = BLUE_FLAME_TEXTURE
+		atlas.region = Rect2(i * 128, 0, 128, 128)
+		frames.add_frame(&"loop", atlas)
+	_blue_flame_frames = frames
+	return _blue_flame_frames
+
+func _reposition_legacy_foxfire_marker() -> void:
+	if not _foxfire_pickup_marker:
+		return
+	for source in _foxfire_sources:
+		if source and source.name == &"StoneLantern_FoxfirePickup":
+			_foxfire_pickup_marker.global_position = source.global_position
+			return
+
+func _is_near_foxfire_source() -> bool:
+	if not player:
+		return false
+	for source in _foxfire_sources:
+		if is_instance_valid(source) and player.global_position.distance_to(source.global_position) < FOXFIRE_PICKUP_DISTANCE:
+			return true
+	if _foxfire_pickup_marker:
+		return player.global_position.distance_to(_foxfire_pickup_marker.global_position) < FOXFIRE_PICKUP_DISTANCE
+	return false
+
+func _is_near_final_reflection_spot() -> bool:
+	if not player or not _foxfire_pickup_marker:
+		return false
+	return player.global_position.distance_to(_foxfire_pickup_marker.global_position) < FINAL_REFLECTION_DISTANCE
+
 func _update_understanding_links() -> void:
 	if _clues_found[0] and _clues_found[1]:
-		_set_board_row("ritual", "仪式名：迎狐覆盖了送狐", Color(0.90, 0.82, 0.56))
+		_set_board_row("ritual", "仪式名：迎狐之仪变成了送*之仪", Color(0.90, 0.82, 0.56))
 	if _clues_found[2] and _clues_found[3]:
-		_set_board_row("garment", "白色供物：白□附身", Color(0.86, 0.88, 0.96))
+		_set_board_row("garment", "白色供物：白□覆身", Color(0.86, 0.88, 0.96))
 	if _clues_found[4] and (_clues_found[2] or _clues_found[3]):
-		_set_board_row("person", "白狐身份：送行者：雨宫纱夜", Color(0.96, 0.76, 0.60))
+		_set_board_row("person", "白狐身份：送行者雨宫纱夜", Color(0.96, 0.76, 0.60))
 
 	if _clues_found[0] and _clues_found[1] and not _insights_unlocked.has("ritual_name"):
 		_insights_unlocked["ritual_name"] = true
 		DialogManager.show_dialog([
 			{"speaker": "我", "text": "旧字写送，新字写迎。"},
-			{"speaker": "我", "text": "有人把仪式的方向改反了，原本的送行变成了迎神"},
+			{"speaker": "我", "text": "有人把仪式的方向改反了，原本的送什么变成了迎神"},
+		] as Array[Dictionary])
+		await DialogManager.dialog_finished
+
+	if _clues_found[2] and not _insights_unlocked.has("paper_masked"):
+		_insights_unlocked["paper_masked"] = true
+		DialogManager.show_dialog([
+			{"speaker": "我", "text": "纸上写着白，后面的字被框住了。"},
 		] as Array[Dictionary])
 		await DialogManager.dialog_finished
 
 	if _clues_found[2] and _clues_found[3] and not _insights_unlocked.has("white_misread"):
 		_insights_unlocked["white_misread"] = true
 		DialogManager.show_dialog([
-			{"speaker": "我", "text": "纸上写着白，后面的字被框住了。"},
-			{"speaker": "我", "text": "装束札也缺了同一处，像是有人故意留下一个空格。"},
+			{"speaker": "我", "text": "石碑也缺了同一处，像是有人故意留下一个空格。"},
 		] as Array[Dictionary])
 		await DialogManager.dialog_finished
 
@@ -277,18 +408,34 @@ func _unlock_plaque() -> void:
 	await get_tree().create_timer(0.45).timeout
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "五份记录对上了。"},
-		{"speaker": "", "text": "旧木额、回廊牌、衣箱、装束札和内殿档案，都缺一角，也都湿得发软。"},
-		{"speaker": "我", "text": "只差门口那块匾。"},
+		{"speaker": "", "text": "只是衣箱、石碑和内殿档案，都缺一角"},
+		{"speaker": "我", "text": "看来还要去查看门口那块匾。"},
 		{"speaker": "我", "text": "如果狐火能照出旧字，也许能把缺角补上。"},
+	] as Array[Dictionary])
+	await DialogManager.dialog_finished
+	_foxfire_pickup_unlocked = true
+	_set_foxfire_pickup_visible(true)
+
+func _on_foxfire_pickup() -> void:
+	if not _foxfire_pickup_unlocked or _foxfire_collected:
+		return
+	_foxfire_collected = true
+	if player and player.has_method("set_external_interact_prompt"):
+		player.set_external_interact_prompt("", false)
+	play_sfx(SFX_FOXFIRE)
+	DialogManager.show_dialog([
+		{"speaker": "", "text": "蓝色的狐火贴着指尖聚起，没有灼痛，只留下潮湿的冷光。"},
+		{"speaker": "我", "text": "现在可以回门口，用它照看旧木匾了。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 
 func _on_plaque_interact() -> void:
-	if _plaque_transformed:
+	if _plaque_transformed or not _foxfire_collected:
 		return
 	_plaque_transformed = true
 	if player and player.has_method("set_external_interact_prompt"):
 		player.set_external_interact_prompt("", false)
+	_set_plaque_foxfire_visible(true)
 	play_sfx(SFX_PLAQUE_REVEAL)
 	_set_plaque_state("送狐之仪")
 	DialogManager.show_dialog([
@@ -303,6 +450,32 @@ func _on_plaque_interact() -> void:
 	_paper_recheck_unlocked = true
 	if _paper_chest and _paper_chest.has_method("enable_final_recheck"):
 		_paper_chest.call("enable_final_recheck")
+
+func _set_foxfire_pickup_visible(active: bool) -> void:
+	for source in _foxfire_sources:
+		if not is_instance_valid(source):
+			continue
+		var source_id := str(source.name).trim_prefix("StoneLantern_")
+		var flame := get_node_or_null("FX/BlueFlame_" + source_id) as AnimatedSprite2D
+		var light := get_node_or_null("Lighting/BlueLanternLight_" + source_id) as PointLight2D
+		if flame:
+			flame.visible = true
+			flame.modulate = Color(1.0, 1.0, 1.0, 1.0 if active else 0.78)
+			flame.play("loop")
+		if light:
+			light.visible = true
+			light.energy = 0.40 if active else 0.30
+	if _foxfire_pickup_flame:
+		_foxfire_pickup_flame.visible = true
+		_foxfire_pickup_flame.play("loop")
+	if _foxfire_pickup_light:
+		_foxfire_pickup_light.visible = true
+
+func _set_plaque_foxfire_visible(active: bool) -> void:
+	if _plaque_foxfire:
+		_plaque_foxfire.visible = active
+		if active:
+			_plaque_foxfire.play("loop")
 
 func _on_chest_rechecked() -> void:
 	if not _paper_recheck_unlocked or _paper_rechecked:
@@ -382,6 +555,14 @@ func _get_plaque_font() -> Font:
 	_plaque_font = font
 	return _plaque_font
 
+func _get_paper_font() -> Font:
+	if _paper_font:
+		return _paper_font
+	var font := SystemFont.new()
+	font.font_names = PackedStringArray(["HanziPen SC", "Kaiti SC", "STKaiti", "Hiragino Mincho ProN", "Songti SC"])
+	_paper_font = font
+	return _paper_font
+
 func _show_paper_note(revealed: bool, caption_text := "") -> void:
 	if _paper_layer and is_instance_valid(_paper_layer):
 		_paper_layer.queue_free()
@@ -410,24 +591,7 @@ func _show_paper_note(revealed: bool, caption_text := "") -> void:
 	note.offset_bottom = 230
 	_paper_layer.add_child(note)
 
-	var clue_text := Label.new()
-	clue_text.text = "白衣附身" if revealed else "白　附身"
-	clue_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	clue_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	clue_text.add_theme_font_size_override("font_size", 42)
-	clue_text.add_theme_color_override("font_color", Color(0.20, 0.13, 0.08, 0.95))
-	clue_text.add_theme_color_override("font_shadow_color", Color(0.56, 0.38, 0.18, 0.32))
-	clue_text.add_theme_constant_override("shadow_offset_x", 2)
-	clue_text.add_theme_constant_override("shadow_offset_y", 2)
-	clue_text.anchor_left = 0.5
-	clue_text.anchor_top = 0.5
-	clue_text.anchor_right = 0.5
-	clue_text.anchor_bottom = 0.5
-	clue_text.offset_left = -150
-	clue_text.offset_top = -66
-	clue_text.offset_right = 150
-	clue_text.offset_bottom = 10
-	_paper_layer.add_child(clue_text)
+	_add_vertical_paper_text(revealed)
 
 	if caption_text != "":
 		var caption_panel := PanelContainer.new()
@@ -473,6 +637,7 @@ func _show_paper_note(revealed: bool, caption_text := "") -> void:
 	_paper_layer.add_child(hint)
 
 	GameManager.set_state(GameManager.State.DIALOG)
+	await _wait_for_interact_release()
 	while true:
 		await get_tree().process_frame
 		if Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("jump"):
@@ -480,6 +645,44 @@ func _show_paper_note(revealed: bool, caption_text := "") -> void:
 	_paper_layer.queue_free()
 	_paper_layer = null
 	GameManager.set_state(GameManager.State.PLAYING)
+
+func _wait_for_interact_release() -> void:
+	while Input.is_action_pressed("interact") or Input.is_action_pressed("jump"):
+		await get_tree().process_frame
+
+func _add_vertical_paper_text(revealed: bool) -> void:
+	var middle_char := "衣" if revealed else "*"
+	var entries := [
+		{"text": "白", "texture_pos": Vector2(168, 38)},
+		{"text": middle_char, "texture_pos": Vector2(168, 126)},
+		{"text": "覆", "texture_pos": Vector2(168, 202)},
+		{"text": "身", "texture_pos": Vector2(116, 202)},
+	]
+	for entry in entries:
+		_add_paper_character(entry["text"], entry["texture_pos"])
+
+func _add_paper_character(text_value: String, texture_pos: Vector2) -> void:
+	var center := Vector2(-250, -270) + texture_pos * (500.0 / 256.0)
+	var size := Vector2(76, 76)
+	var label := Label.new()
+	label.text = text_value
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_override("font", _get_paper_font())
+	label.add_theme_font_size_override("font_size", 42)
+	label.add_theme_color_override("font_color", Color(0.18, 0.11, 0.07, 0.95))
+	label.add_theme_color_override("font_shadow_color", Color(0.56, 0.38, 0.18, 0.28))
+	label.add_theme_constant_override("shadow_offset_x", 2)
+	label.add_theme_constant_override("shadow_offset_y", 2)
+	label.anchor_left = 0.5
+	label.anchor_top = 0.5
+	label.anchor_right = 0.5
+	label.anchor_bottom = 0.5
+	label.offset_left = center.x - size.x * 0.5
+	label.offset_top = center.y - size.y * 0.5
+	label.offset_right = center.x + size.x * 0.5
+	label.offset_bottom = center.y + size.y * 0.5
+	_paper_layer.add_child(label)
 
 func _show_human_shadow() -> void:
 	var shadow := Polygon2D.new()

@@ -15,6 +15,7 @@ const SFX_PAPER_PATCH_RELEASE := preload("res://assets/audio/sfx/paper_patch_rel
 @export var open_texture: Texture2D
 @export var masked_paper_texture: Texture2D
 @export var revealed_paper_texture: Texture2D
+@export var show_world_paper_popup: bool = true
 
 @onready var _visual: Node2D = $Visual
 @onready var _sprite: Sprite2D = $Visual/ChestSprite
@@ -38,7 +39,8 @@ func interact() -> void:
 		_opened = true
 		remove_from_group("interactable")
 		_apply_chest_texture(true)
-		_pop_paper(false)
+		if show_world_paper_popup:
+			_pop_paper(false)
 		_play_open_effect()
 		clue_activated.emit(clue_index, self)
 		return
@@ -47,7 +49,8 @@ func interact() -> void:
 		_final_seen = true
 		remove_from_group("interactable")
 		_apply_paper_texture(true)
-		_pop_paper(true)
+		if show_world_paper_popup:
+			_pop_paper(true)
 		AudioHelpers.play_one_shot(get_tree().root, SFX_PAPER_PATCH_RELEASE)
 		chest_rechecked.emit()
 
@@ -58,7 +61,7 @@ func enable_final_recheck() -> void:
 	interact_name = final_interact_name
 	add_to_group("interactable")
 	collision_layer = 2
-	if _paper_sprite:
+	if show_world_paper_popup and _paper_sprite:
 		_paper_sprite.visible = true
 
 func mark_understood() -> void:

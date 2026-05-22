@@ -11,13 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets_1/assets/sprites/objects/stone_lantern.png" id="9_k0dme"]
 [ext_resource type="Script" uid="uid://cx5fjoa1km8dn" path="res://scenes/objects/info_clue.gd" id="10_o5em7"]
 [ext_resource type="Texture2D" uid="uid://yrftarl01j5n" path="res://assets_1/assets/sprites/objects/plaque.png" id="11_22mqa"]
-[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets_1/assets/sprites/objects/archive_note.png" id="12_6c6bd"]
 [ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets_1/assets/sprites/objects/stone_tablet.png" id="13_2qmps"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="14_gtyp3"]
 [ext_resource type="Texture2D" uid="uid://du0mr8yumk12t" path="res://assets/sprites/objects/long_table/long_table.png" id="16_ju8vr"]
 [ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="17_tio2m"]
 [ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="18_p0p7o"]
-[ext_resource type="Texture2D" uid="uid://b6e0gb3654xf" path="res://assets_1/assets/sprites/effects/fox_fire.png" id="19_jnyl3"]
 [ext_resource type="PackedScene" uid="uid://de53somme5k4e" path="res://scenes/ui/hud.tscn" id="20_2gq65"]
 [ext_resource type="Script" uid="uid://0703654a2hx7" path="res://scenes/objects/paper_chest_clue.gd" id="21_chestclue"]
 [ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_chestclosed"]
@@ -25,9 +23,11 @@
 [ext_resource type="Texture2D" uid="uid://dg5dkohjxobyh" path="res://assets/sprites/objects/bamboo_scroll_closed.png" id="24_bamboo"]
 [ext_resource type="Texture2D" uid="uid://bj6cq3gyauufl" path="res://assets/sprites/objects/paper_note_with_patch.png" id="25_paperpatch"]
 [ext_resource type="Texture2D" uid="uid://ccc4uj8ge4dgk" path="res://assets/sprites/objects/paper_note_blank.png" id="26_paperblank"]
+[ext_resource type="Texture2D" uid="uid://djvsu7lsh4skr" path="res://assets_1/assets/sprites/effects/cold_light.png" id="27_cold"]
+[ext_resource type="Texture2D" uid="uid://bix10hnkjm217" path="res://assets_1/assets/sprites/effects/blue_flame.png" id="28_blueflame"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1m6f"]
-size = Vector2(260, 250)
+size = Vector2(293, 646)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn4iy"]
 size = Vector2(260, 250)
@@ -105,100 +105,36 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_getng"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(0, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ooiqn"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kirlg"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(256, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t4hs4"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(384, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_leti0"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(512, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v8tg8"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(640, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1twhh"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(768, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mtuk6"]
-atlas = ExtResource("18_p0p7o")
-region = Rect2(896, 0, 128, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_3ulim"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_getng")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ooiqn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kirlg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t4hs4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_leti0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v8tg8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1twhh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mtuk6")
-}],
-"loop": true,
-"name": &"loop",
-"speed": 9.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_5tmwl"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vo4oh"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wxtfa"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbot7"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_frwt5"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_axuwr"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7cdu"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3rco2"]
-atlas = ExtResource("19_jnyl3")
+atlas = ExtResource("28_blueflame")
 region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n64wo"]
@@ -289,7 +225,7 @@ tile_set = ExtResource("5_jql0x")
 [node name="OneWayPlatforms" type="Node2D" parent="." unique_id=1239741405]
 
 [node name="ShrineOneWay" type="TileMapLayer" parent="OneWayPlatforms" unique_id=73747821]
-tile_map_data = PackedByteArray("AAAOAAQAAAAAAAIAAAAPAAQAAAAAAAIAAAAQAAQAAAAAAAIAAAARAAQAAAAAAAIAAAASAAQAAAAAAAIAAAAWAAQAAAAAAAIAAAAXAAQAAAAAAAIAAAAYAAQAAAAAAAIAAAAZAAQAAAAAAAIAAAAaAAQAAAAAAAIAAAAkAAQAAAAAAAIAAAAlAAQAAAAAAAIAAAAmAAQAAAAAAAIAAAAnAAQAAAAAAAIAAAAoAAQAAAAAAAIAAAApAAQAAAAAAAIAAAAqAAQAAAAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAAOAAQAAAAAAAIAAAAPAAQAAAAAAAIAAAAQAAQAAAAAAAIAAAARAAQAAAAAAAIAAAASAAQAAAAAAAIAAAAWAAQAAAAAAAIAAAAXAAQAAAAAAAIAAAAYAAQAAAAAAAIAAAAZAAQAAAAAAAIAAAAaAAQAAAAAAAIAAAA=")
 tile_set = ExtResource("5_jql0x")
 
 [node name="PropsBack" type="Node2D" parent="." unique_id=2011408526]
@@ -397,16 +333,6 @@ region_rect = Rect2(128, 384, 128, 128)
 [node name="RoomPillar_MainCommunity" type="Sprite2D" parent="PropsBack" unique_id=2141534117]
 modulate = Color(0.78, 0.72, 0.7, 0.74)
 position = Vector2(320, 640)
-scale = Vector2(0.72, 2.05)
-texture = ExtResource("6_do6pa")
-centered = false
-offset = Vector2(-64, -128)
-region_enabled = true
-region_rect = Rect2(256, 384, 128, 128)
-
-[node name="RoomPillar_MainCommunity_2" type="Sprite2D" parent="PropsBack" unique_id=1223260945]
-modulate = Color(0.78, 0.72, 0.7, 0.74)
-position = Vector2(980, 712)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -533,16 +459,6 @@ centered = false
 offset = Vector2(-64, -128)
 region_enabled = true
 region_rect = Rect2(128, 384, 128, 128)
-
-[node name="RoomPillar_NameCorridor" type="Sprite2D" parent="PropsBack" unique_id=425817053]
-modulate = Color(0.66, 0.68, 0.8, 0.7)
-position = Vector2(986, 504)
-scale = Vector2(0.72, 2.05)
-texture = ExtResource("6_do6pa")
-centered = false
-offset = Vector2(-64, -128)
-region_enabled = true
-region_rect = Rect2(256, 384, 128, 128)
 
 [node name="RoomPillar_NameCorridor_2" type="Sprite2D" parent="PropsBack" unique_id=2066104666]
 modulate = Color(0.66, 0.68, 0.8, 0.7)
@@ -694,16 +610,6 @@ offset = Vector2(-64, -128)
 region_enabled = true
 region_rect = Rect2(256, 384, 128, 128)
 
-[node name="RoomPillar_DressingRoom_2" type="Sprite2D" parent="PropsBack" unique_id=977548319]
-modulate = Color(0.72, 0.66, 0.74, 0.7)
-position = Vector2(2777, 531)
-scale = Vector2(0.72, 2.05)
-texture = ExtResource("6_do6pa")
-centered = false
-offset = Vector2(-64, -128)
-region_enabled = true
-region_rect = Rect2(256, 384, 128, 128)
-
 [node name="RoomBeam_ArchiveLoft" type="Sprite2D" parent="PropsBack" unique_id=2122614033]
 modulate = Color(0.6, 0.7, 0.86, 0.68)
 position = Vector2(2632, 260)
@@ -846,7 +752,7 @@ region_rect = Rect2(128, 384, 128, 128)
 
 [node name="RoomPillar_ArchiveLoft" type="Sprite2D" parent="PropsBack" unique_id=1039256594]
 modulate = Color(0.6, 0.7, 0.86, 0.68)
-position = Vector2(2774, 729)
+position = Vector2(3605, 751)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -1006,17 +912,7 @@ region_rect = Rect2(128, 384, 128, 128)
 
 [node name="RoomPillar_InnerArchive" type="Sprite2D" parent="PropsBack" unique_id=1610941877]
 modulate = Color(0.7, 0.64, 0.76, 0.7)
-position = Vector2(3515, 643)
-scale = Vector2(0.72, 2.05)
-texture = ExtResource("6_do6pa")
-centered = false
-offset = Vector2(-64, -128)
-region_enabled = true
-region_rect = Rect2(256, 384, 128, 128)
-
-[node name="RoomPillar_InnerArchive_2" type="Sprite2D" parent="PropsBack" unique_id=615198349]
-modulate = Color(0.7, 0.64, 0.76, 0.7)
-position = Vector2(4440, 640)
+position = Vector2(3609, 509)
 scale = Vector2(0.72, 2.05)
 texture = ExtResource("6_do6pa")
 centered = false
@@ -1184,16 +1080,6 @@ offset = Vector2(-64, -128)
 region_enabled = true
 region_rect = Rect2(128, 384, 128, 128)
 
-[node name="RoomPillar_StoneSteps" type="Sprite2D" parent="PropsBack" unique_id=1342418837]
-modulate = Color(0.84, 0.74, 0.6, 0.76)
-position = Vector2(4440, 640)
-scale = Vector2(0.72, 2.05)
-texture = ExtResource("6_do6pa")
-centered = false
-offset = Vector2(-64, -128)
-region_enabled = true
-region_rect = Rect2(256, 384, 128, 128)
-
 [node name="RoomPillar_StoneSteps_2" type="Sprite2D" parent="PropsBack" unique_id=1826404961]
 modulate = Color(0.84, 0.74, 0.6, 0.76)
 position = Vector2(5480, 640)
@@ -1223,6 +1109,12 @@ texture = ExtResource("9_k0dme")
 centered = false
 offset = Vector2(-64, -256)
 
+[node name="StoneLantern_FoxfirePickup" type="Sprite2D" parent="PropsBack" unique_id=652618824]
+position = Vector2(4621, 688)
+texture = ExtResource("9_k0dme")
+centered = false
+offset = Vector2(-64, -256)
+
 [node name="StoneLantern_NameCorridor" type="Sprite2D" parent="PropsBack" unique_id=296797195]
 position = Vector2(1873, 672)
 texture = ExtResource("9_k0dme")
@@ -1231,12 +1123,6 @@ offset = Vector2(-64, -256)
 
 [node name="StoneLantern_ArchiveLoft" type="Sprite2D" parent="PropsBack" unique_id=1455285422]
 position = Vector2(3230, 512)
-texture = ExtResource("9_k0dme")
-centered = false
-offset = Vector2(-64, -256)
-
-[node name="StoneLantern_InnerHall" type="Sprite2D" parent="PropsBack" unique_id=693797500]
-position = Vector2(4060, 640)
 texture = ExtResource("9_k0dme")
 centered = false
 offset = Vector2(-64, -256)
@@ -1251,14 +1137,15 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("10_o5em7")
 interact_name = "UI_INTERACT_VIEW_OLD_PLAQUE"
+max_player_foot_y_distance = 999.0
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger1" unique_id=1194712873]
-position = Vector2(-305, -156)
+position = Vector2(-299.5, -83)
 shape = SubResource("RectangleShape2D_v1m6f")
 
 [node name="ArchiveSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger1" unique_id=1937477823]
-position = Vector2(-291.99994, -101.00002)
-scale = Vector2(0.72, 0.72)
+position = Vector2(-292.11996, -101.00002)
+scale = Vector2(0.71937495, 0.72)
 texture = ExtResource("11_22mqa")
 centered = false
 offset = Vector2(-192, -192)
@@ -1289,10 +1176,12 @@ position = Vector2(2590, 640)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("21_chestclue")
+interact_name = "查看木箱"
 closed_texture = ExtResource("22_chestclosed")
 open_texture = ExtResource("23_chestopen")
 masked_paper_texture = ExtResource("25_paperpatch")
 revealed_paper_texture = ExtResource("26_paperblank")
+show_world_paper_popup = false
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger3" unique_id=893659457]
 z_index = 5
@@ -1325,10 +1214,11 @@ clue_index = 3
 interact_name = "UI_INTERACT_VIEW_COSTUME"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger4" unique_id=1740878094]
-position = Vector2(0, -126)
+position = Vector2(5, -62)
 shape = SubResource("RectangleShape2D_ly8gl")
 
 [node name="ArchiveSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger4" unique_id=2104122891]
+position = Vector2(0, 46.99997)
 scale = Vector2(0.84, 0.84)
 texture = ExtResource("13_2qmps")
 centered = false
@@ -1344,18 +1234,21 @@ interact_name = "UI_INTERACT_VIEW_ARCHIVE"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger5" unique_id=514701108]
 z_index = 5
-position = Vector2(0, -126)
+position = Vector2(-9, -87)
 shape = SubResource("RectangleShape2D_30ben")
 
 [node name="ArchiveSprite" type="Sprite2D" parent="Narrative/ArchiveTrigger5" unique_id=1265913734]
 z_index = 5
-scale = Vector2(1, 1.0052084)
-texture = ExtResource("12_6c6bd")
+scale = Vector2(0.5598958, 0.65625)
+texture = ExtResource("24_bamboo")
 centered = false
-offset = Vector2(-96, -192)
+offset = Vector2(-192, -192)
 
 [node name="PlaqueMarker" type="Marker2D" parent="Narrative" unique_id=200428165]
 position = Vector2(775, 512)
+
+[node name="FoxfirePickupMarker" type="Marker2D" parent="Narrative" unique_id=331243612]
+position = Vector2(4621, 688)
 
 [node name="FoxSpawnMarker" type="Marker2D" parent="Narrative" unique_id=674847172]
 position = Vector2(5090, 548)
@@ -1367,6 +1260,10 @@ position = Vector2(365, 676)
 
 [node name="CollisionShape2D" parent="Actors/Player" index="1" unique_id=786634215]
 position = Vector2(0, -150)
+
+[node name="PlayerLight" parent="Actors/Player" index="5" unique_id=127508680]
+position = Vector2(-14.000008, -170)
+scale = Vector2(0.25390622, 1)
 
 [node name="Mechanisms" type="Node2D" parent="." unique_id=662989339]
 
@@ -1617,16 +1514,40 @@ offset = Vector2(-369.5, -229)
 [node name="Lighting" type="Node2D" parent="." unique_id=2015287716]
 
 [node name="LanternLight_ArchiveLoft" type="PointLight2D" parent="Lighting" unique_id=659365205]
-position = Vector2(3229, 199)
+visible = false
+position = Vector2(3229, 199.19998)
+scale = Vector2(1, 1.0007101)
 energy = 0.26
 texture = ExtResource("17_tio2m")
 texture_scale = 1.1
 
-[node name="LanternLight_InnerHall" type="PointLight2D" parent="Lighting" unique_id=927351806]
-position = Vector2(3647, 454)
-energy = 0.26
-texture = ExtResource("17_tio2m")
-texture_scale = 1.1
+[node name="BlueLanternLight_UnusedCommunity" type="PointLight2D" parent="Lighting" unique_id=57751405]
+position = Vector2(159, 534)
+color = Color(0.42, 0.72, 1, 0.92)
+energy = 0.34
+texture = ExtResource("27_cold")
+texture_scale = 1.18
+
+[node name="BlueLanternLight_FoxfirePickup" type="PointLight2D" parent="Lighting" unique_id=1610179236]
+position = Vector2(4621, 538)
+color = Color(0.42, 0.72, 1, 0.92)
+energy = 0.34
+texture = ExtResource("27_cold")
+texture_scale = 1.18
+
+[node name="BlueLanternLight_NameCorridor" type="PointLight2D" parent="Lighting" unique_id=747282439]
+position = Vector2(1873, 522)
+color = Color(0.42, 0.72, 1, 0.92)
+energy = 0.34
+texture = ExtResource("27_cold")
+texture_scale = 1.18
+
+[node name="BlueLanternLight_ArchiveLoft" type="PointLight2D" parent="Lighting" unique_id=351560828]
+position = Vector2(3230, 362)
+color = Color(0.42, 0.72, 1, 0.92)
+energy = 0.34
+texture = ExtResource("27_cold")
+texture_scale = 1.18
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Lighting" unique_id=225016607]
 color = Color(0.7, 0.72, 0.86, 1)
@@ -1634,22 +1555,48 @@ color = Color(0.7, 0.72, 0.86, 1)
 [node name="FX" type="Node2D" parent="." unique_id=51062926]
 
 [node name="LanternFlame_ArchiveLoft" type="AnimatedSprite2D" parent="FX" unique_id=1446934733]
-position = Vector2(3214, 234)
+visible = false
+position = Vector2(1872, 552)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_s13ht")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
-[node name="LanternFlame_InnerHall" type="AnimatedSprite2D" parent="FX" unique_id=1962157817]
-position = Vector2(3630.5, 498)
-scale = Vector2(0.6640625, 0.6640625)
-sprite_frames = SubResource("SpriteFrames_3ulim")
+[node name="BlueFlame_UnusedCommunity" type="AnimatedSprite2D" parent="FX" unique_id=1907599086]
+position = Vector2(159, 534)
+scale = Vector2(0.72, 0.72)
+sprite_frames = SubResource("SpriteFrames_n64wo")
+animation = &"loop"
+centered = false
+offset = Vector2(-64, -128)
+
+[node name="BlueFlame_FoxfirePickup" type="AnimatedSprite2D" parent="FX" unique_id=1543946454]
+position = Vector2(4620, 572.00006)
+scale = Vector2(0.91468877, 0.89062494)
+sprite_frames = SubResource("SpriteFrames_n64wo")
+animation = &"loop"
+centered = false
+offset = Vector2(-64, -128)
+
+[node name="BlueFlame_NameCorridor" type="AnimatedSprite2D" parent="FX" unique_id=1033509249]
+position = Vector2(1867, 560)
+scale = Vector2(0.9303127, 0.8828126)
+sprite_frames = SubResource("SpriteFrames_n64wo")
+animation = &"loop"
+centered = false
+offset = Vector2(-64, -128)
+
+[node name="BlueFlame_ArchiveLoft" type="AnimatedSprite2D" parent="FX" unique_id=1118222630]
+position = Vector2(3230, 362)
+scale = Vector2(0.72, 0.72)
+sprite_frames = SubResource("SpriteFrames_n64wo")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="Foxfire_PlaqueReveal" type="AnimatedSprite2D" parent="FX" unique_id=1794341734]
+visible = false
 position = Vector2(772, 382)
 scale = Vector2(0.59375, 0.59375)
 sprite_frames = SubResource("SpriteFrames_n64wo")

@@ -28,7 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://dyj08qiudqmbr" path="res://assets_1/assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
 [ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="31_4x4ny"]
 [ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
-[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets/sprites/objects/archive_note.png" id="33_rain"]
+[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets_1/assets/sprites/objects/archive_note.png" id="33_rain"]
 [ext_resource type="PackedScene" uid="uid://de53somme5k4e" path="res://scenes/ui/hud.tscn" id="34_noyxt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2msp3"]
@@ -361,7 +361,7 @@ shape = SubResource("RectangleShape2D_2msp3")
 position = Vector2(2480, 384)
 script = ExtResource("11_dwx2n")
 tablet_text = "DIALOG_L1_TABLET_TORII"
-speaker_name = "UI_SPEAKER_OLD_NOTE"
+speaker_name = "UI_SPEAKER_WOOD_PLATE"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Torii" unique_id=747269606]
 position = Vector2(-528, 159)
@@ -386,7 +386,7 @@ centered = false
 offset = Vector2(-96, -256)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_Order" unique_id=1712380860]
-position = Vector2(-1025, -90)
+position = Vector2(-1016, -93)
 shape = SubResource("RectangleShape2D_oubbf")
 
 [node name="Altar" parent="Narrative" unique_id=2078431511 instance=ExtResource("13_ovy75")]
@@ -399,13 +399,13 @@ tablet_text = "DIALOG_L1_TABLET_RAINNOTE"
 speaker_name = "UI_SPEAKER_RAIN_NOTE"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_RainNote" unique_id=813059385]
-position = Vector2(-178, 40)
+position = Vector2(-289, -65)
 texture = ExtResource("33_rain")
 centered = false
 offset = Vector2(-96, -192)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_RainNote" unique_id=1196617788]
-position = Vector2(-173, -76)
+position = Vector2(-280, -191)
 shape = SubResource("RectangleShape2D_o06sk")
 
 [node name="FoxSpawnMarker" type="Marker2D" parent="Narrative" unique_id=922235557]
@@ -509,11 +509,15 @@ offset = Vector2(-369.5, -229)
 position = Vector2(5684, 499)
 item_id = "bell_fiber"
 item_texture = ExtResource("29_kr1sg")
+inspect_before_collect = true
+inspect_dialog = "铃声渐止，狐火慢些归位。"
 
 [node name="TopOfferingFoxStonePreview" parent="PropsFront" unique_id=1764014149 instance=ExtResource("27_klc0n")]
 position = Vector2(5853, 495)
 item_id = "fox_stone"
 item_texture = ExtResource("30_2viwe")
+inspect_before_collect = true
+inspect_dialog = "火光渐熄，狐火速速归位。"
 
 [node name="Lighting" type="Node2D" parent="." unique_id=1856007008]
 

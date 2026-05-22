@@ -6,10 +6,15 @@ const SFX_COLLECT := preload("res://assets/audio/sfx/collect.wav")
 @export var item_id: String = ""
 @export var item_texture: Texture2D
 @export var max_player_foot_y_distance: float = 72.0
+@export var inspect_before_collect: bool = false
+@export var inspect_dialog: String = ""
+@export var inspect_interact_name: String = "查看"
+@export var collect_interact_name: String = "拿走"
 
 @onready var _visual: Node2D = $Visual
 
 var _collected: bool = false
+var _inspected: bool = false
 var _bob_time: float = 0.0
 var _original_y: float = 0.0
 
@@ -38,6 +43,11 @@ func _process(delta: float) -> void:
 func interact() -> void:
 	if _collected:
 		return
+	if inspect_before_collect and not _inspected:
+		_inspected = true
+		if inspect_dialog != "":
+			DialogManager.show_single("", inspect_dialog)
+		return
 	_collected = true
 	if GameManager.push_offering(item_id):
 		_play_collect_effect()
@@ -45,6 +55,8 @@ func interact() -> void:
 		_collected = false
 
 func get_interact_name() -> String:
+	if inspect_before_collect:
+		return collect_interact_name if _inspected else inspect_interact_name
 	if GameManager.ITEMS.has(item_id):
 		return GameManager.get_item_name(item_id)
 	return tr("UI_OFFERING_DEFAULT")

@@ -35,7 +35,9 @@
       "purpose": "Opening unease: an intact front hall with no lived-in traces and an altered old wooden plaque.",
       "key_objects": [
         "ArchiveTrigger1",
-        "Foxfire_OldWood",
+        "FoxfirePickupMarker",
+        "BlueFlame_*",
+        "Foxfire_PlaqueReveal",
         "StoneLantern_UnusedCommunity"
       ]
     },
@@ -99,7 +101,7 @@
       ],
       "interaction": "打开衣箱 / 再看纸条",
       "information_role": "white fur / white clothing misread",
-      "short_record": "paper slip first hides the character after 白, then reveals 白衣附身 after the plaque changes"
+      "short_record": "paper slip first hides the character after 白, then reveals 白衣覆身 after the plaque changes"
     },
     {
       "node": "ArchiveTrigger4",
@@ -107,7 +109,7 @@
         3230,
         512
       ],
-      "interaction": "查看装束札",
+      "interaction": "查看石碑",
       "information_role": "offering sequence as outfit structure",
       "short_record": "cedar base, white clothing, mugwort cover"
     },
@@ -129,7 +131,14 @@
         "ArchiveTrigger1",
         "ArchiveTrigger2"
       ],
-      "ui_result": "仪式名：迎狐覆盖了送狐"
+      "ui_result": "仪式名：迎狐之仪变成了送*之仪"
+    },
+    {
+      "id": "paper_masked",
+      "requires": [
+        "ArchiveTrigger3"
+      ],
+      "dialogue_result": "纸上写着白，后面的字被框住了。"
     },
     {
       "id": "white_misread",
@@ -149,7 +158,7 @@
     }
   ],
   "reveal_sequence": [
-    "Entrance plaque cycle: 迎狐之仪 -> 送*之仪 -> 送狐之以.",
+    "Entrance plaque cycle: 迎狐之仪 -> 送*之仪; after all five records are understood, reaching FoxfirePickupMarker triggers the record-synthesis dialogue, then the player can collect foxfire from a blue lantern before revealing 送狐之仪.",
     "After the plaque changes, the protagonist is prompted to return to the clothing chest and recheck the paper slip.",
     "Archive interpretation reveal: the records describe sending a child away.",
     "Identity reveal: the white fox's shadow reads as Sayo, the protagonist's sister."

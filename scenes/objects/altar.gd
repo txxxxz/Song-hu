@@ -38,6 +38,7 @@ func interact() -> void:
 		_play_success_effect()
 	else:
 		_play_fail_effect()
+		await _show_fail_monologue_and_restart()
 	offering_completed.emit(success)
 
 func get_interact_name() -> String:
@@ -62,8 +63,13 @@ func _play_fail_effect() -> void:
 	if _label_node:
 		_label_node.text = tr("UI_ALTAR_ORDER_ERROR")
 		_label_node.add_theme_color_override("font_color", Color(0.9, 0.36, 0.28))
+
+func _show_fail_monologue_and_restart() -> void:
+	await get_tree().create_timer(0.35).timeout
+	DialogManager.show_single("我", "供物次第有误，祭祀失败了，再试一次吧")
+	await DialogManager.dialog_finished
 	var reset_tween := create_tween()
-	reset_tween.tween_interval(1.2)
+	reset_tween.tween_interval(0.35)
 	reset_tween.tween_callback(func():
 		GameManager.clear_offerings()
 		GameManager.restart_current_level()

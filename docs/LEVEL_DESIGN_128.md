@@ -61,7 +61,7 @@ The player stands on a baseline near `y=512`; the visible body usually occupies 
 |---|---:|---|
 | Broken cliff | `0-3200` | `SugiTreeSource_bridge` for repeat cedar, `BridgeMarker 1660,512`, `Bridge 2300,512` |
 | First far shore | `3200-5600` | `Tablet_RitualClue 3060,512`, `WhiteFurChest 3380,512`, `SugiTreeSource_altar 3920,512`, `LadderMarker 4240,512`, sloped `LadderGrass`, `MugwortGrassSource 4820,232` |
-| Bell mechanism | `5600-7600` | `BridgeMarkerSecond 5760,512`, `BridgeSecond 6144,512`, bell rope `6400,128` |
+| Bell mechanism | `5600-7600` | `BridgeMarkerSecond 5760,512`, `BridgeSecond 6144,512`, bell rope `6400,128`, `Tablet_FoxfireRitual 7040,512` |
 | Hidden route | `7600-10000` | `BridgeMarkerThird 7280,512`, `BridgeThird 7936,512`, `HiddenPlatform 7240,352`, `OilMarker_HiddenRoute 9480,512` |
 | Second altar | `8800-10240` | altar `9158,554`, transition to Level 3 |
 
@@ -72,17 +72,18 @@ The player stands on a baseline near `y=512`; the visible body usually occupies 
 
 | Room | X Range | Purpose | Key Nodes |
 |---|---:|---|---|
-| 外大殿 | `0-3400` | Opening unease: complete architecture with no lived-in traces, plus the altered old wooden plaque | `ArchiveTrigger1`, `PlaqueMarker`, `Foxfire_OldWood` |
-| 回廊 | `3400-7200` | Read the bamboo slip, open the clothing chest, and compare the outfit-order tablet as a single evidence chain | `ArchiveTrigger2`, `ArchiveTrigger3` as paper chest, `ArchiveTrigger4`, `DressingRoomLongTable` |
-| 内殿 | `7200-11200` | Name Sayo after the player rechecks the chest paper, then force the final choice | `ArchiveTrigger5`, `FoxSpawnMarker` |
+| 外大殿 | `0-3400` | Opening unease: complete architecture with no lived-in traces, plus the altered old wooden plaque | `ArchiveTrigger1`, `PlaqueMarker`, blue foxfire lanterns, `Foxfire_PlaqueReveal` |
+| 回廊 | `3400-7200` | Read the bamboo slip, open the clothing chest, and compare the outfit-order stone tablet as a single evidence chain | `ArchiveTrigger2`, `ArchiveTrigger3` as paper chest, `ArchiveTrigger4` as stone tablet, `DressingRoomLongTable` |
+| 内殿 | `7200-11200` | Name Sayo after the player rechecks the chest paper, then force the final choice | `ArchiveTrigger5` as a table bamboo slip, `FoxSpawnMarker` |
 
-`ArchiveTrigger1`, `2`, `4`, and `5` are interactable `info_clue.gd` nodes. `ArchiveTrigger3` is an interactable clothing chest using `paper_chest_clue.gd`: opening it pops a paper slip with one character blocked; after the entrance plaque changes, the same chest can be checked again to reveal the covered character. The final plaque prompt is disabled until all five clues are understood.
+`ArchiveTrigger1`, `2`, `4`, and `5` are interactable `info_clue.gd` nodes. `ArchiveTrigger3` is an interactable clothing chest using `paper_chest_clue.gd`: opening it shows the blocked paper as a centered inspection overlay; after the entrance plaque changes, the same chest can be checked again to reveal the covered character. The archive sequence is gated in order, and the final plaque prompt is disabled until all five clues are understood and the player reaches the final hall.
 
 The final reveal must stay staged:
-1. The entrance plaque cycles from `迎狐之仪` to `送*之仪`, then foxfire changes it to `送狐之以`.
-2. The protagonist is prompted to return to the clothing chest and recheck the paper slip.
-3. The archive meaning flips from ritual blessing to child send-off.
-4. The white fox shadow becomes a human shape, naming the sister as `纱夜`.
+1. All Level 3 lantern flames are blue foxfire. After the fifth clue is understood, the player must walk to the `FoxfirePickupMarker` blue lantern before the protagonist connects the records and realizes the old plaque must be rechecked with foxfire.
+2. After that position-triggered dialogue, the player can press `E 拾取狐火` at any blue foxfire lantern, then return to the entrance plaque and press `E 用狐火照匾额`.
+3. The collected blue foxfire changes the plaque to `送狐之仪`, then the protagonist is prompted to return to the clothing chest and recheck the paper slip.
+4. The archive meaning flips from ritual blessing to child send-off.
+5. The white fox shadow becomes a human shape, naming the sister as `纱夜`.
 
 Ending A completes the ritual and restores stability, but the back-wall cuts imply erasure continues. Ending B breaks the ritual shell and makes memory return, without presenting either choice as a clean moral answer.
 

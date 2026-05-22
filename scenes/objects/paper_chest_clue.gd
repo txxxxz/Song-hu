@@ -3,6 +3,10 @@ extends Area2D
 signal clue_activated(clue_index: int, clue: Node2D)
 signal chest_rechecked()
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_OLD_CHEST_OPEN := preload("res://assets/audio/sfx/old_chest_open.wav")
+const SFX_PAPER_PATCH_RELEASE := preload("res://assets/audio/sfx/paper_patch_release.wav")
+
 @export var clue_index: int = 2
 @export var interact_name: String = "打开衣箱"
 @export var final_interact_name: String = "再看纸条"
@@ -19,7 +23,6 @@ signal chest_rechecked()
 var _opened := false
 var _final_recheck_enabled := false
 var _final_seen := false
-var _sfx_collect: AudioStream = preload("res://assets/audio/sfx/collect.wav")
 
 func _ready() -> void:
 	collision_layer = 2
@@ -45,6 +48,7 @@ func interact() -> void:
 		remove_from_group("interactable")
 		_apply_paper_texture(true)
 		_pop_paper(true)
+		AudioHelpers.play_one_shot(get_tree().root, SFX_PAPER_PATCH_RELEASE)
 		chest_rechecked.emit()
 
 func enable_final_recheck() -> void:
@@ -95,12 +99,7 @@ func _pop_paper(revealed: bool) -> void:
 	tween.tween_property(_paper_sprite, "position", Vector2(0, -174), 0.34).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func _play_open_effect() -> void:
-	var sfx := AudioStreamPlayer.new()
-	sfx.stream = _sfx_collect
-	sfx.volume_db = -3.0
-	get_tree().root.add_child(sfx)
-	sfx.play()
-	sfx.finished.connect(sfx.queue_free)
+	AudioHelpers.play_one_shot(get_tree().root, SFX_OLD_CHEST_OPEN)
 
 	if _visual:
 		var lift := create_tween()

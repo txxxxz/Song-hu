@@ -29,7 +29,7 @@ func _create_ui() -> void:
 	margin.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	margin.offset_left = 160
 	margin.offset_right = -160
-	margin.offset_top = -240
+	margin.offset_top = -268
 	margin.offset_bottom = -44
 	_canvas.add_child(margin)
 
@@ -40,10 +40,10 @@ func _create_ui() -> void:
 	style.texture_margin_right = 32
 	style.texture_margin_top = 32
 	style.texture_margin_bottom = 32
-	style.content_margin_left = 34
-	style.content_margin_right = 34
-	style.content_margin_top = 24
-	style.content_margin_bottom = 24
+	style.content_margin_left = 58
+	style.content_margin_right = 58
+	style.content_margin_top = 36
+	style.content_margin_bottom = 34
 	_dialog_box.add_theme_stylebox_override("panel", style)
 	margin.add_child(_dialog_box)
 

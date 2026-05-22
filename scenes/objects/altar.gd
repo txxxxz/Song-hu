@@ -3,6 +3,10 @@ extends Area2D
 signal offering_completed(success: bool)
 signal altar_activated()
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_ALTAR := preload("res://assets/audio/sfx/altar.wav")
+const SFX_ALTAR_FAIL := preload("res://assets/audio/sfx/altar_fail.wav")
+
 @export var level: int = 1
 
 @onready var _glow: PointLight2D = $Glow
@@ -40,6 +44,7 @@ func get_interact_name() -> String:
 	return "祭坛"
 
 func _play_success_effect() -> void:
+	AudioHelpers.play_one_shot(get_tree().root, SFX_ALTAR)
 	if _glow:
 		var tween := create_tween()
 		tween.tween_property(_glow, "energy", 1.6, 0.8)
@@ -49,6 +54,7 @@ func _play_success_effect() -> void:
 		_label_node.add_theme_color_override("font_color", Color(1.0, 0.88, 0.55))
 
 func _play_fail_effect() -> void:
+	AudioHelpers.play_one_shot(get_tree().root, SFX_ALTAR_FAIL)
 	if _glow:
 		var tween := create_tween()
 		tween.tween_property(_glow, "color", Color(0.65, 0.20, 0.18, 0.85), 0.25)

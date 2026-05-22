@@ -1,5 +1,8 @@
 extends Area2D
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_OLD_CHEST_OPEN := preload("res://assets/audio/sfx/old_chest_open.wav")
+
 @export var item_id: String = "white_fur"
 @export var item_texture: Texture2D
 @export var closed_texture: Texture2D
@@ -12,7 +15,6 @@ extends Area2D
 @onready var _sprite: Sprite2D = $Visual/ChestSprite
 
 var _opened: bool = false
-var _sfx_collect: AudioStream = preload("res://assets/audio/sfx/collect.wav")
 
 func _ready() -> void:
 	collision_layer = 2
@@ -48,12 +50,7 @@ func _apply_open_texture() -> void:
 		_sprite.texture = open_texture
 
 func _play_open_effect() -> void:
-	var sfx := AudioStreamPlayer.new()
-	sfx.stream = _sfx_collect
-	sfx.volume_db = -3.0
-	get_tree().root.add_child(sfx)
-	sfx.play()
-	sfx.finished.connect(sfx.queue_free)
+	AudioHelpers.play_one_shot(get_tree().root, SFX_OLD_CHEST_OPEN)
 
 	if _visual:
 		var lift := create_tween()

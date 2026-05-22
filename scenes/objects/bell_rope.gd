@@ -2,6 +2,9 @@ extends Area2D
 
 signal bell_pulled()
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_BELL := preload("res://assets/audio/sfx/bell.wav")
+
 @onready var _visual: Node2D = $Visual
 
 var _pulled: bool = false
@@ -24,12 +27,7 @@ func get_interact_name() -> String:
 	return "铃绳"
 
 func _play_pull_animation() -> void:
-	var sfx := AudioStreamPlayer.new()
-	sfx.stream = preload("res://assets/audio/sfx/bell.wav")
-	sfx.volume_db = -3.0
-	add_child(sfx)
-	sfx.play()
-	sfx.finished.connect(sfx.queue_free)
+	AudioHelpers.play_one_shot(self, SFX_BELL)
 	if _visual:
 		var tween := create_tween()
 		tween.tween_property(_visual, "rotation", 0.15, 0.18)

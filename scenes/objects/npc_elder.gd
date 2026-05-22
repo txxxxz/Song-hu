@@ -1,5 +1,8 @@
 extends Area2D
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_INTERACT := preload("res://assets/audio/sfx/interact.wav")
+
 @export var dialog_lines: Array[Dictionary] = []
 
 @onready var _visual: Node2D = $Visual
@@ -13,6 +16,7 @@ func _ready() -> void:
 
 func interact() -> void:
 	if not dialog_lines.is_empty():
+		AudioHelpers.play_one_shot(get_tree().root, SFX_INTERACT)
 		DialogManager.show_dialog(dialog_lines)
 
 func get_interact_name() -> String:

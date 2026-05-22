@@ -8,8 +8,11 @@ const BACKGROUND_PARALLAX := {
 	"Background_Mid": 0.90,
 	"Background_Near": 0.98,
 }
+const AMBIENT_ANIMATION_ROOTS := ["FX"]
 const FoxSpiritScene = preload("res://scenes/objects/fox_spirit.tscn")
 const ChoicePanelScene = preload("res://scenes/ui/choice_panel.tscn")
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_FOXFIRE := preload("res://assets/audio/sfx/foxfire.wav")
 
 @export var level_width: int = 1280
 @export var camera_limit_top: int = -360
@@ -27,6 +30,8 @@ var _background_layers: Array[Dictionary] = []
 func _ready() -> void:
 	_configure_player_camera()
 	_configure_background_layers()
+	_configure_ambient_animations()
+	_configure_audio_players()
 	_on_level_ready()
 	_update_background_layers()
 
@@ -129,6 +134,34 @@ func _viewport_width() -> float:
 func _on_level_ready() -> void:
 	pass
 
+func _configure_ambient_animations() -> void:
+	for root_path in AMBIENT_ANIMATION_ROOTS:
+		var root := get_node_or_null(root_path)
+		if root:
+			_play_looping_animations(root)
+
+func _play_looping_animations(node: Node) -> void:
+	var animated_sprite := node as AnimatedSprite2D
+	if animated_sprite and animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation(&"loop"):
+		animated_sprite.animation = &"loop"
+		animated_sprite.play()
+	for child in node.get_children():
+		_play_looping_animations(child)
+
+func _configure_audio_players() -> void:
+	if bgm_player and not bgm_player.finished.is_connected(_restart_bgm):
+		bgm_player.finished.connect(_restart_bgm)
+	if ambience_player and not ambience_player.finished.is_connected(_restart_ambience):
+		ambience_player.finished.connect(_restart_ambience)
+
+func _restart_bgm() -> void:
+	if bgm_player and bgm_player.stream:
+		bgm_player.play()
+
+func _restart_ambience() -> void:
+	if ambience_player and ambience_player.stream:
+		ambience_player.play()
+
 func play_bgm(stream: AudioStream) -> void:
 	if bgm_player:
 		bgm_player.stream = stream
@@ -140,9 +173,14 @@ func play_ambience(stream: AudioStream) -> void:
 		ambience_player.play()
 
 func play_sfx(stream: AudioStream) -> void:
-	if sfx_player:
+	if not stream:
+		return
+	if sfx_player and not sfx_player.playing:
 		sfx_player.stream = stream
+		sfx_player.volume_db = -3.0
 		sfx_player.play()
+		return
+	AudioHelpers.play_one_shot(self, stream)
 
 func fade_bgm(duration: float = 1.0) -> void:
 	if not bgm_player or not bgm_player.playing:
@@ -169,5 +207,6 @@ func spawn_fox(pos: Vector2, fox_mode: int = 0) -> Node2D:
 		actor_parent.add_child(fox)
 	else:
 		add_child(fox)
+	play_sfx(SFX_FOXFIRE)
 	fox.appear(pos, fox_mode)
 	return fox

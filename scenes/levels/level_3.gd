@@ -1,5 +1,9 @@
 extends LevelBase
 
+const BGM_FINAL_CHOICE_VOID := preload("res://assets/audio/bgm/final_choice_void.wav")
+const SFX_PLAQUE_REVEAL := preload("res://assets/audio/sfx/plaque_reveal.wav")
+const SFX_SAYO_SHADOW_REVEAL := preload("res://assets/audio/sfx/sayo_shadow_reveal.wav")
+
 @onready var _archive_triggers: Array[Area2D] = [
 	$Narrative/ArchiveTrigger1,
 	$Narrative/ArchiveTrigger2,
@@ -250,12 +254,13 @@ func _on_plaque_interact() -> void:
 	_plaque_transformed = true
 	if player and player.has_method("set_external_interact_prompt"):
 		player.set_external_interact_prompt("", false)
-	_set_plaque_state("送狐之以")
+	play_sfx(SFX_PLAQUE_REVEAL)
+	_set_plaque_state("送狐之仪")
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "匾额上的「送*之仪」被狐火照亮。"},
 		{"speaker": "", "text": "狐火贴近木面。剩余的金漆起泡，一点点自行剥落。"},
 		{"speaker": "", "text": "遮住的字露了出来。"},
-		{"speaker": "", "text": "木匾变成了「送狐之以」。"},
+		{"speaker": "", "text": "木匾变成了「送狐之仪」。"},
 		{"speaker": "我", "text": "既然木匾有了变化，我们去看看刚才箱子里的字到底是什么。"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
@@ -289,6 +294,8 @@ func _on_inner_reveal_interact() -> void:
 	_fox_ref = spawn_fox(_fox_spawn_marker.global_position if _fox_spawn_marker else Vector2(5050, 548), 0)
 	await get_tree().create_timer(1.0).timeout
 	_show_human_shadow()
+	play_sfx(SFX_SAYO_SHADOW_REVEAL)
+	play_bgm(BGM_FINAL_CHOICE_VOID)
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "白狐出现在长明灯前。灯下的石板渗着水。"},
 		{"speaker": "", "text": "它回过头。童谣里的禁句贴着耳边响起。"},

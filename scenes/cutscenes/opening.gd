@@ -1,5 +1,8 @@
 extends Control
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const BGM_OPENING_MEMORY := preload("res://assets/audio/bgm/opening_memory.wav")
+
 @onready var _wash: ColorRect = $Wash
 @onready var _title: Label = $Title
 @onready var _body: Label = $Body
@@ -33,6 +36,7 @@ var _locked := false
 
 func _ready() -> void:
 	GameManager.set_state(GameManager.State.CUTSCENE)
+	AudioHelpers.play_music(self, BGM_OPENING_MEMORY)
 	_title.modulate.a = 0.0
 	_body.modulate.a = 0.0
 	_hint.modulate.a = 0.0

@@ -1,5 +1,8 @@
 extends Area2D
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_INTERACT := preload("res://assets/audio/sfx/interact.wav")
+
 @export var tablet_text: String = ""
 @export var speaker_name: String = ""
 
@@ -11,6 +14,7 @@ func _ready() -> void:
 func interact() -> void:
 	if tablet_text.is_empty():
 		return
+	AudioHelpers.play_one_shot(get_tree().root, SFX_INTERACT)
 	var lines: Array[Dictionary] = []
 	var normalized := tablet_text.replace("\\n", "\n")
 	for part in normalized.split("\n"):

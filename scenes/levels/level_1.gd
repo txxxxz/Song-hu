@@ -2,6 +2,8 @@ extends LevelBase
 
 const FOX_FIRE_TEXTURE := preload("res://assets/sprites/effects/fox_fire.png")
 const WARM_LIGHT_TEXTURE := preload("res://assets/sprites/effects/warm_light.png")
+const SFX_BRANCH_A_BELL_ACCEPT := preload("res://assets/audio/sfx/branch_a_bell_accept.wav")
+const SFX_BRANCH_B_FOXFIRE_FORCE := preload("res://assets/audio/sfx/branch_b_foxfire_force.wav")
 const FOX_SCREEN_MARGIN_X := 240.0
 
 @onready var _altar_ref: Area2D = $Narrative/Altar
@@ -190,6 +192,7 @@ func _on_final_choice(choice: String) -> void:
 		_play_ending_b()
 
 func _play_ending_a() -> void:
+	play_sfx(SFX_BRANCH_A_BELL_ACCEPT)
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "你把旧铃铛放在供物最上方。"},
 		{"speaker": "", "text": "铃声很远，从山上的雾里落下来。"},
@@ -207,6 +210,7 @@ func _play_ending_a() -> void:
 	_unlock_shrine_portal()
 
 func _play_ending_b() -> void:
+	play_sfx(SFX_BRANCH_B_FOXFIRE_FORCE)
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "你把狐火石嵌进供物之间。"},
 		{"speaker": "", "text": "火纹猛地亮起，供桌边缘冒出焦味。"},

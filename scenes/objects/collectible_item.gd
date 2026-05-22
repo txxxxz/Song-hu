@@ -1,5 +1,8 @@
 extends Area2D
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_COLLECT := preload("res://assets/audio/sfx/collect.wav")
+
 @export var item_id: String = ""
 @export var item_texture: Texture2D
 @export var max_player_foot_y_distance: float = 72.0
@@ -53,12 +56,7 @@ func _stable_global_y() -> float:
 	return global_position.y - (position.y - _original_y)
 
 func _play_collect_effect() -> void:
-	var sfx := AudioStreamPlayer.new()
-	sfx.stream = preload("res://assets/audio/sfx/collect.wav")
-	sfx.volume_db = -3.0
-	get_tree().root.add_child(sfx)
-	sfx.play()
-	sfx.finished.connect(sfx.queue_free)
+	AudioHelpers.play_one_shot(get_tree().root, SFX_COLLECT)
 
 	var tween := create_tween()
 	tween.set_parallel(true)

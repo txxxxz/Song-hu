@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://djvsu7lsh4skr" path="res://assets_1/assets/sprites/effects/cold_light.png" id="30_7to3y"]
 [ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="31_ywi5j"]
 [ext_resource type="Texture2D" uid="uid://bix10hnkjm217" path="res://assets_1/assets/sprites/effects/blue_flame.png" id="32_nqmx1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="33_i1qex"]
+[ext_resource type="PackedScene" uid="uid://de53somme5k4e" path="res://scenes/ui/hud.tscn" id="33_i1qex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gy8s"]
 size = Vector2(176, 220)
@@ -58,13 +58,13 @@ size = Vector2(160, 120)
 size = Vector2(633.98425, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cqu1g"]
-size = Vector2(1152, 64)
+size = Vector2(1234, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mm18"]
-size = Vector2(640, 64)
+size = Vector2(751, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3o2l"]
-size = Vector2(1152, 64)
+size = Vector2(1240, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8iv1u"]
 size = Vector2(544, 64)
@@ -414,18 +414,23 @@ color = Color(0.018, 0.018, 0.032, 1)
 
 [node name="Background_Far" type="Sprite2D" parent="." unique_id=1973039255]
 z_index = -80
+position = Vector2(0, -300)
+scale = Vector2(1, 1.3)
 texture = ExtResource("2_tn15g")
 centered = false
 metadata/parallax_factor = 1.0
 
 [node name="Background_Mid" type="Sprite2D" parent="." unique_id=647189154]
 z_index = -70
+position = Vector2(0, -300)
+scale = Vector2(1, 1.6)
 texture = ExtResource("3_oftal")
 centered = false
 metadata/parallax_factor = 1.0
 
 [node name="Background_Near" type="Sprite2D" parent="." unique_id=722662602]
 z_index = -60
+scale = Vector2(1, 1.3)
 texture = ExtResource("4_fqy8p")
 centered = false
 metadata/parallax_factor = 1.0
@@ -451,7 +456,7 @@ centered = false
 offset = Vector2(-64, -256)
 
 [node name="StoneLantern_BridgeAfter" type="Sprite2D" parent="PropsBack" unique_id=938040158]
-position = Vector2(2917, 549)
+position = Vector2(3000, 549)
 texture = ExtResource("6_wk7pi")
 centered = false
 offset = Vector2(-64, -256)
@@ -556,6 +561,9 @@ scale = Vector2(0.8, 0.8)
 
 [node name="Player" parent="Actors" unique_id=1788707675 instance=ExtResource("15_8ghkn")]
 position = Vector2(176, 567)
+
+[node name="CollisionShape2D" parent="Actors/Player" index="1" unique_id=786634215]
+position = Vector2(0, -150)
 
 [node name="Mechanisms" type="Node2D" parent="." unique_id=80257625]
 
@@ -712,12 +720,14 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="BridgeSprite" type="Sprite2D" parent="Mechanisms/Bridge" unique_id=1159948036]
+position = Vector2(60.5, 0)
+scale = Vector2(1.1050347, 1)
 texture = ExtResource("26_852cy")
 centered = false
 offset = Vector2(-576, 0)
 
 [node name="BridgeCollision" type="CollisionShape2D" parent="Mechanisms/Bridge" unique_id=249835332]
-position = Vector2(0, 32)
+position = Vector2(41, 32)
 shape = SubResource("RectangleShape2D_cqu1g")
 
 [node name="BridgeSecond" type="StaticBody2D" parent="Mechanisms" unique_id=1679169212]
@@ -726,14 +736,14 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="BridgeSecondSprite" type="Sprite2D" parent="Mechanisms/BridgeSecond" unique_id=1010385164]
-position = Vector2(-7.5000334, -15)
-scale = Vector2(0.54079854, 1)
+position = Vector2(50.499817, -15)
+scale = Vector2(0.6414927, 1)
 texture = ExtResource("26_852cy")
 centered = false
 offset = Vector2(-576, 0)
 
 [node name="BridgeSecondCollision" type="CollisionShape2D" parent="Mechanisms/BridgeSecond" unique_id=61800064]
-position = Vector2(0, 32)
+position = Vector2(55.5, 32)
 shape = SubResource("RectangleShape2D_4mm18")
 
 [node name="BridgeThird" type="StaticBody2D" parent="Mechanisms" unique_id=1359690629]
@@ -742,12 +752,14 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="BridgeThirdSprite" type="Sprite2D" parent="Mechanisms/BridgeThird" unique_id=598673134]
+position = Vector2(62, 0)
+scale = Vector2(1.1076388, 1)
 texture = ExtResource("26_852cy")
 centered = false
 offset = Vector2(-576, 0)
 
 [node name="BridgeThirdCollision" type="CollisionShape2D" parent="Mechanisms/BridgeThird" unique_id=366395124]
-position = Vector2(0, 32)
+position = Vector2(44, 32)
 shape = SubResource("RectangleShape2D_y3o2l")
 
 [node name="HiddenPlatform" type="StaticBody2D" parent="Mechanisms" unique_id=1596069404]
@@ -787,7 +799,7 @@ texture = ExtResource("29_em1wd")
 texture_scale = 1.1
 
 [node name="LanternLight_BridgeAfter" type="PointLight2D" parent="Lighting" unique_id=1761527628]
-position = Vector2(2899, 394)
+position = Vector2(2995, 386)
 energy = 0.26
 texture = ExtResource("29_em1wd")
 texture_scale = 1.1
@@ -817,35 +829,40 @@ color = Color(0.74, 0.78, 0.9, 1)
 [node name="FX" type="Node2D" parent="." unique_id=483110555]
 
 [node name="LanternFlame_CliffStart" type="AnimatedSprite2D" parent="FX" unique_id=1763382716]
-position = Vector2(431, 445)
+position = Vector2(430, 440)
+scale = Vector2(0.59375, 0.59375)
 sprite_frames = SubResource("SpriteFrames_xmfm0")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_BridgeAfter" type="AnimatedSprite2D" parent="FX" unique_id=2054674640]
-position = Vector2(2915, 432)
+position = Vector2(2998, 431.00003)
+scale = Vector2(0.6484375, 0.6484375)
 sprite_frames = SubResource("SpriteFrames_683i3")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_TreeShadow" type="AnimatedSprite2D" parent="FX" unique_id=560568580]
-position = Vector2(5758, 424)
+position = Vector2(5756, 428)
+scale = Vector2(0.671875, 0.671875)
 sprite_frames = SubResource("SpriteFrames_yw0fd")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_SecondAltar" type="AnimatedSprite2D" parent="FX" unique_id=534537065]
-position = Vector2(9406, 429)
+position = Vector2(9401, 424.00003)
+scale = Vector2(0.6015625, 0.6015625)
 sprite_frames = SubResource("SpriteFrames_gvrkc")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="BlueFlame_HiddenRoute" type="AnimatedSprite2D" parent="FX" unique_id=707106446]
-position = Vector2(6581, 455)
+position = Vector2(6585.0005, 450.00003)
+scale = Vector2(0.8359375, 0.8359375)
 sprite_frames = SubResource("SpriteFrames_vfcg7")
 animation = &"loop"
 centered = false
@@ -867,3 +884,6 @@ volume_db = -3.0
 [node name="ItemWaterGrass" type="Sprite2D" parent="." unique_id=571618305]
 position = Vector2(7661, 341)
 texture = ExtResource("12_wk7pi")
+
+[editable path="Actors/Player"]
+[editable path="HUD"]

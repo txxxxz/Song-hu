@@ -343,6 +343,8 @@ size = Vector2(80, 216)
 size = Vector2(260, 220)
 
 [node name="Player" type="CharacterBody2D" unique_id=1788707675]
+z_index = 1000
+z_as_relative = false
 collision_mask = 4
 floor_snap_length = 18.0
 script = ExtResource("1_h17s1")

@@ -1,5 +1,14 @@
 extends LevelBase
 
+const BGM_APPROACH_THEME := preload("res://assets/audio/bgm/approach_theme.wav")
+const BGM_APPROACH_A_TENSE := preload("res://assets/audio/bgm/approach_a_tense.wav")
+const BGM_APPROACH_B_PANIC := preload("res://assets/audio/bgm/approach_b_panic.wav")
+const SFX_PLACE_BRIDGE := preload("res://assets/audio/sfx/place_bridge.wav")
+const SFX_PLACE_LADDER := preload("res://assets/audio/sfx/place_ladder.wav")
+const SFX_TAKE_LAMP_OIL := preload("res://assets/audio/sfx/take_lamp_oil.wav")
+const SFX_WATER_GRASS_CALM := preload("res://assets/audio/sfx/water_grass_calm.wav")
+const SFX_LAMP_OIL_FLARE := preload("res://assets/audio/sfx/lamp_oil_flare.wav")
+
 @onready var _altar_ref: Area2D = $Narrative/Altar
 @onready var _bell_ref: Area2D = $Narrative/BellRope
 @onready var _hidden_platform: StaticBody2D = $Mechanisms/HiddenPlatform
@@ -59,11 +68,17 @@ func _on_level_ready() -> void:
 		_set_platform_enabled(spot["bridge"] as Node, false)
 	_set_platform_enabled(_hidden_platform, false)
 	_set_platform_enabled(_ladder_ref, false)
+	_register_wood_footstep_surfaces()
 	_place_water_grass_on_hidden_platform()
 	_set_interactable_enabled(_water_grass_source, false)
 	show_area_name("第二章  断参道")
 	GameManager.set_state(GameManager.State.PLAYING)
-	play_bgm(preload("res://assets/audio/bgm/approach_theme.wav"))
+	if GameManager.is_a_path():
+		play_bgm(BGM_APPROACH_A_TENSE)
+	elif GameManager.is_b_path():
+		play_bgm(BGM_APPROACH_B_PANIC)
+	else:
+		play_bgm(BGM_APPROACH_THEME)
 	play_ambience(preload("res://assets/audio/ambience/broken_approach.wav"))
 	await get_tree().create_timer(0.8).timeout
 	if GameManager.is_a_path():
@@ -154,6 +169,7 @@ func _try_place_bridge(index: int) -> void:
 	for text in spot.get("lines", ["你铺下杉木桥。"]):
 		dialog_lines.append({"speaker": "", "text": str(text)})
 	DialogManager.show_dialog(dialog_lines)
+	play_sfx(SFX_PLACE_BRIDGE)
 	var bridge := spot.get("bridge") as Node
 	_set_platform_enabled(bridge, true)
 	if bridge:
@@ -167,6 +183,7 @@ func _try_use_ladder() -> void:
 	_ladder_used = true
 	_configure_ladder_collision()
 	_set_platform_enabled(_ladder_ref, true)
+	play_sfx(SFX_PLACE_LADDER)
 	if _ladder_ref:
 		_ladder_ref.modulate.a = 0.0
 		var tween := create_tween()
@@ -185,6 +202,7 @@ func _try_take_lamp_oil(index: int) -> void:
 	lamp["oil_taken"] = true
 	_lamp_nodes[index] = lamp
 	_apply_lamp_state(lamp)
+	play_sfx(SFX_TAKE_LAMP_OIL)
 	DialogManager.show_single("", "你从蓝火里取出一小瓶灯芯油。火苗矮下去，灯罩里只剩湿冷的烟。")
 
 func _consume_sugi_tool(fail_dialog: String) -> bool:
@@ -322,6 +340,12 @@ func _place_water_grass_on_hidden_platform() -> void:
 			target_position.y -= rect.size.y * 0.5 + 25.0
 	_water_grass_source.global_position = target_position
 
+func _register_wood_footstep_surfaces() -> void:
+	for spot in _bridge_spots:
+		var bridge := spot.get("bridge") as Node
+		if bridge:
+			bridge.add_to_group("wood_footstep")
+
 func _on_altar_completed(success: bool) -> void:
 	if not success or _ending_triggered:
 		return
@@ -349,6 +373,7 @@ func _on_final_choice(choice: String) -> void:
 		_play_ending_b2()
 
 func _play_ending_a2() -> void:
+	play_sfx(SFX_WATER_GRASS_CALM)
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "你把清水草覆在供物上。"},
 		{"speaker": "", "text": "蓝火低下去，白狐的脚步慢下来，身子蜷缩起来，恍惚间好似学步小童。"},
@@ -359,6 +384,7 @@ func _play_ending_a2() -> void:
 	GameManager.transition_to_level(3)
 
 func _play_ending_b2() -> void:
+	play_sfx(SFX_LAMP_OIL_FLARE)
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "你把灯芯油倒进火里。"},
 		{"speaker": "", "text": "狐火猛地照亮两侧石像。白狐的影子被拉长，像是披着宽袖踽踽前行。"},

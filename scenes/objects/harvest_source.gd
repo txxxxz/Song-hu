@@ -1,5 +1,11 @@
 extends Area2D
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_COLLECT := preload("res://assets/audio/sfx/collect.wav")
+const SFX_CHOP_SUGI_WOOD := preload("res://assets/audio/sfx/chop_sugi_wood.wav")
+const SFX_HARVEST_MUGWORT := preload("res://assets/audio/sfx/harvest_mugwort.wav")
+const SFX_HARVEST_WATER_GRASS := preload("res://assets/audio/sfx/harvest_water_grass.wav")
+
 @export var item_id: String = ""
 @export var item_texture: Texture2D
 @export var interact_name: String = "采集"
@@ -10,7 +16,6 @@ extends Area2D
 @onready var _visual: Node2D = $Visual
 
 var _harvest_count: int = 0
-var _sfx_collect: AudioStream = preload("res://assets/audio/sfx/collect.wav")
 
 func _ready() -> void:
 	collision_layer = 2
@@ -38,12 +43,7 @@ func can_interact_from(player_position: Vector2) -> bool:
 	return absf(player_position.y - global_position.y) <= max_player_foot_y_distance
 
 func _play_harvest_effect() -> void:
-	var sfx := AudioStreamPlayer.new()
-	sfx.stream = _sfx_collect
-	sfx.volume_db = -3.0
-	get_tree().root.add_child(sfx)
-	sfx.play()
-	sfx.finished.connect(sfx.queue_free)
+	AudioHelpers.play_one_shot(get_tree().root, _harvest_sfx())
 
 	if _visual:
 		var shake := create_tween()
@@ -67,3 +67,14 @@ func _play_harvest_effect() -> void:
 		drop.tween_interval(0.22)
 		drop.tween_property(item_sprite, "modulate:a", 0.0, 0.22)
 		drop.tween_callback(item_sprite.queue_free)
+
+func _harvest_sfx() -> AudioStream:
+	match item_id:
+		"sugi_wood":
+			return SFX_CHOP_SUGI_WOOD
+		"mugwort":
+			return SFX_HARVEST_MUGWORT
+		"water_grass":
+			return SFX_HARVEST_WATER_GRASS
+		_:
+			return SFX_COLLECT

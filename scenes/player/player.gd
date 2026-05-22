@@ -15,6 +15,7 @@ const FOOTSTEP_INTERVAL := 0.26
 const INTERACT_PROMPT_POSITION := Vector2(72.0, -360.0)
 const INTERACT_PROMPT_SIZE := Vector2(392.0, 128.0)
 const INTERACT_PROMPT_FRAME_SIZE := Vector2(128.0, 128.0)
+const PLAYER_DRAW_Z_INDEX := 1000
 
 signal interacted(target: Node2D)
 
@@ -39,16 +40,32 @@ var _external_prompt_active: bool = false
 var _footstep_timer: float = 0.0
 var _forced_anim_name: String = ""
 var _forced_anim_timer: float = 0.0
-var _sfx_jump: AudioStream = preload("res://assets/audio/sfx/jump.wav")
+var _jump_sfx_index: int = 0
+var _wood_footstep_sfx_index: int = 0
+var _sfx_jump_variants: Array[AudioStream] = [
+	preload("res://assets/audio/sfx/jump.wav"),
+	preload("res://assets/audio/sfx/jump_1.wav"),
+]
 var _sfx_footstep: AudioStream = preload("res://assets/audio/sfx/footstep.wav")
+var _sfx_wood_footsteps: Array[AudioStream] = [
+	preload("res://assets/audio/sfx/footstep_wood_bridge.wav"),
+	preload("res://assets/audio/sfx/footstep_wood_bridge_1.wav"),
+	preload("res://assets/audio/sfx/footstep_wood_bridge_2.wav"),
+	preload("res://assets/audio/sfx/footstep_wood_bridge_3.wav"),
+]
 
 func _ready() -> void:
+	_configure_draw_order()
 	GameManager.player_ref = self
 	_layout_interact_prompt()
 	interaction_area.body_entered.connect(_on_interaction_entered)
 	interaction_area.body_exited.connect(_on_interaction_exited)
 	interaction_area.area_entered.connect(_on_interact_area_entered)
 	interaction_area.area_exited.connect(_on_interact_area_exited)
+
+func _configure_draw_order() -> void:
+	z_as_relative = false
+	z_index = PLAYER_DRAW_Z_INDEX
 
 func _layout_interact_prompt() -> void:
 	if not interact_prompt:
@@ -91,7 +108,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jump_buffer_timer = 0.0
 		coyote_timer = 0.0
-		_play_sfx(_sfx_jump)
+		_play_sfx(_next_jump_sfx())
 
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= JUMP_CUT_FACTOR
@@ -136,10 +153,32 @@ func _update_footsteps(delta: float) -> void:
 	if is_on_floor() and absf(velocity.x) > 12.0:
 		_footstep_timer -= delta
 		if _footstep_timer <= 0.0:
-			_play_sfx(_sfx_footstep)
+			_play_sfx(_current_footstep_sfx())
 			_footstep_timer = FOOTSTEP_INTERVAL
 	else:
 		_footstep_timer = 0.0
+
+func _next_jump_sfx() -> AudioStream:
+	var stream := _sfx_jump_variants[_jump_sfx_index % _sfx_jump_variants.size()]
+	_jump_sfx_index += 1
+	return stream
+
+func _current_footstep_sfx() -> AudioStream:
+	if _is_on_wood_footstep_surface():
+		var stream := _sfx_wood_footsteps[_wood_footstep_sfx_index % _sfx_wood_footsteps.size()]
+		_wood_footstep_sfx_index += 1
+		return stream
+	return _sfx_footstep
+
+func _is_on_wood_footstep_surface() -> bool:
+	for i in range(get_slide_collision_count()):
+		var collision := get_slide_collision(i)
+		if not collision or collision.get_normal().y > -0.65:
+			continue
+		var collider := collision.get_collider()
+		if collider is Node and (collider as Node).is_in_group("wood_footstep"):
+			return true
+	return false
 
 func _update_prompt() -> void:
 	if nearest_interactable:

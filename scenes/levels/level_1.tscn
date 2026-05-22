@@ -1,35 +1,35 @@
 [gd_scene format=4 uid="uid://vuhqa47i67ny"]
 
 [ext_resource type="Script" uid="uid://drrf0e0r586vc" path="res://scenes/levels/level_1.gd" id="1_o8s4s"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_far.png" id="2_ebb2h"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
+[ext_resource type="Texture2D" uid="uid://cpgllt00tj3lr" path="res://assets/backgrounds/level1_far.png" id="2_ebb2h"]
+[ext_resource type="Texture2D" uid="uid://ctwmvbt5hvvey" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
+[ext_resource type="Texture2D" uid="uid://cc54n33cb6hgb" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
 [ext_resource type="TileSet" uid="uid://c6xn35cb3v1jm" path="res://assets/tilesets/forest_tileset.tres" id="5_hvllt"]
-[ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
-[ext_resource type="Texture2D" uid="uid://b5c2eghweqwl4" path="res://assets/sprites/objects/torii_small.png" id="7_svqqs"]
-[ext_resource type="Texture2D" uid="uid://bkichr3en42ju" path="res://assets/sprites/objects/torii.png" id="8_2to4m"]
+[ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets_1/assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
+[ext_resource type="Texture2D" uid="uid://b5c2eghweqwl4" path="res://assets_1/assets/sprites/objects/torii_small.png" id="7_svqqs"]
+[ext_resource type="Texture2D" uid="uid://bkichr3en42ju" path="res://assets_1/assets/sprites/objects/torii.png" id="8_2to4m"]
 [ext_resource type="PackedScene" path="res://scenes/objects/npc_elder.tscn" id="9_kc3v0"]
 [ext_resource type="Script" uid="uid://b7gs2plge8ef0" path="res://scenes/objects/stone_tablet.gd" id="11_dwx2n"]
-[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
+[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets_1/assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
 [ext_resource type="PackedScene" path="res://scenes/objects/altar.tscn" id="13_ovy75"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="15_ugk5q"]
 [ext_resource type="Script" uid="uid://wa1yi7wglmv" path="res://scenes/objects/harvest_source.gd" id="17_i3rdk"]
-[ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
+[ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets_1/assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
 [ext_resource type="Texture2D" uid="uid://ca4qsdnbh77r4" path="res://assets/sprites/objects/large_tree/large_tree.png" id="19_bccrp"]
 [ext_resource type="Script" uid="uid://cwcytox18c0js" path="res://scenes/objects/white_fur_chest.gd" id="20_20f45"]
-[ext_resource type="Texture2D" uid="uid://df4aextjt1c5b" path="res://assets/sprites/objects/item_white_fur.png" id="21_6bay7"]
+[ext_resource type="Texture2D" uid="uid://df4aextjt1c5b" path="res://assets_1/assets/sprites/objects/item_white_fur.png" id="21_6bay7"]
 [ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_to6s4"]
 [ext_resource type="Texture2D" uid="uid://bir76inbdlgmu" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_7tcdn"]
-[ext_resource type="Texture2D" uid="uid://de15crklj3nq" path="res://assets/sprites/objects/item_mugwort.png" id="24_4gp5p"]
-[ext_resource type="Texture2D" uid="uid://b06v0r8pdweko" path="res://assets/tilesets/forest_tileset.png" id="25_y73h4"]
+[ext_resource type="Texture2D" uid="uid://de15crklj3nq" path="res://assets_1/assets/sprites/objects/item_mugwort.png" id="24_4gp5p"]
+[ext_resource type="Texture2D" uid="uid://b06v0r8pdweko" path="res://assets_1/assets/tilesets/forest_tileset.png" id="25_y73h4"]
 [ext_resource type="Texture2D" uid="uid://du0mr8yumk12t" path="res://assets/sprites/objects/long_table/long_table.png" id="26_yhfkw"]
 [ext_resource type="PackedScene" path="res://scenes/objects/collectible_item.tscn" id="27_klc0n"]
-[ext_resource type="Texture2D" uid="uid://ltqovbi577vw" path="res://assets/sprites/objects/item_bell_fiber.png" id="29_kr1sg"]
-[ext_resource type="Texture2D" uid="uid://dyj08qiudqmbr" path="res://assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
-[ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets/sprites/effects/warm_light.png" id="31_4x4ny"]
-[ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
-[ext_resource type="Texture2D" path="res://assets/sprites/objects/archive_note.png" id="33_rain"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="34_noyxt"]
+[ext_resource type="Texture2D" uid="uid://ltqovbi577vw" path="res://assets_1/assets/sprites/objects/item_bell_fiber.png" id="29_kr1sg"]
+[ext_resource type="Texture2D" uid="uid://dyj08qiudqmbr" path="res://assets_1/assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
+[ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="31_4x4ny"]
+[ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
+[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets/sprites/objects/archive_note.png" id="33_rain"]
+[ext_resource type="PackedScene" uid="uid://de53somme5k4e" path="res://scenes/ui/hud.tscn" id="34_noyxt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2msp3"]
 size = Vector2(176, 220)
@@ -47,7 +47,7 @@ size = Vector2(210, 280)
 size = Vector2(210, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mryc2"]
-size = Vector2(160, 120)
+size = Vector2(160, 199)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qdoqm"]
 atlas = ExtResource("32_nlewy")
@@ -255,7 +255,7 @@ position = Vector2(2666.6667, 0)
 metadata/width = 2666.6666666666665
 
 [node name="Zone03" type="Marker2D" parent="BackgroundZones" unique_id=962186581]
-position = Vector2(5333.3333, 0)
+position = Vector2(5333.3335, 0)
 metadata/width = 2666.6666666666665
 
 [node name="BackdropWash" type="ColorRect" parent="." unique_id=1226140026]
@@ -266,18 +266,24 @@ color = Color(0.015, 0.02, 0.035, 1)
 
 [node name="Background_Far" type="Sprite2D" parent="." unique_id=2053303364]
 z_index = -80
+position = Vector2(0, -300)
+scale = Vector2(1, 1.3)
 texture = ExtResource("2_ebb2h")
 centered = false
 metadata/parallax_factor = 1.0
 
 [node name="Background_Mid" type="Sprite2D" parent="." unique_id=96846840]
 z_index = -70
+position = Vector2(0, -300)
+scale = Vector2(1, 1.3)
 texture = ExtResource("3_row31")
 centered = false
 metadata/parallax_factor = 1.0
 
 [node name="Background_Near" type="Sprite2D" parent="." unique_id=1297372203]
 z_index = -60
+position = Vector2(0, -300)
+scale = Vector2(1, 1.3)
 texture = ExtResource("4_ytidy")
 centered = false
 metadata/parallax_factor = 1.0
@@ -315,7 +321,9 @@ centered = false
 offset = Vector2(-64, -256)
 
 [node name="ToriiSmall_VillageGate" type="Sprite2D" parent="PropsBack" unique_id=805585981]
-position = Vector2(520, 512)
+z_index = -1
+position = Vector2(530.714, 540)
+scale = Vector2(1.0558037, 1.0558035)
 texture = ExtResource("7_svqqs")
 centered = false
 offset = Vector2(-192, -448)
@@ -391,7 +399,7 @@ shape = SubResource("RectangleShape2D_oubbf")
 [node name="Altar" parent="Narrative" unique_id=2078431511 instance=ExtResource("13_ovy75")]
 position = Vector2(6759, 560)
 
-[node name="Tablet_RainNote" type="Area2D" parent="Narrative"]
+[node name="Tablet_RainNote" type="Area2D" parent="Narrative" unique_id=929572378]
 position = Vector2(4380, 512)
 script = ExtResource("11_dwx2n")
 tablet_text = "……送……本社……
@@ -399,26 +407,35 @@ tablet_text = "……送……本社……
 ……不得呼名……"
 speaker_name = "雨损纸条"
 
-[node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_RainNote"]
-position = Vector2(92, 40)
+[node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_RainNote" unique_id=813059385]
+position = Vector2(-178, 40)
 texture = ExtResource("33_rain")
 centered = false
 offset = Vector2(-96, -192)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_RainNote"]
-position = Vector2(96, -76)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Narrative/Tablet_RainNote" unique_id=1196617788]
+position = Vector2(-173, -76)
 shape = SubResource("RectangleShape2D_o06sk")
 
 [node name="FoxSpawnMarker" type="Marker2D" parent="Narrative" unique_id=922235557]
 position = Vector2(7279, 418)
 
-[node name="ShrinePortalMarker" type="Marker2D" parent="Narrative"]
+[node name="ShrinePortalMarker" type="Marker2D" parent="Narrative" unique_id=1850113399]
 position = Vector2(7470, 420)
 
 [node name="Actors" type="Node2D" parent="." unique_id=1466141016]
 
 [node name="Player" parent="Actors" unique_id=1788707675 instance=ExtResource("15_ugk5q")]
 position = Vector2(181, 551)
+
+[node name="CollisionShape2D" parent="Actors/Player" index="1" unique_id=786634215]
+position = Vector2(0, -150)
+
+[node name="CollisionShape2D" parent="Actors/Player/InteractionArea" parent_id_path=PackedInt32Array(1788707675, 1846892174) index="0" unique_id=179273943]
+position = Vector2(0, -131)
+
+[node name="PlayerLight" parent="Actors/Player" index="5" unique_id=127508680]
+z_index = 99
 
 [node name="Mechanisms" type="Node2D" parent="." unique_id=2065666536]
 
@@ -451,7 +468,6 @@ script = ExtResource("20_20f45")
 item_texture = ExtResource("21_6bay7")
 closed_texture = ExtResource("22_to6s4")
 open_texture = ExtResource("23_7tcdn")
-take_dialog = "箱里放着一束白色纤维，箱子上刻着「白毛」，边缘却压得很平，潮了也不会打卷。"
 
 [node name="Visual" type="Node2D" parent="Mechanisms/WhiteFurChest" unique_id=1614204688]
 scale = Vector2(0.58, 0.58)
@@ -477,7 +493,7 @@ harvest_dialog = "蓬草味很浓，碰过的指尖都是苦的，似乎能压�
 [node name="Visual" type="Node2D" parent="Mechanisms/MugwortGrassSource" unique_id=34738213]
 
 [node name="GrassPile" type="Sprite2D" parent="Mechanisms/MugwortGrassSource/Visual" unique_id=1998473233]
-position = Vector2(-846.99994, -161)
+position = Vector2(-838.99994, -45.000008)
 scale = Vector2(1.6, 1.6)
 texture = ExtResource("25_y73h4")
 centered = false
@@ -486,7 +502,7 @@ region_enabled = true
 region_rect = Rect2(0, 512, 128, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/MugwortGrassSource" unique_id=1146942093]
-position = Vector2(-852, -260)
+position = Vector2(-840, -151.5)
 shape = SubResource("RectangleShape2D_mryc2")
 
 [node name="PropsFront" type="Node2D" parent="." unique_id=813677332]
@@ -511,7 +527,7 @@ item_texture = ExtResource("30_2viwe")
 [node name="Lighting" type="Node2D" parent="." unique_id=1856007008]
 
 [node name="LanternLight_VillageShrine" type="PointLight2D" parent="Lighting" unique_id=2089297950]
-position = Vector2(732, -149)
+position = Vector2(664, 385)
 energy = 0.26
 texture = ExtResource("31_4x4ny")
 texture_scale = 1.1
@@ -523,7 +539,7 @@ texture = ExtResource("31_4x4ny")
 texture_scale = 1.1
 
 [node name="LanternLight_AltarApproach" type="PointLight2D" parent="Lighting" unique_id=975880582]
-position = Vector2(6545, 343)
+position = Vector2(6418, 372)
 energy = 0.26
 texture = ExtResource("31_4x4ny")
 texture_scale = 1.1
@@ -534,27 +550,37 @@ color = Color(0.78, 0.82, 0.95, 1)
 [node name="FX" type="Node2D" parent="." unique_id=590338733]
 
 [node name="LanternFlame_VillageShrine" type="AnimatedSprite2D" parent="FX" unique_id=1192659730]
-position = Vector2(671, 436)
+position = Vector2(666, 417)
+scale = Vector2(0.5625005, 0.5625005)
 sprite_frames = SubResource("SpriteFrames_dy85j")
 animation = &"loop"
+frame = 5
+frame_progress = 0.9753581
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_ForestBend" type="AnimatedSprite2D" parent="FX" unique_id=58552751]
-position = Vector2(3693, 438)
+position = Vector2(3691.9998, 440)
+scale = Vector2(0.6796875, 0.6796875)
 sprite_frames = SubResource("SpriteFrames_tw5hq")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_AltarApproach" type="AnimatedSprite2D" parent="FX" unique_id=2022089023]
-position = Vector2(6402, 437)
+position = Vector2(6407, 437)
+scale = Vector2(0.59375, 0.625)
 sprite_frames = SubResource("SpriteFrames_3l8ie")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="HUD" parent="." unique_id=214312477 instance=ExtResource("34_noyxt")]
+
+[node name="OfferingVBox" parent="HUD/OfferingTube" parent_id_path=PackedInt32Array(214312477, 211266620) index="2" unique_id=1591861198]
+offset_left = 57.0
+offset_top = 79.0
+offset_right = 195.0
 
 [node name="Audio" type="Node" parent="." unique_id=611180990]
 
@@ -566,3 +592,6 @@ volume_db = -6.0
 
 [node name="SFX" type="AudioStreamPlayer" parent="Audio" unique_id=1592225124]
 volume_db = -3.0
+
+[editable path="Actors/Player"]
+[editable path="HUD"]

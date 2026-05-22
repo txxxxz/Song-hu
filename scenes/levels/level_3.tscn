@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="17_tio2m"]
 [ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="18_p0p7o"]
 [ext_resource type="Texture2D" uid="uid://b6e0gb3654xf" path="res://assets_1/assets/sprites/effects/fox_fire.png" id="19_jnyl3"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="20_2gq65"]
+[ext_resource type="PackedScene" uid="uid://de53somme5k4e" path="res://scenes/ui/hud.tscn" id="20_2gq65"]
 [ext_resource type="Script" uid="uid://0703654a2hx7" path="res://scenes/objects/paper_chest_clue.gd" id="21_chestclue"]
 [ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_chestclosed"]
 [ext_resource type="Texture2D" uid="uid://bir76inbdlgmu" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_chestopen"]
@@ -258,18 +258,24 @@ color = Color(0.018, 0.014, 0.024, 1)
 
 [node name="Background_Far" type="Sprite2D" parent="." unique_id=1547530055]
 z_index = -80
+position = Vector2(0, -200)
+scale = Vector2(1, 1.3)
 texture = ExtResource("2_o3ttr")
 centered = false
 metadata/parallax_factor = 0.78
 
 [node name="Background_Mid" type="Sprite2D" parent="." unique_id=1991936659]
 z_index = -70
+position = Vector2(0, -200)
+scale = Vector2(1, 1.3)
 texture = ExtResource("3_kdsi4")
 centered = false
 metadata/parallax_factor = 0.9
 
 [node name="Background_Near" type="Sprite2D" parent="." unique_id=1632063176]
 z_index = -60
+position = Vector2(0, -200)
+scale = Vector2(1, 1.3)
 texture = ExtResource("4_kva3v")
 centered = false
 metadata/parallax_factor = 0.98
@@ -1359,6 +1365,9 @@ position = Vector2(5090, 548)
 [node name="Player" parent="Actors" unique_id=1788707675 instance=ExtResource("14_gtyp3")]
 position = Vector2(365, 676)
 
+[node name="CollisionShape2D" parent="Actors/Player" index="1" unique_id=786634215]
+position = Vector2(0, -150)
+
 [node name="Mechanisms" type="Node2D" parent="." unique_id=662989339]
 
 [node name="PropsFront" type="Node2D" parent="." unique_id=511171028]
@@ -1625,21 +1634,24 @@ color = Color(0.7, 0.72, 0.86, 1)
 [node name="FX" type="Node2D" parent="." unique_id=51062926]
 
 [node name="LanternFlame_ArchiveLoft" type="AnimatedSprite2D" parent="FX" unique_id=1446934733]
-position = Vector2(3230, 234)
+position = Vector2(3214, 234)
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_s13ht")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="LanternFlame_InnerHall" type="AnimatedSprite2D" parent="FX" unique_id=1962157817]
-position = Vector2(3652, 498)
+position = Vector2(3630.5, 498)
+scale = Vector2(0.6640625, 0.6640625)
 sprite_frames = SubResource("SpriteFrames_3ulim")
 animation = &"loop"
 centered = false
 offset = Vector2(-64, -128)
 
 [node name="Foxfire_PlaqueReveal" type="AnimatedSprite2D" parent="FX" unique_id=1794341734]
-position = Vector2(775, 392)
+position = Vector2(772, 382)
+scale = Vector2(0.59375, 0.59375)
 sprite_frames = SubResource("SpriteFrames_n64wo")
 animation = &"loop"
 centered = false
@@ -1657,3 +1669,5 @@ volume_db = -6.0
 
 [node name="SFX" type="AudioStreamPlayer" parent="Audio" unique_id=800647357]
 volume_db = -3.0
+
+[editable path="Actors/Player"]

@@ -2,6 +2,9 @@ extends Area2D
 
 signal clue_activated(clue_index: int, clue: Node2D)
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const SFX_PAPER_DOOR := preload("res://assets/audio/sfx/paper_door.wav")
+
 @export var clue_index: int = 0
 @export var interact_name: String = "查看线索"
 @export var max_player_foot_y_distance: float = 104.0
@@ -18,6 +21,7 @@ func interact() -> void:
 		return
 	_used = true
 	remove_from_group("interactable")
+	AudioHelpers.play_one_shot(get_tree().root, SFX_PAPER_DOOR)
 	clue_activated.emit(clue_index, self)
 	mark_understood()
 

@@ -1,9 +1,13 @@
 extends Control
 
+const AudioHelpers = preload("res://autoload/audio_helpers.gd")
+const BGM_ENDING_A := preload("res://assets/audio/bgm/ending_a_eternal_lamp.wav")
+
 var _phase: int = 0
 var _labels: Array[Label] = []
 
 func _ready() -> void:
+	AudioHelpers.play_music(self, BGM_ENDING_A)
 	_start()
 
 func _start() -> void:

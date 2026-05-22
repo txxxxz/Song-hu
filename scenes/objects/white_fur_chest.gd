@@ -7,8 +7,8 @@ const SFX_OLD_CHEST_OPEN := preload("res://assets/audio/sfx/old_chest_open.wav")
 @export var item_texture: Texture2D
 @export var closed_texture: Texture2D
 @export var open_texture: Texture2D
-@export var interact_name: String = "打开箱子"
-@export var take_dialog: String = "箱里放着一束白色纤维，箱子上刻着「白毛」，边缘却压得很平，潮了也不会打卷。"
+@export var interact_name: String = "UI_INTERACT_OPEN_CHEST"
+@export var take_dialog: String = "UI_WHITE_FUR_CHEST_TAKE"
 @export var max_player_foot_y_distance: float = 128.0
 
 @onready var _visual: Node2D = $Visual
@@ -36,7 +36,7 @@ func interact() -> void:
 	_play_open_effect()
 
 func get_interact_name() -> String:
-	return interact_name
+	return tr(interact_name)
 
 func can_interact_from(player_position: Vector2) -> bool:
 	return absf(player_position.y - global_position.y) <= max_player_foot_y_distance

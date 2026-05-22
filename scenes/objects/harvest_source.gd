@@ -8,7 +8,7 @@ const SFX_HARVEST_WATER_GRASS := preload("res://assets/audio/sfx/harvest_water_g
 
 @export var item_id: String = ""
 @export var item_texture: Texture2D
-@export var interact_name: String = "采集"
+@export var interact_name: String = "UI_INTERACT_HARVEST"
 @export var harvest_dialog: String = ""
 @export var max_player_foot_y_distance: float = 72.0
 @export_range(1, 99, 1) var max_harvest_count: int = 1
@@ -36,8 +36,8 @@ func interact() -> void:
 
 func get_interact_name() -> String:
 	if max_harvest_count > 1:
-		return "%s %d/%d" % [interact_name, _harvest_count + 1, max_harvest_count]
-	return interact_name
+		return "%s %d/%d" % [tr(interact_name), _harvest_count + 1, max_harvest_count]
+	return tr(interact_name)
 
 func can_interact_from(player_position: Vector2) -> bool:
 	return absf(player_position.y - global_position.y) <= max_player_foot_y_distance

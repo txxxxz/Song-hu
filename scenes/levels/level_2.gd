@@ -21,9 +21,9 @@ const SFX_LAMP_OIL_FLARE := preload("res://assets/audio/sfx/lamp_oil_flare.wav")
 		"marker": $Mechanisms/BridgeMarker,
 		"placed": false,
 		"lines": [
-			"你把筒里的杉木取出，架在断崖上。木头被雨泡得沉甸甸的。",
-			"路能过了，但御供筒也空了一格。",
-			"看来供物不只可以祭坛上用，也能修这条迎狐归位的路。",
+			"DIALOG_L2_BRIDGE_01",
+			"DIALOG_L2_BRIDGE_02",
+			"DIALOG_L2_BRIDGE_03",
 		],
 	},
 	{
@@ -31,8 +31,8 @@ const SFX_LAMP_OIL_FLARE := preload("res://assets/audio/sfx/lamp_oil_flare.wav")
 		"marker": $Mechanisms/BridgeMarkerSecond,
 		"placed": false,
 		"lines": [
-			"你把杉木铺在第二处断裂的参道上。",
-			"木头压住碎石，脚下的空缺暂时安静下来。",
+			"DIALOG_L2_BRIDGE_04",
+			"DIALOG_L2_BRIDGE_05",
 		],
 	},
 	{
@@ -40,7 +40,7 @@ const SFX_LAMP_OIL_FLARE := preload("res://assets/audio/sfx/lamp_oil_flare.wav")
 		"marker": $Mechanisms/BridgeMarkerThird,
 		"placed": false,
 		"lines": [
-			"参道连上了，可以抵达平台。远处本社的灯变成冷蓝色，照得雨雾发白。",
+			"DIALOG_L2_BRIDGE_06",
 		],
 	},
 ]
@@ -71,7 +71,7 @@ func _on_level_ready() -> void:
 	_register_wood_footstep_surfaces()
 	_place_water_grass_on_hidden_platform()
 	_set_interactable_enabled(_water_grass_source, false)
-	show_area_name("第二章  断参道")
+	show_area_name("UI_AREA_CHAPTER_2")
 	GameManager.set_state(GameManager.State.PLAYING)
 	if GameManager.is_a_path():
 		play_bgm(BGM_APPROACH_A_TENSE)
@@ -83,15 +83,15 @@ func _on_level_ready() -> void:
 	await get_tree().create_timer(0.8).timeout
 	if GameManager.is_a_path():
 		DialogManager.show_dialog([
-			{"speaker": "", "text": "白狐沿着断参道往上走。湿草擦过它的脚。"},
-			{"speaker": "", "text": "你停下时，它也停下，回头等你。"},
-			{"speaker": "我", "text": "铃声让它安静了些。可是它还是不愿靠近我。"},
+			{"speaker": "", "text": "DIALOG_L2_INTRO_A_01"},
+			{"speaker": "", "text": "DIALOG_L2_INTRO_A_02"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L2_INTRO_A_03"},
 		] as Array[Dictionary])
 	else:
 		DialogManager.show_dialog([
-			{"speaker": "", "text": "狐火在前方跳动，照出断裂的石阶和积水。"},
-			{"speaker": "", "text": "火石的气味还留在手上。白狐跑得很快，始终没有回头"},
-			{"speaker": "我", "text": "……它不像是在带路，倒是像在赶路"},
+			{"speaker": "", "text": "DIALOG_L2_INTRO_B_01"},
+			{"speaker": "", "text": "DIALOG_L2_INTRO_B_02"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L2_INTRO_B_03"},
 		] as Array[Dictionary])
 
 func _process(delta: float) -> void:
@@ -141,12 +141,12 @@ func _nearest_tool_action() -> Dictionary:
 func _tool_prompt(action: Dictionary) -> String:
 	var kind := str(action.get("kind", ""))
 	if kind == "oil":
-		return "E  提取灯油"
+		return tr("UI_PROMPT_EXTRACT_LAMP_OIL")
 	var top := GameManager.peek_offering()
-	var item_name := str(top.get("name", "需要杉木")) if not top.is_empty() else "需要杉木"
+	var item_name := GameManager.get_item_name(str(top.get("id", ""))) if not top.is_empty() else tr("UI_NEED_SUGI_WOOD")
 	if kind == "ladder":
-		return "E  使用梯子：" + item_name
-	return "E  铺设桥：" + item_name
+		return tr("UI_PROMPT_USE_LADDER") + "：" + item_name
+	return tr("UI_PROMPT_PLACE_BRIDGE") + "：" + item_name
 
 func _try_tool_action(action: Dictionary) -> void:
 	match str(action.get("kind", "")):
@@ -160,13 +160,13 @@ func _try_tool_action(action: Dictionary) -> void:
 func _try_place_bridge(index: int) -> void:
 	if index < 0 or index >= _bridge_spots.size():
 		return
-	if not _consume_sugi_tool("断处太宽。要用杉木承住参道。"):
+	if not _consume_sugi_tool("DIALOG_L2_FAIL_BRIDGE_01"):
 		return
 	var spot := _bridge_spots[index]
 	spot["placed"] = true
 	_bridge_spots[index] = spot
 	var dialog_lines: Array[Dictionary] = []
-	for text in spot.get("lines", ["你铺下杉木桥。"]):
+	for text in spot.get("lines", ["DIALOG_L2_BRIDGE_DEFAULT_01"]):
 		dialog_lines.append({"speaker": "", "text": str(text)})
 	DialogManager.show_dialog(dialog_lines)
 	play_sfx(SFX_PLACE_BRIDGE)
@@ -178,7 +178,7 @@ func _try_place_bridge(index: int) -> void:
 		tween.tween_property(bridge, "modulate:a", 1.0, 0.45)
 
 func _try_use_ladder() -> void:
-	if not _consume_sugi_tool("高台太远。要用杉木搭过去。"):
+	if not _consume_sugi_tool("DIALOG_L2_FAIL_LADDER_01"):
 		return
 	_ladder_used = true
 	_configure_ladder_collision()
@@ -188,13 +188,13 @@ func _try_use_ladder() -> void:
 		_ladder_ref.modulate.a = 0.0
 		var tween := create_tween()
 		tween.tween_property(_ladder_ref, "modulate:a", 1.0, 0.35)
-	DialogManager.show_single("", "杉木斜搭在石台边。你踩上去，木头在雾里闷响。")
+	DialogManager.show_single("", "DIALOG_L2_LADDER_01")
 
 func _try_take_lamp_oil(index: int) -> void:
 	if index < 0 or index >= _lamp_nodes.size():
 		return
 	if not _lamps_are_blue:
-		DialogManager.show_single("", "普通灯火太浊，取不出能用于仪式的灯芯油。")
+		DialogManager.show_single("", "DIALOG_L2_NO_LAMP_OIL_01")
 		return
 	if not GameManager.push_offering("lamp_oil"):
 		return
@@ -203,7 +203,7 @@ func _try_take_lamp_oil(index: int) -> void:
 	_lamp_nodes[index] = lamp
 	_apply_lamp_state(lamp)
 	play_sfx(SFX_TAKE_LAMP_OIL)
-	DialogManager.show_single("", "你从蓝火里取出一小瓶灯芯油。火苗矮下去，灯罩里只剩湿冷的烟。")
+	DialogManager.show_single("", "DIALOG_L2_LAMP_OIL_01")
 
 func _consume_sugi_tool(fail_dialog: String) -> bool:
 	var top := GameManager.peek_offering()
@@ -224,7 +224,7 @@ func _on_bell_pulled() -> void:
 		var grass_tween := create_tween()
 		grass_tween.tween_property(_water_grass_source, "modulate:a", 1.0, 0.45)
 	_set_all_lamps_blue(true)
-	DialogManager.show_single("", "你拉动旧铃绳。绳子吸饱了潮气，铃声闷闷地落进山谷，凭空出现一段平台，清水草在平台上轻轻晃动")
+	DialogManager.show_single("", "DIALOG_L2_BELL_REVEAL_01")
 
 func _set_platform_enabled(node: Node, enabled: bool) -> void:
 	if not node:
@@ -352,15 +352,15 @@ func _on_altar_completed(success: bool) -> void:
 	_ending_triggered = true
 	await get_tree().create_timer(0.8).timeout
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "第二座祭坛接住了供物。石面渗出水。"},
-		{"speaker": "", "text": "本社的灯亮了一点，白狐的影子出现在参道尽头。"},
-		{"speaker": "", "text": "还差最后一道顶礼。清水草压火，灯芯油添火。"},
+		{"speaker": "", "text": "DIALOG_L2_ALTAR_COMPLETE_01"},
+		{"speaker": "", "text": "DIALOG_L2_ALTAR_COMPLETE_02"},
+		{"speaker": "", "text": "DIALOG_L2_ALTAR_COMPLETE_03"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	show_choice(
-		"选择顶礼供物",
-		"清水草", "灯芯油",
-		"镇静，安抚", "继续放大狐火",
+		"UI_CHOICE_L2_TITLE",
+		"ITEM_WATER_GRASS_NAME", "ITEM_LAMP_OIL_NAME",
+		"UI_CHOICE_L2_DESC_A", "UI_CHOICE_L2_DESC_B",
 		_on_final_choice
 	)
 
@@ -375,9 +375,9 @@ func _on_final_choice(choice: String) -> void:
 func _play_ending_a2() -> void:
 	play_sfx(SFX_WATER_GRASS_CALM)
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "你把清水草覆在供物上。"},
-		{"speaker": "", "text": "蓝火低下去，白狐的脚步慢下来，身子蜷缩起来，恍惚间好似学步小童。"},
-		{"speaker": "我", "text": "至少别再催它了。"},
+		{"speaker": "", "text": "DIALOG_L2_END_A_01"},
+		{"speaker": "", "text": "DIALOG_L2_END_A_02"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L2_END_A_03"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	await get_tree().create_timer(0.8).timeout
@@ -386,9 +386,9 @@ func _play_ending_a2() -> void:
 func _play_ending_b2() -> void:
 	play_sfx(SFX_LAMP_OIL_FLARE)
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "你把灯芯油倒进火里。"},
-		{"speaker": "", "text": "狐火猛地照亮两侧石像。白狐的影子被拉长，像是披着宽袖踽踽前行。"},
-		{"speaker": "我", "text": "那影子……不像狐。"},
+		{"speaker": "", "text": "DIALOG_L2_END_B_01"},
+		{"speaker": "", "text": "DIALOG_L2_END_B_02"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L2_END_B_03"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	await get_tree().create_timer(0.8).timeout

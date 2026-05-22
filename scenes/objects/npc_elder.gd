@@ -20,7 +20,7 @@ func interact() -> void:
 		DialogManager.show_dialog(dialog_lines)
 
 func get_interact_name() -> String:
-	return "老人"
+	return tr("CHAR_ELDER")
 
 func set_dialog(lines: Array[Dictionary]) -> void:
 	dialog_lines = lines

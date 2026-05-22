@@ -21,9 +21,9 @@ func _ready() -> void:
 func show_choice(title: String, option_a: String, option_b: String, desc_a: String = "", desc_b: String = "", id_a: String = "A", id_b: String = "B") -> void:
 	_choice_a_id = id_a
 	_choice_b_id = id_b
-	_title_label.text = title
-	_choice_a_btn.text = option_a + ("\n" + desc_a if desc_a != "" else "")
-	_choice_b_btn.text = option_b + ("\n" + desc_b if desc_b != "" else "")
+	_title_label.text = _t(title)
+	_choice_a_btn.text = _t(option_a) + ("\n" + _t(desc_a) if desc_a != "" else "")
+	_choice_b_btn.text = _t(option_b) + ("\n" + _t(desc_b) if desc_b != "" else "")
 	visible = true
 	GameManager.set_state(GameManager.State.CHOICE)
 	_bg_dim.color.a = 0.0
@@ -39,3 +39,6 @@ func _on_choice(choice_id: String) -> void:
 	tween.parallel().tween_property(_bg_dim, "color:a", 0.0, 0.15)
 	tween.parallel().tween_property(_panel, "modulate:a", 0.0, 0.15)
 	tween.tween_callback(queue_free)
+
+func _t(key: String) -> String:
+	return tr(key).replace("\\n", "\n")

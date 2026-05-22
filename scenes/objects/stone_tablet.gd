@@ -16,7 +16,7 @@ func interact() -> void:
 		return
 	AudioHelpers.play_one_shot(get_tree().root, SFX_INTERACT)
 	var lines: Array[Dictionary] = []
-	var normalized := tablet_text.replace("\\n", "\n")
+	var normalized := tr(tablet_text).replace("\\n", "\n")
 	for part in normalized.split("\n"):
 		var clean := part.strip_edges()
 		if clean != "":
@@ -26,5 +26,5 @@ func interact() -> void:
 
 func get_interact_name() -> String:
 	if speaker_name != "":
-		return speaker_name
-	return "札记"
+		return tr(speaker_name)
+	return tr("UI_INTERACT_TABLET")

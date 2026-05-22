@@ -12,6 +12,7 @@ const ITEM_ICON_TEXTURES := {
 
 @onready var _area_label: Label = $AreaLabel
 @onready var _offering_tube: Control = $OfferingTube
+@onready var _offering_tube_title: Label = $OfferingTube/Title
 @onready var _offering_vbox: VBoxContainer = $OfferingTube/OfferingVBox
 
 func _ready() -> void:
@@ -19,12 +20,14 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if not GameManager.offering_changed.is_connected(_update_offerings):
 		GameManager.offering_changed.connect(_update_offerings)
+	if _offering_tube_title:
+		_offering_tube_title.text = tr("UI_OFFERING_TUBE_TITLE")
 	_update_offerings()
 
 func set_area_name(area_name: String) -> void:
 	if not _area_label:
 		return
-	_area_label.text = area_name
+	_area_label.text = tr(area_name)
 	_area_label.modulate = Color(1, 1, 1, 0)
 	var tween := create_tween()
 	tween.tween_property(_area_label, "modulate:a", 1.0, 0.55)
@@ -65,7 +68,8 @@ func _update_offerings() -> void:
 		icon_frame.add_child(icon)
 
 		var name_label := Label.new()
-		name_label.text = item.get("name", "空")
+		var item_id := str(item.get("id", ""))
+		name_label.text = tr(GameManager.get_item_name_key(item_id)) if item_id != "" else tr("UI_EMPTY_SLOT")
 		name_label.add_theme_color_override("font_color", Color(0.88, 0.82, 0.70) if not item.is_empty() else Color(0.58, 0.54, 0.48, 0.70))
 		name_label.add_theme_font_size_override("font_size", 17)
 		name_label.clip_text = true
@@ -74,9 +78,9 @@ func _update_offerings() -> void:
 
 		var idx_label := Label.new()
 		if slot_index == 0:
-			idx_label.text = "底"
+			idx_label.text = tr("UI_SLOT_BOTTOM")
 		elif slot_index == GameManager.MAX_OFFERINGS - 1:
-			idx_label.text = "顶"
+			idx_label.text = tr("UI_SLOT_TOP")
 		else:
 			idx_label.text = str(slot_index + 1)
 		idx_label.add_theme_color_override("font_color", Color(0.62, 0.56, 0.45, 0.72))

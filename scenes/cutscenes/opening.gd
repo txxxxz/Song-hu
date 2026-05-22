@@ -10,24 +10,24 @@ const BGM_OPENING_MEMORY := preload("res://assets/audio/bgm/opening_memory.wav")
 
 const LINES := [
 	{
-		"title": "狐火未归",
-		"body": "昨夜起，山脚的灯接连熄灭。雨停了，石灯还是湿的。\n去邻村送药的人说，她顺着参道下山，走了一晚上，却还在原地打转"
+		"title": "CUT_OPENING_TITLE_01",
+		"body": "CUT_OPENING_BODY_01"
 	},
 	{
-		"title": "迎狐之仪",
-		"body": "村里把这叫「狐火离位」。\n若狐火不回本社，山路会鬼打墙，井水会发苦。\n按旧规，山社要举行迎狐之仪，把白狐迎回山上的本社。"
+		"title": "CUT_OPENING_TITLE_02",
+		"body": "CUT_OPENING_BODY_02"
 	},
 	{
-		"title": "见习巫女",
-		"body": "你是山社的见习巫女，雨宫铃音。你记得自己曾有一个姐姐，她才是山社真正的巫女。\n但是你忘记了她的名字，你问过大人，他们却闭口不谈"
+		"title": "CUT_OPENING_TITLE_03",
+		"body": "CUT_OPENING_BODY_03"
 	},
 	{
-		"title": "童谣",
-		"body": "你只记得那首童谣。\n狐上山，不回头。若回头，莫唤名。\n什么名字？名字像被水泡过的草纸，模糊了形状，念不出来。"
+		"title": "CUT_OPENING_TITLE_04",
+		"body": "CUT_OPENING_BODY_04"
 	},
 	{
-		"title": "装束之祠",
-		"body": "山脚的小祠已经开门。门槛下积着一线雨水。\n供桌擦过，木牌立好，御供筒放在老人手边。\n今晚轮到你送狐上山。"
+		"title": "CUT_OPENING_TITLE_05",
+		"body": "CUT_OPENING_BODY_05"
 	},
 ]
 
@@ -40,7 +40,7 @@ func _ready() -> void:
 	_title.modulate.a = 0.0
 	_body.modulate.a = 0.0
 	_hint.modulate.a = 0.0
-	_hint.text = "按 E 或 Space 继续"
+	_hint.text = _t("UI_PROMPT_CONTINUE")
 	await get_tree().create_timer(0.35).timeout
 	_next_line()
 
@@ -63,8 +63,8 @@ func _next_line() -> void:
 
 func _show_line(line: Dictionary) -> void:
 	_locked = true
-	_title.text = line.get("title", "")
-	_body.text = line.get("body", "")
+	_title.text = _t(str(line.get("title", "")))
+	_body.text = _t(str(line.get("body", "")))
 	_title.modulate.a = 0.0
 	_body.modulate.a = 0.0
 	_hint.modulate.a = 0.0
@@ -74,6 +74,9 @@ func _show_line(line: Dictionary) -> void:
 	tween.tween_property(_body, "modulate:a", 1.0, 0.45)
 	tween.tween_property(_hint, "modulate:a", 0.72, 0.25)
 	tween.tween_callback(func(): _locked = false)
+
+func _t(key: String) -> String:
+	return tr(key).replace("\\n", "\n")
 
 func _fade_to_game() -> void:
 	var tween := create_tween()

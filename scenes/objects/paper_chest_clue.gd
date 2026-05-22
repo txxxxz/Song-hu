@@ -8,8 +8,8 @@ const SFX_OLD_CHEST_OPEN := preload("res://assets/audio/sfx/old_chest_open.wav")
 const SFX_PAPER_PATCH_RELEASE := preload("res://assets/audio/sfx/paper_patch_release.wav")
 
 @export var clue_index: int = 2
-@export var interact_name: String = "打开衣箱"
-@export var final_interact_name: String = "再看纸条"
+@export var interact_name: String = "UI_INTERACT_OPEN_CHEST"
+@export var final_interact_name: String = "UI_INTERACT_RECHECK_NOTE"
 @export var max_player_foot_y_distance: float = 128.0
 @export var closed_texture: Texture2D
 @export var open_texture: Texture2D
@@ -65,7 +65,7 @@ func mark_understood() -> void:
 	modulate = Color(0.70, 0.78, 0.90, 0.76)
 
 func get_interact_name() -> String:
-	return interact_name
+	return tr(interact_name)
 
 func can_interact_from(player_position: Vector2) -> bool:
 	return absf(player_position.y - global_position.y) <= max_player_foot_y_distance

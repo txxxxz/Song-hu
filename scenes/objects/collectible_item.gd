@@ -46,8 +46,8 @@ func interact() -> void:
 
 func get_interact_name() -> String:
 	if GameManager.ITEMS.has(item_id):
-		return str(GameManager.ITEMS[item_id].get("name", "供物"))
-	return "供物"
+		return GameManager.get_item_name(item_id)
+	return tr("UI_OFFERING_DEFAULT")
 
 func can_interact_from(player_position: Vector2) -> bool:
 	return absf(player_position.y - _stable_global_y()) <= max_player_foot_y_distance

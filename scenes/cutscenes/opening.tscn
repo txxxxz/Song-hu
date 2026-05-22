@@ -34,7 +34,7 @@ offset_right = 704.0
 offset_bottom = 250.0
 theme_override_colors/font_color = Color(1, 0.82, 0.47, 1)
 theme_override_font_sizes/font_size = 46
-text = "山路入夜"
+text = "CUT_OPENING_TITLE_01"
 vertical_alignment = 1
 
 [node name="Body" type="Label" parent="."]
@@ -45,7 +45,7 @@ offset_right = 980.0
 offset_bottom = 410.0
 theme_override_colors/font_color = Color(0.9, 0.84, 0.72, 1)
 theme_override_font_sizes/font_size = 28
-text = "村口的灯一盏盏熄了。"
+text = "CUT_OPENING_BODY_01"
 vertical_alignment = 1
 
 [node name="Hint" type="Label" parent="."]
@@ -56,5 +56,5 @@ offset_right = 536.0
 offset_bottom = 626.0
 theme_override_colors/font_color = Color(0.75, 0.62, 0.42, 1)
 theme_override_font_sizes/font_size = 20
-text = "按 E 或 Space 继续"
+text = "UI_PROMPT_CONTINUE"
 vertical_alignment = 1

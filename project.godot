@@ -58,6 +58,11 @@ pause={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://i18n/ui.zh_CN.translation", "res://i18n/ui.en.translation", "res://i18n/dialogs.zh_CN.translation", "res://i18n/dialogs.en.translation", "res://i18n/cutscenes.zh_CN.translation", "res://i18n/cutscenes.en.translation", "res://i18n/items.zh_CN.translation", "res://i18n/items.en.translation")
+locale/fallback="en"
+
 [layer_names]
 
 2d_physics/layer_1="Player"

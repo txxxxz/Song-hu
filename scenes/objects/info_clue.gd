@@ -6,7 +6,7 @@ const AudioHelpers = preload("res://autoload/audio_helpers.gd")
 const SFX_PAPER_DOOR := preload("res://assets/audio/sfx/paper_door.wav")
 
 @export var clue_index: int = 0
-@export var interact_name: String = "查看线索"
+@export var interact_name: String = "UI_INTERACT_VIEW_CLUE"
 @export var max_player_foot_y_distance: float = 104.0
 
 var _used: bool = false
@@ -36,7 +36,7 @@ func mark_understood() -> void:
 	tween.tween_property(self, "modulate", Color(0.60, 0.74, 0.95, 0.58), 0.24)
 
 func get_interact_name() -> String:
-	return interact_name
+	return tr(interact_name)
 
 func can_interact_from(player_position: Vector2) -> bool:
 	return absf(player_position.y - global_position.y) <= max_player_foot_y_distance

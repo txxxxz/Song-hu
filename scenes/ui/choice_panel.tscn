@@ -85,7 +85,7 @@ theme_override_constants/separation = 24
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 theme_override_colors/font_color = Color(0.95, 0.82, 0.52, 1)
-text = "选择"
+text = "UI_CHOICE_TITLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 

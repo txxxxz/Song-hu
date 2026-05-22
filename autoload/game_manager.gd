@@ -5,65 +5,82 @@ signal branch_selected(level: int, choice: String)
 signal state_changed(new_state: int)
 signal scene_transition_started()
 signal scene_transition_finished()
+signal locale_changed(locale: String)
 
 enum State { MENU, PLAYING, DIALOG, CHOICE, CUTSCENE, PAUSED }
 
 var current_state: State = State.MENU
 var previous_state: State = State.MENU
 var current_level: int = 0
+var current_locale: String = ""
 var branch_choices: Dictionary = {}
 var player_ref: CharacterBody2D = null
 var offering_stack: Array[Dictionary] = []
 
 const MAX_OFFERINGS := 4
+const DEFAULT_LOCALE := "zh_CN"
+const SETTINGS_PATH := "user://settings.cfg"
+const SETTINGS_SECTION := "localization"
+const SETTINGS_KEY := "locale"
+
+const TRANSLATION_FILES := [
+	"res://i18n/ui.zh_CN.translation",
+	"res://i18n/ui.en.translation",
+	"res://i18n/dialogs.zh_CN.translation",
+	"res://i18n/dialogs.en.translation",
+	"res://i18n/cutscenes.zh_CN.translation",
+	"res://i18n/cutscenes.en.translation",
+	"res://i18n/items.zh_CN.translation",
+	"res://i18n/items.en.translation",
+]
 
 var ITEMS: Dictionary = {
 	"sugi_wood": {
 		"id": "sugi_wood",
-		"name": "杉木",
-		"desc": "沉水杉木。湿得发重，可以承住断路。",
+		"name_key": "ITEM_SUGI_WOOD_NAME",
+		"desc_key": "ITEM_SUGI_WOOD_DESC",
 		"color": Color(0.56, 0.36, 0.22),
 		"glow": false,
 	},
 	"white_fur": {
 		"id": "white_fur",
-		"name": "白毛",
-		"desc": "旧箱里的白色纤维。边缘平整，有细小针孔。",
+		"name_key": "ITEM_WHITE_FUR_NAME",
+		"desc_key": "ITEM_WHITE_FUR_DESC",
 		"color": Color(0.94, 0.93, 0.98),
 		"glow": false,
 	},
 	"mugwort": {
 		"id": "mugwort",
-		"name": "蓬草",
-		"desc": "味道很重的草。揉开后能遮住人的气味。",
+		"name_key": "ITEM_MUGWORT_NAME",
+		"desc_key": "ITEM_MUGWORT_DESC",
 		"color": Color(0.30, 0.56, 0.26),
 		"glow": false,
 	},
 	"bell_fiber": {
 		"id": "bell_fiber",
-		"name": "旧铃铛",
-		"desc": "铃声渐止，请慢些归去。",
+		"name_key": "ITEM_BELL_FIBER_NAME",
+		"desc_key": "ITEM_BELL_FIBER_DESC",
 		"color": Color(0.86, 0.75, 0.54),
 		"glow": false,
 	},
 	"fox_stone": {
 		"id": "fox_stone",
-		"name": "狐火石",
-		"desc": "狐火将熄，速速归去。",
+		"name_key": "ITEM_FOX_STONE_NAME",
+		"desc_key": "ITEM_FOX_STONE_DESC",
 		"color": Color(1.0, 0.58, 0.16),
 		"glow": true,
 	},
 	"water_grass": {
 		"id": "water_grass",
-		"name": "清水草",
-		"desc": "水边草，触感发凉。可让狐火慢下来。",
+		"name_key": "ITEM_WATER_GRASS_NAME",
+		"desc_key": "ITEM_WATER_GRASS_DESC",
 		"color": Color(0.38, 0.70, 0.75),
 		"glow": false,
 	},
 	"lamp_oil": {
 		"id": "lamp_oil",
-		"name": "灯芯油",
-		"desc": "从蓝火里取出的油。可让狐火烧得更亮。",
+		"name_key": "ITEM_LAMP_OIL_NAME",
+		"desc_key": "ITEM_LAMP_OIL_DESC",
 		"color": Color(0.76, 0.46, 0.10),
 		"glow": true,
 	},
@@ -78,9 +95,49 @@ var ALTAR_TOP_OFFERINGS: Dictionary = {
 	1: ["bell_fiber", "fox_stone"],
 }
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_setup_localization()
 	_setup_input_map()
+
+func _setup_localization() -> void:
+	for path in TRANSLATION_FILES:
+		var translation := load(path)
+		if translation is Translation:
+			TranslationServer.add_translation(translation)
+		else:
+			push_warning("Failed to load translation resource: %s" % path)
+	set_locale(_load_saved_locale(), false)
+
+func _load_saved_locale() -> String:
+	var cfg := ConfigFile.new()
+	var err := cfg.load(SETTINGS_PATH)
+	if err == OK:
+		var saved := str(cfg.get_value(SETTINGS_SECTION, SETTINGS_KEY, ""))
+		if saved != "":
+			return saved
+	var fallback := str(ProjectSettings.get_setting("internationalization/locale/fallback", DEFAULT_LOCALE))
+	return fallback if fallback != "" else DEFAULT_LOCALE
+
+func _save_locale(locale: String) -> void:
+	var cfg := ConfigFile.new()
+	var _err := cfg.load(SETTINGS_PATH)
+	cfg.set_value(SETTINGS_SECTION, SETTINGS_KEY, locale)
+	cfg.save(SETTINGS_PATH)
+
+func set_locale(locale: String, persist: bool = true) -> void:
+	var next_locale := locale.strip_edges()
+	if next_locale == "":
+		next_locale = DEFAULT_LOCALE
+	if current_locale == next_locale:
+		if persist:
+			_save_locale(next_locale)
+		return
+	current_locale = next_locale
+	TranslationServer.set_locale(next_locale)
+	if persist:
+		_save_locale(next_locale)
+	locale_changed.emit(next_locale)
 
 func _setup_input_map() -> void:
 	_add_key_action("move_left", [KEY_A, KEY_LEFT])
@@ -125,7 +182,7 @@ func push_offering(item_id: String) -> bool:
 	if not ITEMS.has(item_id):
 		return false
 	if offering_stack.size() >= MAX_OFFERINGS:
-		DialogManager.show_single("我", "御供筒已经满了。要先确认顺序。")
+		DialogManager.show_single("CHAR_PLAYER", "UI_OFFERING_TUBE_FULL")
 		return false
 	offering_stack.push_back(ITEMS[item_id].duplicate())
 	offering_changed.emit()
@@ -158,6 +215,24 @@ func get_required_offering_count(level: int) -> int:
 	if ALTAR_TOP_OFFERINGS.has(level):
 		expected_count += 1
 	return expected_count
+
+func get_item_name_key(item_id: String) -> String:
+	if ITEMS.has(item_id):
+		return str(ITEMS[item_id].get("name_key", ""))
+	return ""
+
+func get_item_desc_key(item_id: String) -> String:
+	if ITEMS.has(item_id):
+		return str(ITEMS[item_id].get("desc_key", ""))
+	return ""
+
+func get_item_name(item_id: String) -> String:
+	var key := get_item_name_key(item_id)
+	return tr(key) if key != "" else ""
+
+func get_item_desc(item_id: String) -> String:
+	var key := get_item_desc_key(item_id)
+	return tr(key) if key != "" else ""
 
 func validate_altar_order(level: int) -> bool:
 	if not ALTAR_ORDERS.has(level):

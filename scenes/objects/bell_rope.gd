@@ -17,14 +17,14 @@ func _ready() -> void:
 
 func interact() -> void:
 	if _pulled:
-		DialogManager.show_single("", "铃绳已经拉过了。")
+		DialogManager.show_single("", "UI_BELL_ALREADY_PULLED")
 		return
 	_pulled = true
 	_play_pull_animation()
 	bell_pulled.emit()
 
 func get_interact_name() -> String:
-	return "铃绳"
+	return tr("UI_INTERACT_BELL_ROPE")
 
 func _play_pull_animation() -> void:
 	AudioHelpers.play_one_shot(self, SFX_BELL)
@@ -35,7 +35,7 @@ func _play_pull_animation() -> void:
 		tween.tween_property(_visual, "rotation", 0.06, 0.16)
 		tween.tween_property(_visual, "rotation", 0.0, 0.12)
 		tween.tween_callback(func():
-			DialogManager.show_single("", "铃声回荡在山间，远处传来石头转动的声音。")
+			DialogManager.show_single("", "UI_BELL_ECHO")
 		)
 
 func _process(delta: float) -> void:

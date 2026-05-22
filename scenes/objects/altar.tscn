@@ -34,6 +34,6 @@ offset_right = 140.0
 offset_bottom = -293.0
 theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.9, 0.78, 0.48, 1)
-text = "奉纳"
+text = "UI_ALTAR_PENALTY"
 horizontal_alignment = 1
 vertical_alignment = 1

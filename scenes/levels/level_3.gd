@@ -21,34 +21,34 @@ const PAPER_REVEALED := preload("res://assets/sprites/objects/paper_note_blank.p
 
 const ARCHIVE_DIALOGS := [
 	[
-		{"speaker": "旧木额", "text": "表面的金漆写着「迎狐之仪」。"},
-		{"speaker": "旧木额", "text": "陈旧的木匾被潮气浸润，侵蚀了金漆，用狐火靠近查看，泡软的金漆斑驳"},
-		{"speaker": "旧木额", "text": "下面一层的金漆更加陈旧，你使劲擦却只能擦出「送*之仪」的字样。"},
-		{"speaker": "我", "text": "迎狐是后来印上去的字，原来这个仪式是送行，为什么是送，要送什么？"},
+		{"speaker": "UI_ARCHIVE_OLD_PLAQUE", "text": "DIALOG_L3_ARCHIVE_01_01"},
+		{"speaker": "UI_ARCHIVE_OLD_PLAQUE", "text": "DIALOG_L3_ARCHIVE_01_02"},
+		{"speaker": "UI_ARCHIVE_OLD_PLAQUE", "text": "DIALOG_L3_ARCHIVE_01_03"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_ARCHIVE_01_04"},
 	],
 	[
-		{"speaker": "回廊竹简", "text": "大疫第三年，山路七日不通。井水发黑，死者二十七。村人不再入山。"},
-		{"speaker": "回廊竹简", "text": "社中择送行者一名。白衣覆身，于子时送至本社。"},
-		{"speaker": "回廊竹简", "text": "是夜后，山雾散。道路复正。井水渐清。病者亦退热。"},
-		{"speaker": "回廊竹简", "text": "次年重修神社。村中改称此仪为「迎狐」。旧称自此不再记于木额。"},
-		{"speaker": "我", "text": "送行者……送的是人？为什么要送人进神社？"},
+		{"speaker": "UI_ARCHIVE_SCROLL", "text": "DIALOG_L3_ARCHIVE_02_01"},
+		{"speaker": "UI_ARCHIVE_SCROLL", "text": "DIALOG_L3_ARCHIVE_02_02"},
+		{"speaker": "UI_ARCHIVE_SCROLL", "text": "DIALOG_L3_ARCHIVE_02_03"},
+		{"speaker": "UI_ARCHIVE_SCROLL", "text": "DIALOG_L3_ARCHIVE_02_04"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_ARCHIVE_02_05"},
 	],
 	[
-		{"speaker": "衣箱残签", "text": "白*一领。童身用。袖口束紧。"},
-		{"speaker": "", "text": "有人用纸遮住了这个字，粘得很死，无法强行撕开"},
+		{"speaker": "UI_ARCHIVE_CHEST_TAG", "text": "DIALOG_L3_ARCHIVE_03_01"},
+		{"speaker": "", "text": "DIALOG_L3_ARCHIVE_03_02"},
 	],
 	[
-		{"speaker": "装束札", "text": "杉木为轿。白□覆身。蓬草盖顶，以遮人气。"},
-		{"speaker": "装束札", "text": "送行后，狐神归位，再不得呼其名。"},
+		{"speaker": "UI_ARCHIVE_COSTUME_NOTE", "text": "DIALOG_L3_ARCHIVE_04_01"},
+		{"speaker": "UI_ARCHIVE_COSTUME_NOTE", "text": "DIALOG_L3_ARCHIVE_04_02"},
 	],
 	[
-		{"speaker": "内殿档案", "text": "本次送行者：雨宫纱夜，九岁。山社巫女。签选。家不得辞。"},
-		{"speaker": "内殿档案", "text": "送行后，名册除名。村中不得呼其名。家人不得回望。"},
-		{"speaker": "内殿档案", "text": "狐位者，生身入位，化狐守灯，镇山路与旧病。若至亲呼名，狐位松动；狐位一空，诸灾复归。"},
-		{"speaker": "我", "text": "雨宫纱夜。"},
-		{"speaker": "我", "text": "为什么她也叫雨宫，这个名字为什么如此耳熟。"},
-		{"speaker": "", "text": "大脑剧烈的疼痛，有什么东西要记起来了，你反复咀嚼着这个名字"},
-		{"speaker": "我", "text": "雨宫纱夜，这是姐姐的名字。"},
+		{"speaker": "UI_ARCHIVE_INNER", "text": "DIALOG_L3_ARCHIVE_05_01"},
+		{"speaker": "UI_ARCHIVE_INNER", "text": "DIALOG_L3_ARCHIVE_05_02"},
+		{"speaker": "UI_ARCHIVE_INNER", "text": "DIALOG_L3_ARCHIVE_05_03"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_ARCHIVE_05_04"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_ARCHIVE_05_05"},
+		{"speaker": "", "text": "DIALOG_L3_ARCHIVE_05_06"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_ARCHIVE_05_07"},
 	],
 ]
 
@@ -81,18 +81,18 @@ func _on_level_ready() -> void:
 				trigger.body_entered.connect(_on_archive_body_entered.bind(index, trigger))
 	if _paper_chest and _paper_chest.has_signal("chest_rechecked"):
 		_paper_chest.connect("chest_rechecked", Callable(self, "_on_chest_rechecked"))
-	_set_plaque_state("迎狐之仪")
-	show_area_name("终章  本社・维持的空壳")
+	_set_plaque_state("UI_PLAQUE_REVEAL_INITIAL")
+	show_area_name("UI_AREA_FINAL")
 	GameManager.set_state(GameManager.State.PLAYING)
 	play_bgm(preload("res://assets/audio/bgm/shrine_theme.wav"))
 	play_ambience(preload("res://assets/audio/ambience/shrine_roomtone.wav"))
 	await get_tree().create_timer(0.8).timeout
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "本社到了。"},
-		{"speaker": "", "text": "这里没有倒塌。灯笼、回廊和纸门都摆得很整齐。"},
-		{"speaker": "", "text": "地上没有脚印，供桌也没有香灰，比山路还干净"},
-		{"speaker": "我", "text": "总觉得会有人在里面生活"},
-		{"speaker": "我", "text": "可安静的什么声音都没有。"},
+		{"speaker": "", "text": "DIALOG_L3_OPEN_01"},
+		{"speaker": "", "text": "DIALOG_L3_OPEN_02"},
+		{"speaker": "", "text": "DIALOG_L3_OPEN_03"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_OPEN_04"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_OPEN_05"},
 	] as Array[Dictionary])
 
 func _process(delta: float) -> void:
@@ -105,9 +105,9 @@ func _process(delta: float) -> void:
 	var should_show_inner_prompt := near_inner and _paper_rechecked and not _inner_reveal_started
 	if player.has_method("set_external_interact_prompt"):
 		if should_show_plaque_prompt:
-			player.set_external_interact_prompt("E  用狐火照匾额", true)
+			player.set_external_interact_prompt(tr("UI_PROMPT_VIEW_PLAQUE"), true)
 		elif should_show_inner_prompt:
-			player.set_external_interact_prompt("E  查看内室", true)
+			player.set_external_interact_prompt(tr("UI_PROMPT_VIEW_INNER"), true)
 		else:
 			player.set_external_interact_prompt("", false)
 	if should_show_plaque_prompt and Input.is_action_just_pressed("interact") and not DialogManager.is_active():
@@ -141,7 +141,7 @@ func _on_archive_found(archive_index: int, trigger: Area2D) -> void:
 		DialogManager.show_dialog(_get_archive_dialog(archive_index))
 		await DialogManager.dialog_finished
 	if archive_index == 0:
-		_set_plaque_state("送*之仪")
+		_set_plaque_state("UI_PLAQUE_MISSING_CHAR")
 	await _update_understanding_links()
 	if _archives_found >= _total_archives and not _truth_revealed:
 		_truth_revealed = true
@@ -177,19 +177,19 @@ func _create_interpretation_board() -> void:
 	panel.add_child(vbox)
 
 	var title := Label.new()
-	title.text = "调查笔记"
+	title.text = tr("UI_NOTEBOARD_TITLE")
 	title.add_theme_font_size_override("font_size", 19)
 	title.add_theme_color_override("font_color", Color(0.92, 0.74, 0.42))
 	vbox.add_child(title)
-	_add_board_row(vbox, "ritual", "仪式名：村里称作迎狐，为的是迎接狐火归位")
-	_add_board_row(vbox, "garment", "白色供物：木牌称作白狐毛")
-	_add_board_row(vbox, "person", "白狐身份：？")
+	_add_board_row(vbox, "ritual", "UI_NOTE_RITUAL_INITIAL")
+	_add_board_row(vbox, "garment", "UI_NOTE_GARMENT_INITIAL")
+	_add_board_row(vbox, "person", "UI_NOTE_PERSON_INITIAL")
 	_interpretation_layer.visible = false
 
 func _add_board_row(parent: VBoxContainer, row_id: String, text_value: String) -> void:
 	var label := Label.new()
 	label.name = "Row_" + row_id
-	label.text = text_value
+	label.text = tr(text_value)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.add_theme_font_size_override("font_size", 17)
 	label.add_theme_color_override("font_color", Color(0.80, 0.78, 0.70))
@@ -202,49 +202,49 @@ func _set_board_row(row_id: String, text_value: String, color := Color(0.95, 0.8
 		return
 	_interpretation_layer.visible = true
 	var label := _interpretation_rows[row_id] as Label
-	label.text = text_value
+	label.text = tr(text_value)
 	label.add_theme_color_override("font_color", color)
 
 func _update_understanding_links() -> void:
 	if _clues_found[0] and _clues_found[1]:
-		_set_board_row("ritual", "仪式名：迎狐覆盖了送狐", Color(0.90, 0.82, 0.56))
+		_set_board_row("ritual", "UI_NOTE_RITUAL_SHIFTED", Color(0.90, 0.82, 0.56))
 	if _clues_found[2] and _clues_found[3]:
-		_set_board_row("garment", "白色供物：白□附身", Color(0.86, 0.88, 0.96))
+		_set_board_row("garment", "UI_NOTE_GARMENT_SHIFTED", Color(0.86, 0.88, 0.96))
 	if _clues_found[4] and (_clues_found[2] or _clues_found[3]):
-		_set_board_row("person", "白狐身份：送行者：雨宫纱夜", Color(0.96, 0.76, 0.60))
+		_set_board_row("person", "UI_NOTE_PERSON_SHIFTED", Color(0.96, 0.76, 0.60))
 
 	if _clues_found[0] and _clues_found[1] and not _insights_unlocked.has("ritual_name"):
 		_insights_unlocked["ritual_name"] = true
 		DialogManager.show_dialog([
-			{"speaker": "我", "text": "旧字写送，新字写迎。"},
-			{"speaker": "我", "text": "有人把仪式的方向改反了，原本的送行变成了迎神"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_RITUAL_01"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_RITUAL_02"},
 		] as Array[Dictionary])
 		await DialogManager.dialog_finished
 
 	if _clues_found[2] and _clues_found[3] and not _insights_unlocked.has("white_misread"):
 		_insights_unlocked["white_misread"] = true
 		DialogManager.show_dialog([
-			{"speaker": "我", "text": "纸上写着白，后面的字被框住了。"},
-			{"speaker": "我", "text": "装束札也缺了同一处，像是有人故意留下一个空格。"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_GARMENT_01"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_GARMENT_02"},
 		] as Array[Dictionary])
 		await DialogManager.dialog_finished
 
 	if _clues_found[4] and (_clues_found[2] or _clues_found[3]) and not _insights_unlocked.has("sayo"):
 		_insights_unlocked["sayo"] = true
 		DialogManager.show_dialog([
-			{"speaker": "我", "text": "送行者是雨宫纱夜。"},
-			{"speaker": "我", "text": "怪不得大人从来闭口不谈姐姐的名字，甚者说我是家中独女我从未有过姐姐"},
-			{"speaker": "我", "text": "白狐回头时，童谣不让我叫的，都是这个名字。"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_PERSON_01"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_PERSON_02"},
+			{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INSIGHT_PERSON_03"},
 		] as Array[Dictionary])
 		await DialogManager.dialog_finished
 
 func _unlock_plaque() -> void:
 	await get_tree().create_timer(0.45).timeout
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "五份记录对上了。"},
-		{"speaker": "", "text": "旧木额、回廊牌、衣箱、装束札和内殿档案，都缺一角，也都湿得发软。"},
-		{"speaker": "我", "text": "只差门口那块匾。"},
-		{"speaker": "我", "text": "如果狐火能照出旧字，也许能把缺角补上。"},
+		{"speaker": "", "text": "DIALOG_L3_UNLOCK_PLAQUE_01"},
+		{"speaker": "", "text": "DIALOG_L3_UNLOCK_PLAQUE_02"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_UNLOCK_PLAQUE_03"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_UNLOCK_PLAQUE_04"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 
@@ -255,16 +255,16 @@ func _on_plaque_interact() -> void:
 	if player and player.has_method("set_external_interact_prompt"):
 		player.set_external_interact_prompt("", false)
 	play_sfx(SFX_PLAQUE_REVEAL)
-	_set_plaque_state("送狐之仪")
+	_set_plaque_state("UI_PLAQUE_REVEAL_FINAL")
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "匾额上的「送*之仪」被狐火照亮。"},
-		{"speaker": "", "text": "狐火贴近木面。剩余的金漆起泡，一点点自行剥落。"},
-		{"speaker": "", "text": "遮住的字露了出来。"},
-		{"speaker": "", "text": "木匾变成了「送狐之仪」。"},
-		{"speaker": "我", "text": "既然木匾有了变化，我们去看看刚才箱子里的字到底是什么。"},
+		{"speaker": "", "text": "DIALOG_L3_PLAQUE_REVEAL_01"},
+		{"speaker": "", "text": "DIALOG_L3_PLAQUE_REVEAL_02"},
+		{"speaker": "", "text": "DIALOG_L3_PLAQUE_REVEAL_03"},
+		{"speaker": "", "text": "DIALOG_L3_PLAQUE_REVEAL_04"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_PLAQUE_REVEAL_05"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
-	_set_board_row("ritual", "仪式名：送狐", Color(1.00, 0.76, 0.42))
+	_set_board_row("ritual", "UI_NOTE_RITUAL_REVEALED", Color(1.00, 0.76, 0.42))
 	_paper_recheck_unlocked = true
 	if _paper_chest and _paper_chest.has_method("enable_final_recheck"):
 		_paper_chest.call("enable_final_recheck")
@@ -275,13 +275,13 @@ func _on_chest_rechecked() -> void:
 	_paper_rechecked = true
 	await _show_paper_note(true)
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "纸片上的遮挡松开了。"},
-		{"speaker": "", "text": "刚才被框掉的字，是衣。"},
-		{"speaker": "我", "text": "我一路复原的是送行者的装束。"},
-		{"speaker": "我", "text": "再往内室走，白狐应该就在那里。"},
+		{"speaker": "", "text": "DIALOG_L3_PAPER_RECHECK_01"},
+		{"speaker": "", "text": "DIALOG_L3_PAPER_RECHECK_02"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_PAPER_RECHECK_03"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_PAPER_RECHECK_04"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
-	_set_board_row("garment", "白色供物：白衣", Color(0.96, 0.93, 0.98))
+	_set_board_row("garment", "UI_NOTE_GARMENT_REVEALED", Color(0.96, 0.93, 0.98))
 
 func _on_inner_reveal_interact() -> void:
 	if _inner_reveal_started or _final_choice_shown:
@@ -297,22 +297,22 @@ func _on_inner_reveal_interact() -> void:
 	play_sfx(SFX_SAYO_SHADOW_REVEAL)
 	play_bgm(BGM_FINAL_CHOICE_VOID)
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "白狐出现在长明灯前。灯下的石板渗着水。"},
-		{"speaker": "", "text": "它回过头。童谣里的禁句贴着耳边响起。"},
-		{"speaker": "", "text": "纸门上的影子被灯火拉长，狐尾变成袖摆，耳尖变成发结。"},
-		{"speaker": "", "text": "长明灯照见一个穿白衣的孩子。"},
-		{"speaker": "我", "text": "雨宫……"},
-		{"speaker": "", "text": "白狐的耳朵动了一下。它听见了。"},
-		{"speaker": "我", "text": "如果姐姐的全名被叫出来，狐位会松动。"},
-		{"speaker": "我", "text": "但狐位一空，被压住的东西也会回到村里。"},
+		{"speaker": "", "text": "DIALOG_L3_INNER_01"},
+		{"speaker": "", "text": "DIALOG_L3_INNER_02"},
+		{"speaker": "", "text": "DIALOG_L3_INNER_03"},
+		{"speaker": "", "text": "DIALOG_L3_INNER_04"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INNER_05"},
+		{"speaker": "", "text": "DIALOG_L3_INNER_06"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INNER_07"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_INNER_08"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
-	_set_board_row("person", "白狐身份：雨宫纱夜", Color(1.00, 0.68, 0.52))
+	_set_board_row("person", "UI_NOTE_PERSON_REVEALED", Color(1.00, 0.68, 0.52))
 	await get_tree().create_timer(0.45).timeout
 	show_choice(
-		"要叫出她的名字吗？",
-		"不呼唤", "纱夜",
-		"完成送狐。\n村庄恢复平静，白狐留在本社。", "叫她回来。\n狐位松动，村庄失去镇压，\n疫情肆虐，洪水席卷一切。",
+		"UI_CHOICE_L3_TITLE",
+		"UI_CHOICE_L3_A", "UI_CHOICE_L3_B",
+		"UI_CHOICE_L3_DESC_A", "UI_CHOICE_L3_DESC_B",
 		_on_final_choice
 	)
 
@@ -333,7 +333,7 @@ func _set_plaque_state(text_value: String) -> void:
 		_plaque_label.add_theme_constant_override("shadow_offset_x", 2)
 		_plaque_label.add_theme_constant_override("shadow_offset_y", 2)
 		_plaque_sprite.add_child(_plaque_label)
-	_plaque_label.text = text_value
+	_plaque_label.text = tr(text_value)
 
 func _show_paper_note(revealed: bool) -> void:
 	if _paper_layer and is_instance_valid(_paper_layer):
@@ -364,7 +364,7 @@ func _show_paper_note(revealed: bool) -> void:
 	_paper_layer.add_child(note)
 
 	var clue_text := Label.new()
-	clue_text.text = "白衣附身" if revealed else "白　附身"
+	clue_text.text = tr("UI_PAPER_NOTE_REVEALED") if revealed else tr("UI_PAPER_NOTE_MASKED")
 	clue_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	clue_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	clue_text.add_theme_font_size_override("font_size", 42)

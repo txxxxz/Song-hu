@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 
 func _trigger_fall_game_over() -> void:
 	DialogManager.show_dialog([
-		{"speaker": "Game Over", "text": "你坠入黑暗，仪式从这一章重新开始。"},
+		{"speaker": "UI_GAME_OVER", "text": "UI_GAME_OVER_TEXT"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 	await get_tree().create_timer(0.12).timeout

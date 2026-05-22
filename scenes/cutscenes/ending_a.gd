@@ -13,25 +13,25 @@ func _ready() -> void:
 func _start() -> void:
 	await get_tree().create_timer(0.6).timeout
 	await _show_lines([
-		"你没有再出声。",
-		"白狐等了一会儿，转身走进长明灯后。灯油落下一滴。",
+		"CUT_ENDING_A_01",
+		"CUT_ENDING_A_02",
 	])
 	await get_tree().create_timer(1.0).timeout
 	await _show_lines([
-		"本社的灯一盏接一盏亮起。雨声退到屋檐外。",
-		"山路复正，井水变清，村里的病人也在天亮前退了热。",
+		"CUT_ENDING_A_03",
+		"CUT_ENDING_A_04",
 	])
 	await get_tree().create_timer(1.0).timeout
 	await _show_lines([
-		"村里人说，迎狐之仪完成了。",
-		"没有人提起纱夜。",
+		"CUT_ENDING_A_05",
+		"CUT_ENDING_A_06",
 	])
 	await get_tree().create_timer(1.0).timeout
 	await _show_lines([
-		"你翻开内殿档案。写着那个名字的一行被水气洇开，",
-		"连带着你的记忆模糊不清，世间无人再记得那个名字。",
-		"你救了村子。",
-		"也把她永远一人留在了潮湿阴暗的神山上。",
+		"CUT_ENDING_A_07",
+		"CUT_ENDING_A_08",
+		"CUT_ENDING_A_09",
+		"CUT_ENDING_A_10",
 	])
 	await get_tree().create_timer(1.2).timeout
 	_show_credits()
@@ -40,7 +40,7 @@ func _show_lines(lines: Array[String]) -> void:
 	_clear()
 	for i in range(lines.size()):
 		var label := Label.new()
-		label.text = lines[i]
+		label.text = _t(lines[i])
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set_anchors_preset(Control.PRESET_CENTER)
 		label.position = Vector2(-420, -72 + i * 52)
@@ -63,7 +63,7 @@ func _clear() -> void:
 func _show_credits() -> void:
 	_clear()
 	var title := Label.new()
-	title.text = "送狐"
+	title.text = _t("UI_MENU_TITLE")
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.set_anchors_preset(Control.PRESET_CENTER)
 	title.position = Vector2(-300, -70)
@@ -73,7 +73,7 @@ func _show_credits() -> void:
 	add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "结局 A：长明\n按任意键返回主菜单"
+	subtitle.text = _t("CUT_ENDING_A_SUBTITLE")
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.set_anchors_preset(Control.PRESET_CENTER)
 	subtitle.position = Vector2(-300, 18)
@@ -82,6 +82,9 @@ func _show_credits() -> void:
 	subtitle.add_theme_font_size_override("font_size", 26)
 	add_child(subtitle)
 	_phase = 99
+
+func _t(key: String) -> String:
+	return tr(key).replace("\\n", "\n")
 
 func _input(event: InputEvent) -> void:
 	if _phase == 99 and event is InputEventKey and event.pressed:

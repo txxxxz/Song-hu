@@ -1250,7 +1250,7 @@ position = Vector2(1060, 575)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("10_o5em7")
-interact_name = "查看旧木额"
+interact_name = "UI_INTERACT_VIEW_OLD_PLAQUE"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger1" unique_id=1194712873]
 position = Vector2(-305, -156)
@@ -1269,7 +1269,7 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("10_o5em7")
 clue_index = 1
-interact_name = "查看回廊竹简"
+interact_name = "UI_INTERACT_VIEW_SCROLL"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger2" unique_id=647774155]
 z_index = 5
@@ -1322,7 +1322,7 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("10_o5em7")
 clue_index = 3
-interact_name = "查看装束札"
+interact_name = "UI_INTERACT_VIEW_COSTUME"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger4" unique_id=1740878094]
 position = Vector2(0, -126)
@@ -1340,7 +1340,7 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("10_o5em7")
 clue_index = 4
-interact_name = "查看内殿档案"
+interact_name = "UI_INTERACT_VIEW_ARCHIVE"
 
 [node name="ArchiveDetectShape" type="CollisionShape2D" parent="Narrative/ArchiveTrigger5" unique_id=514701108]
 z_index = 5

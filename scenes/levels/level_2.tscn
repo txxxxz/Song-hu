@@ -497,11 +497,8 @@ texture = ExtResource("24_wwjag")
 [node name="Tablet_RitualClue" type="Area2D" parent="Narrative" unique_id=2063309375]
 position = Vector2(3060, 512)
 script = ExtResource("8_2e0t0")
-tablet_text = "装束顺序。
-杉木为台。
-白□覆身。
-蓬草盖顶。"
-speaker_name = "残损告示"
+tablet_text = "DIALOG_L2_TABLET_RITUAL"
+speaker_name = "UI_SPEAKER_DAMAGED_SIGN"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_RitualClue" unique_id=1117667981]
 position = Vector2(86, 40)
@@ -516,10 +513,8 @@ shape = SubResource("RectangleShape2D_8gy8s")
 [node name="Tablet_Cliff" type="Area2D" parent="Narrative" unique_id=1199605971]
 position = Vector2(1260, 512)
 script = ExtResource("8_2e0t0")
-tablet_text = "参道断时，以杉木承之。
-狐若不前，以铃安之。
-火若不旺，以油续之。"
-speaker_name = "札记"
+tablet_text = "DIALOG_L2_TABLET_CLIFF"
+speaker_name = "UI_SPEAKER_NOTE"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Cliff" unique_id=451853441]
 position = Vector2(218, 41)
@@ -534,10 +529,8 @@ shape = SubResource("RectangleShape2D_g8c2j")
 [node name="Tablet_Bell" type="Area2D" parent="Narrative" unique_id=873092956]
 position = Vector2(5940, 512)
 script = ExtResource("8_2e0t0")
-tablet_text = "铃声安魂，狐火收敛。
-火石催行，狐火暴起。
-无论安抚或催促，狐都必须到本社。"
-speaker_name = "札记"
+tablet_text = "DIALOG_L2_TABLET_BELL"
+speaker_name = "UI_SPEAKER_NOTE"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_Bell" unique_id=2074578646]
 position = Vector2(-514, 40)
@@ -572,8 +565,8 @@ position = Vector2(900, 512)
 script = ExtResource("17_b1k63")
 item_id = "sugi_wood"
 item_texture = ExtResource("18_holbn")
-interact_name = "砍杉木"
-harvest_dialog = "你又取下一段杉木。竹筒变轻，断路减少。"
+interact_name = "UI_INTERACT_CHOP_SUGI"
+harvest_dialog = "DIALOG_L2_HARVEST_SUGI_01"
 max_harvest_count = 5
 
 [node name="Visual" type="Node2D" parent="Mechanisms/SugiTreeSource_bridge" unique_id=1093398579]
@@ -597,7 +590,7 @@ script = ExtResource("20_u5lg2")
 item_texture = ExtResource("21_kt0v5")
 closed_texture = ExtResource("22_laosj")
 open_texture = ExtResource("23_nsjcl")
-take_dialog = "箱里的白色纤维叠得很整齐。边缘有一排细小针孔，摸上去硬硬的。"
+take_dialog = "DIALOG_L2_WHITE_FUR_CHEST"
 
 [node name="Visual" type="Node2D" parent="Mechanisms/WhiteFurChest" unique_id=33660643]
 scale = Vector2(0.58, 0.58)
@@ -617,8 +610,8 @@ position = Vector2(3920, 512)
 script = ExtResource("17_b1k63")
 item_id = "sugi_wood"
 item_texture = ExtResource("18_holbn")
-interact_name = "砍杉木"
-harvest_dialog = "你又取下一段杉木。竹筒变轻，断路减少。"
+interact_name = "UI_INTERACT_CHOP_SUGI"
+harvest_dialog = "DIALOG_L2_HARVEST_SUGI_02"
 max_harvest_count = 5
 
 [node name="Visual" type="Node2D" parent="Mechanisms/SugiTreeSource_altar" unique_id=690055967]
@@ -641,8 +634,8 @@ position = Vector2(4820, 232)
 script = ExtResource("17_b1k63")
 item_id = "mugwort"
 item_texture = ExtResource("24_xjpyo")
-interact_name = "采蓬草"
-harvest_dialog = "高处的蓬草湿得发冷。揉开以后，苦味盖过了一切气味。"
+interact_name = "UI_INTERACT_HARVEST_MUGWORT"
+harvest_dialog = "DIALOG_L2_HARVEST_MUGWORT"
 
 [node name="Visual" type="Node2D" parent="Mechanisms/MugwortGrassSource" unique_id=575718195]
 
@@ -667,8 +660,8 @@ collision_mask = 0
 script = ExtResource("17_b1k63")
 item_id = "water_grass"
 item_texture = ExtResource("12_wk7pi")
-interact_name = "摘取清水草"
-harvest_dialog = "清水草贴着掌心，凉得像井底的水，似乎能熄灭一切烈焰。，莫名躁动的心一瞬间静下来，"
+interact_name = "UI_INTERACT_HARVEST_WATER_GRASS"
+harvest_dialog = "DIALOG_L2_HARVEST_WATER_GRASS"
 
 [node name="Visual" type="Node2D" parent="Mechanisms/WaterGrassSource" unique_id=1026192424]
 

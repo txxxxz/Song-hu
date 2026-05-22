@@ -14,30 +14,30 @@ func _ready() -> void:
 func _start() -> void:
 	await get_tree().create_timer(0.6).timeout
 	await _show_lines([
-		"你叫出了她的名字。",
-		"……纱夜。",
+		"CUT_ENDING_B_01",
+		"CUT_ENDING_B_02",
 	])
 	await get_tree().create_timer(1.0).timeout
 	await _show_lines([
-		"白狐停下。狐火从她身上剥落，白衣从火里显出来。",
-		"她跪在长明灯前，抓住你的袖子。",
+		"CUT_ENDING_B_03",
+		"CUT_ENDING_B_04",
 	])
 	await get_tree().create_timer(1.2).timeout
 	await _show_lines([
-		"下一刻，本社的灯同时晃动。屋檐开始滴水。",
-		"山路错乱成怪圈，井水悄无声息的涌出井口，",
-		"村口的石灯一盏盏熄灭。",
+		"CUT_ENDING_B_05",
+		"CUT_ENDING_B_06",
+		"CUT_ENDING_B_07",
 	])
 	await get_tree().create_timer(1.2).timeout
 	await _show_lines([
-		"天亮以后，村里陆续有人开始问：纱夜是谁",
-		"有人想起那是一个神社巫女",
-		"也有人想起，自己曾经答应过不要说。",
+		"CUT_ENDING_B_08",
+		"CUT_ENDING_B_09",
+		"CUT_ENDING_B_10",
 	])
 	await get_tree().create_timer(1.2).timeout
 	await _show_lines([
-		"纱夜的手很冷。",
-		"但那是人的手。",
+		"CUT_ENDING_B_11",
+		"CUT_ENDING_B_12",
 	])
 	await get_tree().create_timer(1.2).timeout
 	_show_credits()
@@ -53,7 +53,7 @@ func _show_lines(lines: Array[String]) -> void:
 	_clear()
 	for i in range(lines.size()):
 		var label := Label.new()
-		label.text = lines[i]
+		label.text = _t(lines[i])
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set_anchors_preset(Control.PRESET_CENTER)
 		label.position = Vector2(-450, -72 + i * 58)
@@ -76,7 +76,7 @@ func _clear() -> void:
 func _show_credits() -> void:
 	_clear()
 	var title := Label.new()
-	title.text = "送狐"
+	title.text = _t("UI_MENU_TITLE")
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.set_anchors_preset(Control.PRESET_CENTER)
 	title.position = Vector2(-300, -70)
@@ -86,7 +86,7 @@ func _show_credits() -> void:
 	add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "结局 B：回名\n按任意键返回主菜单"
+	subtitle.text = _t("CUT_ENDING_B_SUBTITLE")
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.set_anchors_preset(Control.PRESET_CENTER)
 	subtitle.position = Vector2(-300, 18)
@@ -95,6 +95,9 @@ func _show_credits() -> void:
 	subtitle.add_theme_font_size_override("font_size", 26)
 	add_child(subtitle)
 	_phase = 99
+
+func _t(key: String) -> String:
+	return tr(key).replace("\\n", "\n")
 
 func _input(event: InputEvent) -> void:
 	if _phase == 99 and event is InputEventKey and event.pressed:

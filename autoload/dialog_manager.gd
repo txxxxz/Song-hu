@@ -105,9 +105,9 @@ func _advance() -> void:
 		return
 
 	var line := _dialog_queue[_current_line]
-	_speaker_label.text = line.get("speaker", "")
+	_speaker_label.text = _t(str(line.get("speaker", "")))
 	_speaker_label.visible = _speaker_label.text != ""
-	_text_label.text = line.get("text", "")
+	_text_label.text = _t(str(line.get("text", "")))
 	_text_label.visible_ratio = 0.0
 	_continue_indicator.visible = false
 
@@ -123,6 +123,9 @@ func _advance() -> void:
 		_continue_indicator.visible = true
 	)
 	dialog_line_shown.emit(_text_label.text)
+
+func _t(key: String) -> String:
+	return tr(key).replace("\\n", "\n")
 
 func _close() -> void:
 	_is_showing = false

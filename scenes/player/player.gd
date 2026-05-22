@@ -196,8 +196,6 @@ func _show_interact_prompt(prompt_text: String, active: bool) -> void:
 		return
 	var key_text := "E"
 	var action_text := prompt_text.strip_edges()
-	if action_text.begins_with("E"):
-		action_text = action_text.substr(1).strip_edges()
 	if interact_prompt_key_label:
 		interact_prompt_key_label.text = key_text
 	if interact_prompt_action_label:
@@ -208,8 +206,8 @@ func _build_interact_prompt_text(target: Node) -> String:
 	if target and target.has_method("get_interact_name"):
 		var interact_name := str(target.call("get_interact_name"))
 		if interact_name != "":
-			return "E  " + interact_name
-	return "E"
+			return interact_name
+	return ""
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("interact"):

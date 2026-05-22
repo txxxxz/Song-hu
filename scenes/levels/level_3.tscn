@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://cx5fjoa1km8dn" path="res://scenes/objects/info_clue.gd" id="10_o5em7"]
 [ext_resource type="Texture2D" uid="uid://yrftarl01j5n" path="res://assets_1/assets/sprites/objects/plaque.png" id="11_22mqa"]
 [ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets_1/assets/sprites/objects/stone_tablet.png" id="13_2qmps"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="14_gtyp3"]
+[ext_resource type="PackedScene" uid="uid://c2wdt10ilafkp" path="res://scenes/player/player.tscn" id="14_gtyp3"]
 [ext_resource type="Texture2D" uid="uid://du0mr8yumk12t" path="res://assets/sprites/objects/long_table/long_table.png" id="16_ju8vr"]
 [ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="17_tio2m"]
 [ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="18_p0p7o"]
@@ -1176,7 +1176,6 @@ position = Vector2(2590, 640)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("21_chestclue")
-interact_name = "查看木箱"
 closed_texture = ExtResource("22_chestclosed")
 open_texture = ExtResource("23_chestopen")
 masked_paper_texture = ExtResource("25_paperpatch")

@@ -40,6 +40,9 @@ size = Vector2(176, 220)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oubbf"]
 size = Vector2(176, 220)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t4umt"]
+load_path = "res://.godot/imported/interact_hint.png-fbe7843a6c97ee0ccf94a6060118ed1a.ctex"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ojo"]
 size = Vector2(210, 280)
 
@@ -424,6 +427,9 @@ position = Vector2(0, -150)
 
 [node name="CollisionShape2D" parent="Actors/Player/InteractionArea" parent_id_path=PackedInt32Array(1788707675, 1846892174) index="0" unique_id=179273943]
 position = Vector2(0, -131)
+
+[node name="Frame" parent="Actors/Player/InteractPrompt" parent_id_path=PackedInt32Array(1788707675, 303582272) index="0" unique_id=1172824475]
+texture = SubResource("CompressedTexture2D_t4umt")
 
 [node name="PlayerLight" parent="Actors/Player" index="5" unique_id=127508680]
 z_index = 99

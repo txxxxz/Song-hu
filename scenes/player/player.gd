@@ -12,9 +12,6 @@ const MAX_FALL_SPEED := 720.0
 const COYOTE_TIME := 0.12
 const JUMP_BUFFER := 0.10
 const FOOTSTEP_INTERVAL := 0.26
-const INTERACT_PROMPT_POSITION := Vector2(72.0, -360.0)
-const INTERACT_PROMPT_SIZE := Vector2(392.0, 128.0)
-const INTERACT_PROMPT_FRAME_SIZE := Vector2(128.0, 128.0)
 const PLAYER_DRAW_Z_INDEX := 1000
 
 signal interacted(target: Node2D)
@@ -70,22 +67,7 @@ func _configure_draw_order() -> void:
 func _layout_interact_prompt() -> void:
 	if not interact_prompt:
 		return
-	interact_prompt.set_anchors_preset(Control.PRESET_TOP_LEFT, false)
-	interact_prompt.position = INTERACT_PROMPT_POSITION
-	interact_prompt.size = INTERACT_PROMPT_SIZE
 	interact_prompt.scale = Vector2.ONE
-
-	var frame := interact_prompt.get_node_or_null("Frame") as TextureRect
-	if frame:
-		frame.position = Vector2.ZERO
-		frame.size = INTERACT_PROMPT_FRAME_SIZE
-
-	if interact_prompt_key_label:
-		interact_prompt_key_label.position = Vector2(18.0, 32.0)
-		interact_prompt_key_label.size = Vector2(92.0, 48.0)
-	if interact_prompt_action_label:
-		interact_prompt_action_label.position = Vector2(136.0, 38.0)
-		interact_prompt_action_label.size = Vector2(256.0, 48.0)
 
 func _physics_process(delta: float) -> void:
 	if GameManager.current_state != GameManager.State.PLAYING:

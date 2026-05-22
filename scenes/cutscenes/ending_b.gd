@@ -56,7 +56,7 @@ func _show_lines(lines: Array[String]) -> void:
 		label.text = _t(lines[i])
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set_anchors_preset(Control.PRESET_CENTER)
-		label.position = Vector2(-450, -72 + i * 58)
+		label.position = Vector2(-450, -90 + i * 100)
 		label.size = Vector2(900, 54)
 		label.add_theme_color_override("font_color", Color(0.92, 0.75, 0.52))
 		label.add_theme_font_size_override("font_size", 30)

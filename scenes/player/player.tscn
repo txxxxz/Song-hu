@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bu657hpwliaiv" path="res://assets_1/assets/sprites/player/miko_pray.png" id="6_fcs02"]
 [ext_resource type="Texture2D" uid="uid://nwb71tx65hmp" path="res://assets_1/assets/sprites/player/miko_run.png" id="7_myrg7"]
 [ext_resource type="Texture2D" uid="uid://c8qsqobvb3v83" path="res://assets_1/assets/sprites/player/miko_turn.png" id="8_kvlxm"]
-[ext_resource type="Texture2D" uid="uid://cp564dmfjx5pb" path="res://assets/ui/interact_hint.png" id="9_uf5tr"]
+[ext_resource type="Texture2D" uid="uid://daahy56ewejg5" path="res://assets_1/ui_alpha_pack/interact_hint.png" id="9_h17s1"]
 [ext_resource type="Texture2D" uid="uid://cdwi023lnnupe" path="res://assets_1/assets/sprites/effects/light_texture.png" id="10_lgqa7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ydkj"]
@@ -358,10 +358,11 @@ centered = false
 offset = Vector2(-128, -384)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=786634215]
-position = Vector2(0, -108)
+position = Vector2(0, -122)
 shape = SubResource("RectangleShape2D_hir57")
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1846892174]
+position = Vector2(1, -14)
 collision_layer = 0
 collision_mask = 2
 
@@ -372,16 +373,18 @@ shape = SubResource("RectangleShape2D_7072n")
 [node name="InteractPrompt" type="Control" parent="." unique_id=303582272]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -61.0
-offset_top = -451.0
-offset_right = 333.0
-offset_bottom = -324.0
+offset_left = -63.0
+offset_top = -465.0
+offset_right = 331.0
+offset_bottom = -338.0
 
 [node name="Frame" type="TextureRect" parent="InteractPrompt" unique_id=1172824475]
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
-texture = ExtResource("9_uf5tr")
+texture = ExtResource("9_h17s1")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="KeyLabel" type="Label" parent="InteractPrompt" unique_id=997395182]
 layout_mode = 0

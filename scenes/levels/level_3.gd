@@ -48,8 +48,8 @@ const ARCHIVE_DIALOGS := [
 		{"speaker": "", "text": "DIALOG_L3_ARCHIVE_03_02"},
 	],
 	[
-		{"speaker": "UI_SPEAKER_WOOD_PLATE", "text": "杉木为轿。白□覆身。蓬草盖顶，以遮人气。"},
-		{"speaker": "UI_SPEAKER_WOOD_PLATE", "text": "送行后，狐神归位，再不得呼其名。"},
+		{"speaker": "UI_SPEAKER_WOOD_PLATE", "text": "DIALOG_L3_ARCHIVE_04_01"},
+		{"speaker": "UI_SPEAKER_WOOD_PLATE", "text": "DIALOG_L3_ARCHIVE_04_02"},
 	],
 	[
 		{"speaker": "UI_ARCHIVE_INNER", "text": "DIALOG_L3_ARCHIVE_05_01"},
@@ -185,7 +185,7 @@ func _on_archive_found(archive_index: int, trigger: Area2D) -> void:
 	if trigger and not trigger.has_method("mark_understood"):
 		trigger.call_deferred("queue_free")
 	if archive_index == 2:
-		await _show_paper_note(false, "有人用纸遮住了这个字，粘得很死，无法强行撕开")
+		await _show_paper_note(false, "DIALOG_L3_ARCHIVE_03_02")
 	elif archive_index >= 0 and archive_index < ARCHIVE_DIALOGS.size():
 		DialogManager.show_dialog(_get_archive_dialog(archive_index))
 		await DialogManager.dialog_finished
@@ -424,8 +424,8 @@ func _on_foxfire_pickup() -> void:
 		player.set_external_interact_prompt("", false)
 	play_sfx(SFX_FOXFIRE)
 	DialogManager.show_dialog([
-		{"speaker": "", "text": "蓝色的狐火贴着指尖聚起，没有灼痛，只留下潮湿的冷光。"},
-		{"speaker": "我", "text": "现在可以回门口，用它照看旧木匾了。"},
+		{"speaker": "", "text": "DIALOG_L3_FOXFIRE_PICKUP_01"},
+		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_FOXFIRE_PICKUP_02"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
 
@@ -481,7 +481,7 @@ func _on_chest_rechecked() -> void:
 	if not _paper_recheck_unlocked or _paper_rechecked:
 		return
 	_paper_rechecked = true
-	await _show_paper_note(true, "刚才被框掉的字，是衣。")
+	await _show_paper_note(true, "DIALOG_L3_PAPER_RECHECK_CAPTION_01")
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "DIALOG_L3_PAPER_RECHECK_01"},
 		{"speaker": "CHAR_PLAYER", "text": "DIALOG_L3_PAPER_RECHECK_03"},
@@ -544,7 +544,7 @@ func _set_plaque_state(text_value: String) -> void:
 		_plaque_label.add_theme_constant_override("shadow_offset_x", 2)
 		_plaque_label.add_theme_constant_override("shadow_offset_y", 2)
 		_plaque_sprite.add_child(_plaque_label)
-	_plaque_label.rotation = deg_to_rad(-2.0 if text_value.begins_with("迎") else 1.5)
+	_plaque_label.rotation = deg_to_rad(-2.0 if text_value == "UI_PLAQUE_REVEAL_INITIAL" else 1.5)
 	_plaque_label.text = tr(text_value)
 
 func _get_plaque_font() -> Font:
@@ -613,7 +613,7 @@ func _show_paper_note(revealed: bool, caption_text := "") -> void:
 		_paper_layer.add_child(caption_panel)
 
 		var caption := Label.new()
-		caption.text = caption_text
+		caption.text = tr(caption_text)
 		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -651,12 +651,12 @@ func _wait_for_interact_release() -> void:
 		await get_tree().process_frame
 
 func _add_vertical_paper_text(revealed: bool) -> void:
-	var middle_char := "衣" if revealed else "*"
+	var middle_char := "UI_PAPER_NOTE_REVEALED_CHAR" if revealed else "UI_PAPER_NOTE_MASKED_CHAR"
 	var entries := [
-		{"text": "白", "texture_pos": Vector2(168, 38)},
+		{"text": "UI_PAPER_NOTE_WHITE_CHAR", "texture_pos": Vector2(168, 38)},
 		{"text": middle_char, "texture_pos": Vector2(168, 126)},
-		{"text": "覆", "texture_pos": Vector2(168, 202)},
-		{"text": "身", "texture_pos": Vector2(116, 202)},
+		{"text": "UI_PAPER_NOTE_COVER_CHAR", "texture_pos": Vector2(168, 202)},
+		{"text": "UI_PAPER_NOTE_BODY_CHAR", "texture_pos": Vector2(116, 202)},
 	]
 	for entry in entries:
 		_add_paper_character(entry["text"], entry["texture_pos"])
@@ -665,7 +665,7 @@ func _add_paper_character(text_value: String, texture_pos: Vector2) -> void:
 	var center := Vector2(-250, -270) + texture_pos * (500.0 / 256.0)
 	var size := Vector2(76, 76)
 	var label := Label.new()
-	label.text = text_value
+	label.text = tr(text_value)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.add_theme_font_override("font", _get_paper_font())

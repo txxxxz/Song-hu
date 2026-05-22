@@ -67,7 +67,7 @@ size = Vector2(751, 64)
 size = Vector2(1005, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8iv1u"]
-size = Vector2(544, 64)
+size = Vector2(532, 43)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6st4x"]
 atlas = ExtResource("31_ywi5j")
@@ -546,9 +546,8 @@ shape = SubResource("RectangleShape2D_mghg3")
 [node name="Tablet_FoxfireRitual" type="Area2D" parent="Narrative" unique_id=2008727355]
 position = Vector2(7040, 512)
 script = ExtResource("8_2e0t0")
-tablet_text = "狐火正明，顶礼供物可选以清水草敛之，或以灯油炽之。
-无论旺盛或熄灭，狐火终须归社。"
-speaker_name = "札记"
+tablet_text = "DIALOG_L2_NOTE_REVEAL_01"
+speaker_name = "UI_SPEAKER_NOTE"
 
 [node name="Sprite2D" type="Sprite2D" parent="Narrative/Tablet_FoxfireRitual" unique_id=1717553181]
 position = Vector2(237, 40)
@@ -770,7 +769,7 @@ centered = false
 offset = Vector2(-576, 0)
 
 [node name="BridgeThirdCollision" type="CollisionShape2D" parent="Mechanisms/BridgeThird" unique_id=366395124]
-position = Vector2(161.5, 32)
+position = Vector2(163, 33)
 shape = SubResource("RectangleShape2D_y3o2l")
 
 [node name="HiddenPlatform" type="StaticBody2D" parent="Mechanisms" unique_id=1596069404]
@@ -786,7 +785,7 @@ centered = false
 offset = Vector2(-512, 0)
 
 [node name="HiddenPlatformCollision" type="CollisionShape2D" parent="Mechanisms/HiddenPlatform" unique_id=1312965408]
-position = Vector2(713, 45)
+position = Vector2(719, 55.5)
 shape = SubResource("RectangleShape2D_8iv1u")
 
 [node name="OilMarker_HiddenRoute" type="Marker2D" parent="Mechanisms" unique_id=1541384421]

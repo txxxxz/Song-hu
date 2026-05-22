@@ -76,7 +76,7 @@ target_playtime: "15 minutes"
 `level_1.tscn`，村口木牌 `tablet_text`
 
 **speaker_name**  
-`木牌`
+`石碑`
 
 **tablet_text**
 
@@ -120,7 +120,7 @@ target_playtime: "15 minutes"
 祭坛前木牌 `tablet_text`
 
 **speaker_name**  
-`木牌`
+`石碑`
 
 **tablet_text**
 
@@ -162,18 +162,18 @@ Level 1 Quiet approach 札记 `tablet_text`
 ### L1-ALTAR-01A 旧铃铛描述
 
 **载体**  
-`level_1.gd`，旧铃铛交互描述
+`level_1.tscn`，`TopOfferingBellFiberPreview.inspect_dialog`
 
 **文本**  
-`铃声渐止，请慢些归去。`
+`铃声渐止，狐火慢些归位。`
 
 ### L1-ALTAR-01B 狐火石描述
 
 **载体**  
-`level_1.gd`，狐火石交互描述
+`level_1.tscn`，`TopOfferingFoxStonePreview.inspect_dialog`
 
 **文本**  
-`狐火将熄，速速归去。`
+`火光渐熄，狐火速速归位。`
 
 ### L1-ALTAR-02 祭坛成功
 
@@ -469,7 +469,7 @@ Level 1 Quiet approach 札记 `tablet_text`
 `ArchiveTrigger3`
 
 **交互名**  
-`查看衣箱残签`
+`查看木箱`
 
 - 衣箱残签：`白*一领。童身用。袖口束紧。`
 - 旁白：有人用纸遮住了这个字，粘得很死，无法强行撕开
@@ -480,7 +480,7 @@ Level 1 Quiet approach 札记 `tablet_text`
 `ArchiveTrigger4`
 
 **交互名**  
-`查看装束札`
+`查看木牌`
 
 - 装束札：`杉木为轿。白□覆身。蓬草盖顶，以遮人气。`
 - 装束札：`送行后，狐神归位，再不得呼其名。`
@@ -503,7 +503,7 @@ Level 1 Quiet approach 札记 `tablet_text`
 `ArchiveTrigger5`
 
 **交互名**  
-`查看内殿档案`
+`查看桌上竹简`
 
 - 内殿档案：`本次送行者：雨宫纱夜，九岁。山社巫女。签选。家不得辞。`
 - 内殿档案：`送行后，名册除名。村中不得呼其名。家人不得回望。`
@@ -658,8 +658,8 @@ Level 1 Quiet approach 札记 `tablet_text`
 - 杉木：`沉水杉木。湿得发重，可以承住断路。`
 - 白毛：`旧箱里的白色纤维。边缘平整，有细小针孔。`
 - 蓬草：`味道很重的草。揉开后能遮住人的气味。`
-- 旧铃铛：`铃声渐止，请慢些归去。`
-- 狐火石：`狐火将熄，速速归去。`
+- 旧铃铛：`铃声渐止，狐火慢些归位。`
+- 狐火石：`火光渐熄，狐火速速归位。`
 - 清水草：`水边草，触感发凉。可让狐火慢下来。`
 - 灯芯油：`从蓝火里取出的油。可让狐火烧得更亮。`
 

@@ -3,6 +3,8 @@ extends LevelBase
 const BGM_FINAL_CHOICE_VOID := preload("res://assets/audio/bgm/final_choice_void.wav")
 const SFX_PLAQUE_REVEAL := preload("res://assets/audio/sfx/plaque_reveal.wav")
 const SFX_SAYO_SHADOW_REVEAL := preload("res://assets/audio/sfx/sayo_shadow_reveal.wav")
+const PLAQUE_INTERACT_DISTANCE := 420.0
+const FINAL_REFLECTION_X := 4700.0
 
 @onready var _archive_triggers: Array[Area2D] = [
 	$Narrative/ArchiveTrigger1,
@@ -57,6 +59,8 @@ var _total_archives: int = 5
 var _truth_revealed: bool = false
 var _final_choice_shown: bool = false
 var _plaque_transformed: bool = false
+var _all_archives_found: bool = false
+var _truth_reveal_in_progress: bool = false
 var _paper_recheck_unlocked: bool = false
 var _paper_rechecked: bool = false
 var _inner_reveal_started: bool = false
@@ -67,10 +71,12 @@ var _interpretation_layer: CanvasLayer = null
 var _interpretation_rows: Dictionary = {}
 var _paper_layer: CanvasLayer = null
 var _plaque_label: Label = null
+var _plaque_font: Font = null
 
 func _on_level_ready() -> void:
 	_clues_found.resize(_total_archives)
 	_clues_found.fill(false)
+	_set_offering_tube_visible(false)
 	_create_interpretation_board()
 	for index in _archive_triggers.size():
 		var trigger := _archive_triggers[index]
@@ -82,6 +88,7 @@ func _on_level_ready() -> void:
 	if _paper_chest and _paper_chest.has_signal("chest_rechecked"):
 		_paper_chest.connect("chest_rechecked", Callable(self, "_on_chest_rechecked"))
 	_set_plaque_state("迎狐之仪")
+	_set_archive_sequence_step(0)
 	show_area_name("终章  本社・维持的空壳")
 	GameManager.set_state(GameManager.State.PLAYING)
 	play_bgm(preload("res://assets/audio/bgm/shrine_theme.wav"))
@@ -99,7 +106,9 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	if _final_choice_shown or not player:
 		return
-	var near_plaque := _plaque_marker and player.global_position.distance_to(_plaque_marker.global_position) < 260.0
+	if _all_archives_found and not _truth_revealed and not _truth_reveal_in_progress and player.global_position.x >= FINAL_REFLECTION_X and not DialogManager.is_active():
+		_show_final_reflection()
+	var near_plaque := _plaque_marker and player.global_position.distance_to(_plaque_marker.global_position) < PLAQUE_INTERACT_DISTANCE
 	var near_inner := _fox_spawn_marker and player.global_position.distance_to(_fox_spawn_marker.global_position) < 360.0
 	var should_show_plaque_prompt := near_plaque and _truth_revealed and not _plaque_transformed
 	var should_show_inner_prompt := near_inner and _paper_rechecked and not _inner_reveal_started
@@ -114,6 +123,25 @@ func _process(delta: float) -> void:
 		_on_plaque_interact()
 	elif should_show_inner_prompt and Input.is_action_just_pressed("interact") and not DialogManager.is_active():
 		_on_inner_reveal_interact()
+
+func _set_offering_tube_visible(active: bool) -> void:
+	if hud_layer and hud_layer.has_method("set_offering_tube_visible"):
+		hud_layer.set_offering_tube_visible(active)
+
+func _set_archive_sequence_step(active_index: int) -> void:
+	for index in _archive_triggers.size():
+		var trigger := _archive_triggers[index]
+		if not trigger or _clues_found[index]:
+			continue
+		_set_archive_trigger_enabled(trigger, index == active_index)
+
+func _set_archive_trigger_enabled(trigger: Area2D, enabled: bool) -> void:
+	if enabled:
+		trigger.add_to_group("interactable")
+		trigger.collision_layer = 2
+	else:
+		trigger.remove_from_group("interactable")
+		trigger.collision_layer = 0
 
 func _on_info_clue_activated(clue_index: int, clue: Node2D) -> void:
 	_on_archive_found(clue_index, clue as Area2D)
@@ -136,7 +164,7 @@ func _on_archive_found(archive_index: int, trigger: Area2D) -> void:
 	if trigger and not trigger.has_method("mark_understood"):
 		trigger.call_deferred("queue_free")
 	if archive_index == 2:
-		await _show_paper_note(false)
+		await _show_paper_note(false, "有人用纸遮住了这个字，粘得很死，无法强行撕开")
 	elif archive_index >= 0 and archive_index < ARCHIVE_DIALOGS.size():
 		DialogManager.show_dialog(_get_archive_dialog(archive_index))
 		await DialogManager.dialog_finished
@@ -144,8 +172,9 @@ func _on_archive_found(archive_index: int, trigger: Area2D) -> void:
 		_set_plaque_state("送*之仪")
 	await _update_understanding_links()
 	if _archives_found >= _total_archives and not _truth_revealed:
-		_truth_revealed = true
-		await _unlock_plaque()
+		_all_archives_found = true
+	else:
+		_set_archive_sequence_step(archive_index + 1)
 
 func _get_archive_dialog(archive_index: int) -> Array[Dictionary]:
 	var archive_dialog: Array[Dictionary] = []
@@ -161,7 +190,7 @@ func _create_interpretation_board() -> void:
 
 	var panel := PanelContainer.new()
 	panel.name = "BoardPanel"
-	panel.position = Vector2(42, 82)
+	panel.position = Vector2(24, 24)
 	panel.custom_minimum_size = Vector2(430, 174)
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.030, 0.024, 0.038, 0.74)
@@ -184,7 +213,7 @@ func _create_interpretation_board() -> void:
 	_add_board_row(vbox, "ritual", "仪式名：村里称作迎狐，为的是迎接狐火归位")
 	_add_board_row(vbox, "garment", "白色供物：木牌称作白狐毛")
 	_add_board_row(vbox, "person", "白狐身份：？")
-	_interpretation_layer.visible = false
+	_interpretation_layer.visible = true
 
 func _add_board_row(parent: VBoxContainer, row_id: String, text_value: String) -> void:
 	var label := Label.new()
@@ -238,6 +267,12 @@ func _update_understanding_links() -> void:
 		] as Array[Dictionary])
 		await DialogManager.dialog_finished
 
+func _show_final_reflection() -> void:
+	_truth_reveal_in_progress = true
+	await _unlock_plaque()
+	_truth_revealed = true
+	_truth_reveal_in_progress = false
+
 func _unlock_plaque() -> void:
 	await get_tree().create_timer(0.45).timeout
 	DialogManager.show_dialog([
@@ -273,10 +308,9 @@ func _on_chest_rechecked() -> void:
 	if not _paper_recheck_unlocked or _paper_rechecked:
 		return
 	_paper_rechecked = true
-	await _show_paper_note(true)
+	await _show_paper_note(true, "刚才被框掉的字，是衣。")
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "纸片上的遮挡松开了。"},
-		{"speaker": "", "text": "刚才被框掉的字，是衣。"},
 		{"speaker": "我", "text": "我一路复原的是送行者的装束。"},
 		{"speaker": "我", "text": "再往内室走，白狐应该就在那里。"},
 	] as Array[Dictionary])
@@ -325,17 +359,30 @@ func _set_plaque_state(text_value: String) -> void:
 		_plaque_label.z_index = 3
 		_plaque_label.position = Vector2(-154, -132)
 		_plaque_label.size = Vector2(308, 64)
+		_plaque_label.rotation = deg_to_rad(-2.0)
 		_plaque_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		_plaque_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		_plaque_label.add_theme_font_size_override("font_size", 34)
+		_plaque_label.add_theme_font_override("font", _get_plaque_font())
+		_plaque_label.add_theme_font_size_override("font_size", 38)
 		_plaque_label.add_theme_color_override("font_color", Color(0.92, 0.72, 0.34))
 		_plaque_label.add_theme_color_override("font_shadow_color", Color(0.05, 0.025, 0.01, 0.86))
+		_plaque_label.add_theme_color_override("font_outline_color", Color(0.18, 0.08, 0.025, 0.75))
+		_plaque_label.add_theme_constant_override("outline_size", 2)
 		_plaque_label.add_theme_constant_override("shadow_offset_x", 2)
 		_plaque_label.add_theme_constant_override("shadow_offset_y", 2)
 		_plaque_sprite.add_child(_plaque_label)
+	_plaque_label.rotation = deg_to_rad(-2.0 if text_value.begins_with("迎") else 1.5)
 	_plaque_label.text = text_value
 
-func _show_paper_note(revealed: bool) -> void:
+func _get_plaque_font() -> Font:
+	if _plaque_font:
+		return _plaque_font
+	var font := SystemFont.new()
+	font.font_names = PackedStringArray(["Kaiti SC", "STKaiti", "HanziPen SC", "Hiragino Mincho ProN", "Songti SC"])
+	_plaque_font = font
+	return _plaque_font
+
+func _show_paper_note(revealed: bool, caption_text := "") -> void:
 	if _paper_layer and is_instance_valid(_paper_layer):
 		_paper_layer.queue_free()
 	_paper_layer = CanvasLayer.new()
@@ -352,15 +399,15 @@ func _show_paper_note(revealed: bool) -> void:
 	note.texture = PAPER_REVEALED if revealed else PAPER_MASKED
 	note.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	note.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	note.custom_minimum_size = Vector2(420, 420)
+	note.custom_minimum_size = Vector2(500, 500)
 	note.anchor_left = 0.5
 	note.anchor_top = 0.5
 	note.anchor_right = 0.5
 	note.anchor_bottom = 0.5
-	note.offset_left = -210
-	note.offset_top = -230
-	note.offset_right = 210
-	note.offset_bottom = 190
+	note.offset_left = -250
+	note.offset_top = -270
+	note.offset_right = 250
+	note.offset_bottom = 230
 	_paper_layer.add_child(note)
 
 	var clue_text := Label.new()
@@ -381,6 +428,34 @@ func _show_paper_note(revealed: bool) -> void:
 	clue_text.offset_right = 150
 	clue_text.offset_bottom = 10
 	_paper_layer.add_child(clue_text)
+
+	if caption_text != "":
+		var caption_panel := PanelContainer.new()
+		caption_panel.anchor_left = 0.5
+		caption_panel.anchor_top = 0.5
+		caption_panel.anchor_right = 0.5
+		caption_panel.anchor_bottom = 0.5
+		caption_panel.offset_left = -420
+		caption_panel.offset_top = 236
+		caption_panel.offset_right = 420
+		caption_panel.offset_bottom = 316
+		var caption_style := StyleBoxFlat.new()
+		caption_style.bg_color = Color(0.035, 0.028, 0.038, 0.92)
+		caption_style.border_color = Color(0.55, 0.42, 0.27, 0.85)
+		caption_style.set_border_width_all(2)
+		caption_style.set_corner_radius_all(0)
+		caption_style.set_content_margin_all(14)
+		caption_panel.add_theme_stylebox_override("panel", caption_style)
+		_paper_layer.add_child(caption_panel)
+
+		var caption := Label.new()
+		caption.text = caption_text
+		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		caption.add_theme_font_size_override("font_size", 26)
+		caption.add_theme_color_override("font_color", Color(0.90, 0.84, 0.73))
+		caption_panel.add_child(caption)
 
 	var hint := Label.new()
 	hint.text = "E"

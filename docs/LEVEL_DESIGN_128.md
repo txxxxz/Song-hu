@@ -74,9 +74,9 @@ The player stands on a baseline near `y=512`; the visible body usually occupies 
 |---|---:|---|---|
 | 外大殿 | `0-3400` | Opening unease: complete architecture with no lived-in traces, plus the altered old wooden plaque | `ArchiveTrigger1`, `PlaqueMarker`, `Foxfire_OldWood` |
 | 回廊 | `3400-7200` | Read the bamboo slip, open the clothing chest, and compare the outfit-order tablet as a single evidence chain | `ArchiveTrigger2`, `ArchiveTrigger3` as paper chest, `ArchiveTrigger4`, `DressingRoomLongTable` |
-| 内殿 | `7200-11200` | Name Sayo after the player rechecks the chest paper, then force the final choice | `ArchiveTrigger5`, `FoxSpawnMarker` |
+| 内殿 | `7200-11200` | Name Sayo after the player rechecks the chest paper, then force the final choice | `ArchiveTrigger5` as a table bamboo slip, `FoxSpawnMarker` |
 
-`ArchiveTrigger1`, `2`, `4`, and `5` are interactable `info_clue.gd` nodes. `ArchiveTrigger3` is an interactable clothing chest using `paper_chest_clue.gd`: opening it pops a paper slip with one character blocked; after the entrance plaque changes, the same chest can be checked again to reveal the covered character. The final plaque prompt is disabled until all five clues are understood.
+`ArchiveTrigger1`, `2`, `4`, and `5` are interactable `info_clue.gd` nodes. `ArchiveTrigger3` is an interactable clothing chest using `paper_chest_clue.gd`: opening it shows the blocked paper as a centered inspection overlay; after the entrance plaque changes, the same chest can be checked again to reveal the covered character. The archive sequence is gated in order, and the final plaque prompt is disabled until all five clues are understood and the player reaches the final hall.
 
 The final reveal must stay staged:
 1. The entrance plaque cycles from `迎狐之仪` to `送*之仪`, then foxfire changes it to `送狐之以`.

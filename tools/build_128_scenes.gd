@@ -576,6 +576,12 @@ func _add_named_item(root: Node2D, parent_path: String, name_value: String, item
 	parent.add_child(item)
 	return item
 
+func _add_inspectable_named_item(root: Node2D, parent_path: String, name_value: String, item_id: String, texture_path: String, pos: Vector2, inspect_dialog: String) -> Node:
+	var item := _add_named_item(root, parent_path, name_value, item_id, texture_path, pos)
+	item.set("inspect_before_collect", true)
+	item.set("inspect_dialog", inspect_dialog)
+	return item
+
 func _add_white_fur_chest(root: Node2D, pos: Vector2, take_dialog := "箱里放着一束白色纤维，箱子上刻着「白毛」，边缘却压得很平，潮了也不会打卷。") -> Node:
 	var chest := Area2D.new()
 	chest.name = _unique_child_name(root.get_node("Mechanisms"), "WhiteFurChest")
@@ -843,13 +849,13 @@ func _build_level_1() -> void:
 	elder.name = "Elder"
 	elder.position = Vector2(420, 512)
 	root.get_node("Narrative").add_child(elder)
-	_add_tablet(root, "Tablet_Village", Vector2(760, 512), "迎狐之仪。\n供物入御供筒，不可手捧。\n祭坛从底向上读。后放入者，在上。", "res://assets/sprites/objects/stone_tablet.png", "木牌")
+	_add_tablet(root, "Tablet_Village", Vector2(760, 512), "迎狐之仪。\n供物入御供筒，不可手捧。\n祭坛从底向上读。后放入者，在上。", "res://assets/sprites/objects/stone_tablet.png", "石碑")
 	_add_sugi_tree_source(root, Vector2(1180, 512))
 	_add_tablet(root, "Tablet_Torii", Vector2(2480, 384), "狐上山，不回头。\n若回头，莫唤名。\n人名入狐耳，山灯不长明。", "res://assets/sprites/objects/stone_tablet.png", "旧纸条")
 	_add_white_fur_chest(root, Vector2(3260, 320))
 	_add_tablet(root, "Tablet_RainNote", Vector2(4380, 512), "……送……本社……\n……白……覆身……\n……不得呼名……", "res://assets/sprites/objects/archive_note.png", "雨损纸条")
-	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(5400, 512), "采蓬草", "蓬草味很浓，碰过的指尖都是苦的，似乎能压抑活物气息。")
-	_add_tablet(root, "Tablet_Order", Vector2(6100, 512), "装束供物三件。\n杉木为底。\n白毛覆身。\n蓬草盖顶。", "res://assets/sprites/objects/stone_tablet.png", "木牌")
+	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(5400, 512), "摘取蓬草", "蓬草味很浓，碰过的指尖都是苦的，似乎能压抑活物气息。")
+	_add_tablet(root, "Tablet_Order", Vector2(6100, 512), "装束供物三件。\n杉木为底。\n白毛覆身。\n蓬草盖顶。", "res://assets/sprites/objects/stone_tablet.png", "石碑")
 	_add_altar(root, Vector2(6759, 560), 1)
 	var fox_marker := Marker2D.new()
 	fox_marker.name = "FoxSpawnMarker"
@@ -869,8 +875,8 @@ func _build_level_1() -> void:
 	_add_torii(root, Vector2(3920, 512), true, "OldTorii")
 	_add_torii(root, Vector2(7346, 512), true, "AltarGate")
 	_add_prop_sprite(root, "TopOfferingLongTable", "res://assets/sprites/objects/long_table/long_table.png", Vector2(5730, 556), true)
-	_add_named_item(root, "PropsFront", "TopOfferingBellFiberPreview", "bell_fiber", "res://assets/sprites/objects/item_bell_fiber.png", Vector2(5560, 455))
-	_add_named_item(root, "PropsFront", "TopOfferingFoxStonePreview", "fox_stone", "res://assets/sprites/objects/item_fox_stone.png", Vector2(5890, 455))
+	_add_inspectable_named_item(root, "PropsFront", "TopOfferingBellFiberPreview", "bell_fiber", "res://assets/sprites/objects/item_bell_fiber.png", Vector2(5560, 455), "铃声渐止，狐火慢些归位。")
+	_add_inspectable_named_item(root, "PropsFront", "TopOfferingFoxStonePreview", "fox_stone", "res://assets/sprites/objects/item_fox_stone.png", Vector2(5890, 455), "火光渐熄，狐火速速归位。")
 	_add_fx(root, "FoxfireHint_OldTorii", "res://assets/sprites/effects/fox_fire.png", Vector2(4040, 392), 8, 8.0)
 	_add_canvas_modulate(root, Color(0.78, 0.82, 0.95, 1.0))
 	_save_scene(root, "res://scenes/levels/level_1.tscn")
@@ -1013,9 +1019,9 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 	var interact_names := {
 		1: "查看旧木额",
 		2: "查看回廊竹简",
-		3: "打开衣箱",
-		4: "查看装束札",
-		5: "查看内殿档案",
+		3: "查看木箱",
+		4: "查看木牌",
+		5: "查看桌上竹简",
 	}
 	trigger.set("interact_name", interact_names.get(index, "查看线索"))
 	if index == 3:
@@ -1025,10 +1031,16 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 		trigger.set("open_texture", _tex("res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png"))
 		trigger.set("masked_paper_texture", _tex("res://assets/sprites/objects/paper_note_with_patch.png"))
 		trigger.set("revealed_paper_texture", _tex("res://assets/sprites/objects/paper_note_blank.png"))
+		trigger.set("show_world_paper_popup", false)
 	trigger.collision_layer = 2
 	trigger.collision_mask = 0
 	trigger.monitoring = true
-	trigger.add_child(_rect_shape(Vector2(260, 250), Vector2(0, -126), "ArchiveDetectShape"))
+	var detect_size := Vector2(260, 250)
+	var detect_position := Vector2(0, -126)
+	if index == 1:
+		detect_size = Vector2(560, 420)
+		detect_position = Vector2(0, -110)
+	trigger.add_child(_rect_shape(detect_size, detect_position, "ArchiveDetectShape"))
 	if index == 3:
 		var visual := Node2D.new()
 		visual.name = "Visual"
@@ -1055,11 +1067,13 @@ func _add_archive(root: Node2D, index: int, pos: Vector2) -> void:
 	elif index == 2:
 		texture_path = "res://assets/sprites/objects/bamboo_scroll_closed.png"
 	elif index == 4:
-		texture_path = "res://assets/sprites/objects/stone_tablet.png"
+		texture_path = "res://assets/sprites/objects/archive_note.png"
+	elif index == 5:
+		texture_path = "res://assets/sprites/objects/bamboo_scroll_closed.png"
 	var visual := _bottom_sprite("ArchiveSprite", texture_path)
 	if index == 1:
 		visual.scale = Vector2(0.72, 0.72)
-	elif index == 4:
-		visual.scale = Vector2(0.84, 0.84)
+	elif index == 2 or index == 5:
+		visual.scale = Vector2(0.56, 0.66)
 	trigger.add_child(visual)
 	root.get_node("Narrative").add_child(trigger)

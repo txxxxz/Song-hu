@@ -42,14 +42,14 @@ var ITEMS: Dictionary = {
 	"bell_fiber": {
 		"id": "bell_fiber",
 		"name": "旧铃铛",
-		"desc": "铃声渐止，请慢些归去。",
+		"desc": "铃声渐止，狐火慢些归位。",
 		"color": Color(0.86, 0.75, 0.54),
 		"glow": false,
 	},
 	"fox_stone": {
 		"id": "fox_stone",
 		"name": "狐火石",
-		"desc": "狐火将熄，速速归去。",
+		"desc": "火光渐熄，狐火速速归位。",
 		"color": Color(1.0, 0.58, 0.16),
 		"glow": true,
 	},

@@ -22,7 +22,11 @@ func interact() -> void:
 		if clean != "":
 			lines.append({"speaker": speaker_name, "text": clean})
 	if not lines.is_empty():
-		DialogManager.show_dialog(lines)
+		DialogManager.show_dialog(lines, {
+			"voice_key": tablet_text,
+			"voice_persistent": true,
+			"voice_volume_db": -6.0,
+		})
 
 func get_interact_name() -> String:
 	if speaker_name != "":

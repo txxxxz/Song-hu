@@ -5,30 +5,30 @@
 [ext_resource type="Texture2D" uid="uid://ctwmvbt5hvvey" path="res://assets/backgrounds/level1_mid.png" id="3_row31"]
 [ext_resource type="Texture2D" uid="uid://cc54n33cb6hgb" path="res://assets/backgrounds/level1_near.png" id="4_ytidy"]
 [ext_resource type="TileSet" uid="uid://c6xn35cb3v1jm" path="res://assets/tilesets/forest_tileset.tres" id="5_hvllt"]
-[ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets_1/assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
-[ext_resource type="Texture2D" uid="uid://b5c2eghweqwl4" path="res://assets_1/assets/sprites/objects/torii_small.png" id="7_svqqs"]
-[ext_resource type="Texture2D" uid="uid://bkichr3en42ju" path="res://assets_1/assets/sprites/objects/torii.png" id="8_2to4m"]
+[ext_resource type="Texture2D" uid="uid://cgg3d1xu11bu7" path="res://assets/sprites/objects/stone_lantern.png" id="6_dp4fg"]
+[ext_resource type="Texture2D" uid="uid://b5c2eghweqwl4" path="res://assets/sprites/objects/torii_small.png" id="7_svqqs"]
+[ext_resource type="Texture2D" uid="uid://bkichr3en42ju" path="res://assets/sprites/objects/torii.png" id="8_2to4m"]
 [ext_resource type="PackedScene" path="res://scenes/objects/npc_elder.tscn" id="9_kc3v0"]
 [ext_resource type="Script" uid="uid://b7gs2plge8ef0" path="res://scenes/objects/stone_tablet.gd" id="11_dwx2n"]
-[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets_1/assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
+[ext_resource type="Texture2D" uid="uid://glht8v4chfd4" path="res://assets/sprites/objects/stone_tablet.png" id="12_wtkl1"]
 [ext_resource type="PackedScene" path="res://scenes/objects/altar.tscn" id="13_ovy75"]
 [ext_resource type="PackedScene" uid="uid://c2wdt10ilafkp" path="res://scenes/player/player.tscn" id="15_ugk5q"]
 [ext_resource type="Script" uid="uid://wa1yi7wglmv" path="res://scenes/objects/harvest_source.gd" id="17_i3rdk"]
-[ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets_1/assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
+[ext_resource type="Texture2D" uid="uid://y4ib1oosvnhn" path="res://assets/sprites/objects/item_sugi_wood.png" id="18_yvv08"]
 [ext_resource type="Texture2D" uid="uid://ca4qsdnbh77r4" path="res://assets/sprites/objects/large_tree/large_tree.png" id="19_bccrp"]
 [ext_resource type="Script" uid="uid://cwcytox18c0js" path="res://scenes/objects/white_fur_chest.gd" id="20_20f45"]
-[ext_resource type="Texture2D" uid="uid://df4aextjt1c5b" path="res://assets_1/assets/sprites/objects/item_white_fur.png" id="21_6bay7"]
+[ext_resource type="Texture2D" uid="uid://df4aextjt1c5b" path="res://assets/sprites/objects/item_white_fur.png" id="21_6bay7"]
 [ext_resource type="Texture2D" uid="uid://b1nkyt1qoh4pq" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_closed.png" id="22_to6s4"]
 [ext_resource type="Texture2D" uid="uid://bir76inbdlgmu" path="res://assets/sprites/objects/old_wooden_chest/old_wooden_chest_open.png" id="23_7tcdn"]
-[ext_resource type="Texture2D" uid="uid://de15crklj3nq" path="res://assets_1/assets/sprites/objects/item_mugwort.png" id="24_4gp5p"]
-[ext_resource type="Texture2D" uid="uid://b06v0r8pdweko" path="res://assets_1/assets/tilesets/forest_tileset.png" id="25_y73h4"]
+[ext_resource type="Texture2D" uid="uid://de15crklj3nq" path="res://assets/sprites/objects/item_mugwort.png" id="24_4gp5p"]
+[ext_resource type="Texture2D" uid="uid://b06v0r8pdweko" path="res://assets/tilesets/forest_tileset.png" id="25_y73h4"]
 [ext_resource type="Texture2D" uid="uid://du0mr8yumk12t" path="res://assets/sprites/objects/long_table/long_table.png" id="26_yhfkw"]
 [ext_resource type="PackedScene" path="res://scenes/objects/collectible_item.tscn" id="27_klc0n"]
-[ext_resource type="Texture2D" uid="uid://ltqovbi577vw" path="res://assets_1/assets/sprites/objects/item_bell_fiber.png" id="29_kr1sg"]
-[ext_resource type="Texture2D" uid="uid://dyj08qiudqmbr" path="res://assets_1/assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
-[ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets_1/assets/sprites/effects/warm_light.png" id="31_4x4ny"]
-[ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets_1/assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
-[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets_1/assets/sprites/objects/archive_note.png" id="33_rain"]
+[ext_resource type="Texture2D" uid="uid://ltqovbi577vw" path="res://assets/sprites/objects/item_bell_fiber.png" id="29_kr1sg"]
+[ext_resource type="Texture2D" uid="uid://dyj08qiudqmbr" path="res://assets/sprites/objects/item_fox_stone.png" id="30_2viwe"]
+[ext_resource type="Texture2D" uid="uid://c0oneeejtvye5" path="res://assets/sprites/effects/warm_light.png" id="31_4x4ny"]
+[ext_resource type="Texture2D" uid="uid://b83y0ekptbkoc" path="res://assets/sprites/effects/lantern_flame.png" id="32_nlewy"]
+[ext_resource type="Texture2D" uid="uid://dhxcebuor3uvy" path="res://assets/sprites/objects/archive_note.png" id="33_rain"]
 [ext_resource type="PackedScene" uid="uid://de53somme5k4e" path="res://scenes/ui/hud.tscn" id="34_noyxt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2msp3"]
@@ -480,17 +480,18 @@ position = Vector2(-487, 31)
 shape = SubResource("RectangleShape2D_bakdn")
 
 [node name="MugwortGrassSource" type="Area2D" parent="Mechanisms" unique_id=37930445]
-position = Vector2(5400, 512)
+position = Vector2(4560, 512)
 script = ExtResource("17_i3rdk")
 item_id = "mugwort"
 item_texture = ExtResource("24_4gp5p")
 interact_name = "UI_INTERACT_HARVEST_MUGWORT"
 harvest_dialog = "DIALOG_L1_HARVEST_MUGWORT"
+max_player_foot_y_distance = 160.0
 
 [node name="Visual" type="Node2D" parent="Mechanisms/MugwortGrassSource" unique_id=34738213]
 
 [node name="GrassPile" type="Sprite2D" parent="Mechanisms/MugwortGrassSource/Visual" unique_id=1998473233]
-position = Vector2(-838.99994, -45.000008)
+position = Vector2(1, -45.000008)
 scale = Vector2(1.6, 1.6)
 texture = ExtResource("25_y73h4")
 centered = false
@@ -499,7 +500,7 @@ region_enabled = true
 region_rect = Rect2(0, 512, 128, 128)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/MugwortGrassSource" unique_id=1146942093]
-position = Vector2(-840, -151.5)
+position = Vector2(0, -151.5)
 shape = SubResource("RectangleShape2D_mryc2")
 
 [node name="PropsFront" type="Node2D" parent="." unique_id=813677332]

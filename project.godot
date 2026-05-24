@@ -61,7 +61,6 @@ pause={
 [internationalization]
 
 locale/translations=PackedStringArray("res://i18n/ui.zh_CN.translation", "res://i18n/ui.en.translation", "res://i18n/dialogs.zh_CN.translation", "res://i18n/dialogs.en.translation", "res://i18n/cutscenes.zh_CN.translation", "res://i18n/cutscenes.en.translation", "res://i18n/items.zh_CN.translation", "res://i18n/items.en.translation")
-locale/fallback="en"
 
 [layer_names]
 
@@ -72,4 +71,6 @@ locale/fallback="en"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_s3tc_bptc=true
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.02, 0.01, 0.04, 1)

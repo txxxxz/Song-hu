@@ -3,11 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dx7j5ab23oo1p"
-valid=false
+path="res://.godot/imported/DIALOG_L3_TABLET_TORII.mp3-6afc1c6af598384e0af3541d2dd22e53.mp3str"
 
 [deps]
 
 source_file="res://assets/audio/dialog/DIALOG_L3_TABLET_TORII.mp3"
+dest_files=["res://.godot/imported/DIALOG_L3_TABLET_TORII.mp3-6afc1c6af598384e0af3541d2dd22e53.mp3str"]
 
 [params]
 

@@ -25,7 +25,7 @@ func interact() -> void:
 		DialogManager.show_dialog(lines, {
 			"voice_key": tablet_text,
 			"voice_persistent": true,
-			"voice_volume_db": -6.0,
+			"voice_volume_db": 0.0,
 		})
 
 func get_interact_name() -> String:

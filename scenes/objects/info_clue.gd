@@ -7,7 +7,7 @@ const SFX_PAPER_DOOR := preload("res://assets/audio/sfx/paper_door.wav")
 
 @export var clue_index: int = 0
 @export var interact_name: String = "UI_INTERACT_VIEW_CLUE"
-@export var max_player_foot_y_distance: float = 104.0
+@export var max_player_foot_y_distance: float = 220.0
 
 var _used: bool = false
 

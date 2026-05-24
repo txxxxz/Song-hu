@@ -93,6 +93,7 @@ var ALTAR_ORDERS: Dictionary = {
 
 var ALTAR_TOP_OFFERINGS: Dictionary = {
 	1: ["bell_fiber", "fox_stone"],
+	2: ["water_grass", "lamp_oil"],
 }
 
 func _enter_tree() -> void:

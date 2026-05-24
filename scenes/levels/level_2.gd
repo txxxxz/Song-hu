@@ -350,6 +350,7 @@ func _on_altar_completed(success: bool) -> void:
 	if not success or _ending_triggered:
 		return
 	_ending_triggered = true
+	var final_offering_id := str(GameManager.peek_offering().get("id", ""))
 	await get_tree().create_timer(0.8).timeout
 	DialogManager.show_dialog([
 		{"speaker": "", "text": "DIALOG_L2_ALTAR_COMPLETE_01"},
@@ -357,20 +358,20 @@ func _on_altar_completed(success: bool) -> void:
 		{"speaker": "", "text": "DIALOG_L2_ALTAR_COMPLETE_03"},
 	] as Array[Dictionary])
 	await DialogManager.dialog_finished
-	show_choice(
-		"UI_CHOICE_L2_TITLE",
-		"ITEM_WATER_GRASS_NAME", "ITEM_LAMP_OIL_NAME",
-		"UI_CHOICE_L2_DESC_A", "UI_CHOICE_L2_DESC_B",
-		_on_final_choice
-	)
+	_play_final_offering_branch(final_offering_id)
 
-func _on_final_choice(choice: String) -> void:
-	if choice == "A":
-		GameManager.set_branch(2, "A2")
-		_play_ending_a2()
-	else:
-		GameManager.set_branch(2, "B2")
-		_play_ending_b2()
+func _play_final_offering_branch(item_id: String) -> void:
+	match item_id:
+		"water_grass":
+			GameManager.set_branch(2, "A2")
+			_play_ending_a2()
+		"lamp_oil":
+			GameManager.set_branch(2, "B2")
+			_play_ending_b2()
+		_:
+			DialogManager.show_single("CHAR_PLAYER", "UI_ALTAR_ORDER_ERROR")
+			await DialogManager.dialog_finished
+			GameManager.restart_current_level()
 
 func _play_ending_a2() -> void:
 	play_sfx(SFX_WATER_GRASS_CALM)

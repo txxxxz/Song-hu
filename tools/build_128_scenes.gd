@@ -21,7 +21,7 @@ func _ready() -> void:
 	_build_level_1()
 	_build_level_2()
 	_build_level_3()
-	print("Built 128 HD placeholder scenes.")
+	print("Built 128 HD scenes.")
 	get_tree().quit()
 
 func _make_dirs() -> void:
@@ -640,7 +640,7 @@ func _add_sugi_tree_source(root: Node2D, pos: Vector2, name_suffix := "", harves
 	root.get_node("Mechanisms").add_child(source)
 	return source
 
-func _add_grass_harvest_source(root: Node2D, name_value: String, item_id: String, texture_path: String, pos: Vector2, interact_name: String, harvest_dialog: String, tileset_path := "res://assets/tilesets/forest_tileset.png") -> Node:
+func _add_grass_harvest_source(root: Node2D, name_value: String, item_id: String, texture_path: String, pos: Vector2, interact_name: String, harvest_dialog: String, tileset_path := "res://assets/tilesets/forest_tileset.png", max_player_foot_y_distance := 72.0) -> Node:
 	var source := Area2D.new()
 	source.name = _unique_child_name(root.get_node("Mechanisms"), name_value)
 	source.position = pos
@@ -649,6 +649,7 @@ func _add_grass_harvest_source(root: Node2D, name_value: String, item_id: String
 	source.set("item_texture", _tex(texture_path))
 	source.set("interact_name", interact_name)
 	source.set("harvest_dialog", harvest_dialog)
+	source.set("max_player_foot_y_distance", max_player_foot_y_distance)
 
 	var visual := Node2D.new()
 	visual.name = "Visual"
@@ -853,10 +854,10 @@ func _build_level_1() -> void:
 	root.get_node("Narrative").add_child(elder)
 	_add_tablet(root, "Tablet_Village", Vector2(760, 512), "迎狐之仪。\n供物入御供筒，不可手捧。\n祭坛从底向上读。后放入者，在上。", "res://assets/sprites/objects/stone_tablet.png", "石碑")
 	_add_sugi_tree_source(root, Vector2(1180, 512))
-	_add_tablet(root, "Tablet_Torii", Vector2(2480, 384), "狐上山，不回头。\n若回头，莫唤名。\n人名入狐耳，山灯不长明。", "res://assets/sprites/objects/stone_tablet.png", "旧纸条")
+	_add_tablet(root, "Tablet_Torii", Vector2(2480, 384), "DIALOG_L1_TABLET_TORII", "res://assets/sprites/objects/stone_tablet.png", "旧纸条")
 	_add_white_fur_chest(root, Vector2(3260, 320))
 	_add_tablet(root, "Tablet_RainNote", Vector2(4380, 512), "……送……本社……\n……白……覆身……\n……不得呼名……", "res://assets/sprites/objects/archive_note.png", "雨损纸条")
-	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(5400, 512), "摘取蓬草", "蓬草味很浓，碰过的指尖都是苦的，似乎能压抑活物气息。")
+	_add_grass_harvest_source(root, "MugwortGrassSource", "mugwort", "res://assets/sprites/objects/item_mugwort.png", Vector2(4560, 512), "摘取蓬草", "蓬草味很浓，碰过的指尖都是苦的，似乎能压抑活物气息。", "res://assets/tilesets/forest_tileset.png", 160.0)
 	_add_tablet(root, "Tablet_Order", Vector2(6100, 512), "装束供物三件。\n杉木为底。\n白毛覆身。\n蓬草盖顶。", "res://assets/sprites/objects/stone_tablet.png", "石碑")
 	_add_altar(root, Vector2(6759, 560), 1)
 	var fox_marker := Marker2D.new()

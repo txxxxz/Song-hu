@@ -93,6 +93,7 @@ func show_dialog(lines: Array[Dictionary], options: Dictionary = {}) -> void:
 	_dialog_options = options
 	_voice_persistent = bool(_dialog_options.get("voice_persistent", false))
 	_voice_started_for_dialog = false
+	_stop_voice()
 	_canvas.visible = true
 	GameManager.set_state(GameManager.State.DIALOG)
 	dialog_started.emit()
@@ -197,13 +198,23 @@ func _stop_voice() -> void:
 		_voice_player.stop()
 		_voice_player.stream = null
 		_voice_player.bus = "Master"
+	if _persistent_voice_player != null:
+		_persistent_voice_player.stop()
+		_persistent_voice_player.stream = null
+		_persistent_voice_player.bus = "Master"
 
 func _get_voice_stream(voice_key: String) -> AudioStream:
 	if _voice_cache.has(voice_key):
 		return _voice_cache[voice_key] as AudioStream
 
-	var path := "res://assets/audio/dialog/%s.mp3" % voice_key
-	if not ResourceLoader.exists(path):
+	var path := ""
+	for extension in ["mp3", "wav"]:
+		var candidate := "res://assets/audio/dialog/%s.%s" % [voice_key, extension]
+		if ResourceLoader.exists(candidate):
+			path = candidate
+			break
+
+	if path.is_empty():
 		_voice_cache[voice_key] = null
 		return null
 

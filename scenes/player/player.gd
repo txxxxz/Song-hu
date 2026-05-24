@@ -228,6 +228,7 @@ func _remove_interactable(target: Node2D) -> void:
 	_refresh_nearest_interactable()
 
 func _refresh_nearest_interactable() -> void:
+	_sync_overlapping_interactables()
 	var best: Node2D = null
 	var best_distance := INF
 	for target in _nearby_interactables.duplicate():
@@ -243,6 +244,16 @@ func _refresh_nearest_interactable() -> void:
 			best = target
 			best_distance = distance
 	nearest_interactable = best
+
+func _sync_overlapping_interactables() -> void:
+	if not interaction_area:
+		return
+	for area in interaction_area.get_overlapping_areas():
+		if area is Node2D and area.is_in_group("interactable") and not _nearby_interactables.has(area):
+			_nearby_interactables.append(area)
+	for body in interaction_area.get_overlapping_bodies():
+		if body is Node2D and body.is_in_group("interactable") and not _nearby_interactables.has(body):
+			_nearby_interactables.append(body)
 
 func _can_reach_interactable(target: Node2D) -> bool:
 	if target.has_method("can_interact_from"):

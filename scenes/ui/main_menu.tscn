@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c71kmtmswu3d2"]
 
-[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_fe2o3"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/sky.png" id="2_1g8jr"]
+[ext_resource type="Script" uid="uid://bvrwof0wqcfwm" path="res://scenes/ui/main_menu.gd" id="1_fe2o3"]
+[ext_resource type="Texture2D" uid="uid://jkjg0hx2hhen" path="res://assets/backgrounds/sky.png" id="2_1g8jr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1kxf"]
 content_margin_left = 20.0
@@ -77,7 +77,7 @@ border_color = Color(0.9, 0.65, 0.35, 0.96)
 
 [node name="MainMenu" type="Control" unique_id=630488113]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_fe2o3")
@@ -100,9 +100,9 @@ offset_left = 96.0
 offset_top = 132.0
 offset_right = 656.0
 offset_bottom = 226.0
-theme_override_font_sizes/font_size = 72
 theme_override_colors/font_color = Color(1, 0.83, 0.48, 1)
-text = "UI_MENU_TITLE"
+theme_override_font_sizes/font_size = 72
+text = "OKURI KITSUNE"
 vertical_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="." unique_id=1542115628]
@@ -111,9 +111,9 @@ offset_left = 100.0
 offset_top = 222.0
 offset_right = 660.0
 offset_bottom = 266.0
-theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(0.78, 0.64, 0.42, 1)
-text = "UI_MENU_SUBTITLE"
+theme_override_font_sizes/font_size = 26
+text = "The Sending Rite"
 vertical_alignment = 1
 
 [node name="LocaleRow" type="HBoxContainer" parent="." unique_id=109523881]
@@ -126,9 +126,9 @@ theme_override_constants/separation = 12
 
 [node name="LocaleLabel" type="Label" parent="LocaleRow" unique_id=1416805995]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.8, 0.68, 0.48, 1)
-text = "UI_MENU_LANGUAGE"
+theme_override_font_sizes/font_size = 20
+text = "ENGLISH"
 vertical_alignment = 1
 
 [node name="LocaleOption" type="OptionButton" parent="LocaleRow" unique_id=1948181599]
@@ -147,17 +147,17 @@ theme_override_constants/separation = 18
 [node name="StartBtn" type="Button" parent="ButtonVBox" unique_id=1706364317]
 custom_minimum_size = Vector2(300, 72)
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_m1kxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_x2yvf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_uhagc")
-theme_override_font_sizes/font_size = 28
-text = "UI_MENU_START"
+text = "START"
 
 [node name="QuitBtn" type="Button" parent="ButtonVBox" unique_id=2111842149]
 custom_minimum_size = Vector2(300, 72)
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_btxxm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wb0q5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_q85j6")
-theme_override_font_sizes/font_size = 28
-text = "UI_MENU_QUIT"
+text = "QUIT"
